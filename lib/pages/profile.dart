@@ -521,7 +521,8 @@ class ProfilePageState extends State<ProfilePage> {
                               //     height:
                               //         MediaQuery.of(context).size.height *
                               //             0.01)),
-                              Container(
+                              done == true
+                              ? Container(
                                   margin: EdgeInsets.fromLTRB(
                                       MediaQuery.of(context).size.width * 0.045,
                                       MediaQuery.of(context).size.width * 0.05,
@@ -547,6 +548,21 @@ class ProfilePageState extends State<ProfilePage> {
                                               fontFamily: 'Montserrat',
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600))))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      margin: EdgeInsets.fromLTRB(
+                                        MediaQuery.of(context).size.width * 0.045,
+                                        MediaQuery.of(context).size.width * 0.05,
+                                        MediaQuery.of(context).size.width * 0.045,
+                                        MediaQuery.of(context).size.width * 0.045),
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height * 0.07,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white)))
                             ])))
                 ])));
   }

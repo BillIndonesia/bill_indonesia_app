@@ -165,7 +165,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           highlightColor: Colors.grey[100],
           enabled: true,
           child: Container(
-            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.01),
+            width: MediaQuery.of(context).size.width * 0.95,
             height: MediaQuery.of(context).size.height * 0.43,
             color: Colors.white)),
       ],
@@ -491,7 +493,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround, 
           children: <Widget>[
-          GestureDetector(
+          user_role != ''
+          ? GestureDetector(
               onTap: () {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => new Saya()));
@@ -511,8 +514,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             end: Alignment.centerLeft,
                             colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
                           )),
-                      child: user_role != ''
-                      ? Row(
+                      child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
@@ -572,49 +574,19 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                     child: SizedBox(
                                       height: MediaQuery.of(context).size.height *0.003)),
                                 ])
-                          ])
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                                margin: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width * 0.04,
-                                    right: MediaQuery.of(context).size.width * 0.04),
-                                width: MediaQuery.of(context).size.width * 0.08,
-                                height: MediaQuery.of(context).size.width * 0.08,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle)),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                Expanded(
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.003)),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                      width: MediaQuery.of(context).size.width * 0.15)),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.003)),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                      width: MediaQuery.of(context).size.width * 0.25)),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.003)),
-                                ])
-                          ])))),
-          GestureDetector(
+                          ]))))
+        : Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          enabled: true,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.45,
+            height: MediaQuery.of(context).size.height * 0.07,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10)))),
+          user_role != ''
+          ? GestureDetector(
               onTap: () {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => new Riwayat()));
@@ -637,8 +609,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             end: Alignment.centerLeft,
                             colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
                           )),
-                      child: user_role != ''
-                      ? Container(
+                      child: Container(
                           child: FittedBox(
                           fit: BoxFit.contain,
                           child : Text(amount_gl == '-0' ? 'Rp 0' : 'Rp ' + amount_gl,
@@ -647,13 +618,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                               fontWeight: FontWeight.bold,
                               // fontSize: 22,
                               color: Color(0xFFF4F7F8)))))
-                      : Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.height * 0.008),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                        width: MediaQuery.of(context).size.width * 0.35)
                       // Align(
                       //     alignment: Alignment.center,
                       //     child:Container(
@@ -669,6 +633,16 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       //               // fontSize: 22,
                                     // color: Color(0xFFF4F7F8))))))
                       )))
+          : Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: MediaQuery.of(context).size.height * 0.07,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10)))),
         ]));
 
     final appbar = Container(
@@ -733,16 +707,29 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           cont,
           namaUser,
           Expanded(
-            child: Container(
-                // color: Colors.red,
-                child: Stack(children: <Widget>[
-          Align(
-            alignment: Alignment.center, 
-            child: giphy),
-          Align(
-            alignment: Alignment.center, 
-            child: qrcode)
-          ])))
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.03),
+                width: MediaQuery.of(context).size.width * 0.7,
+                height: MediaQuery.of(context).size.height * 0.2,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10)))))
+          // Expanded(
+          //   child: Container(
+          //       // color: Colors.red,
+          //       child: Stack(children: <Widget>[
+          // Align(
+          //   alignment: Alignment.center, 
+          //   child: giphy),
+          // Align(
+          //   alignment: Alignment.center, 
+          //   child: qrcode)
+          // ])))
         ]),
       ));
     }
@@ -839,12 +826,12 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void scanBarcode(barcodes) async {
 
-	
-
     if (barcodes.first.displayValue[0] == '#' ){
-        var url= 'https://bill.co.id/searchNotelp';
+        var url = 'https://bill.co.id/';
         final response = await http.post(url, body :{
-          'voucher' : barcodes.first.displayValue,
+          'username': nohp,
+          'password': pin,
+          'voucher': barcodes.first.displayValue.replaceAll('#',''),
         });
         if(response.body == "iya"){
              Navigator.push(
@@ -855,8 +842,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       res: jsonDecode(response.body)[0]["result"] ,
                       type : "voucher",
                       )));
-        }
-        else if (response.body == "tidak"){
+        } else if (response.body == "tidak"){
            Navigator.push(
               context,
               MaterialPageRoute(
@@ -865,63 +851,60 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       res: jsonDecode(response.body)[0]["result"] ,
                       type : "voucher",
                       )));
-        }
-        else {
-      Navigator.of(context, rootNavigator: true).pop();
-      return showDialog(
-        barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return WillPopScope(
-              onWillPop: () {
+        } else {
+          Navigator.of(context, rootNavigator: true).pop();
+          return showDialog(
+            barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                  onWillPop: () {
 
-                },
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: FittedBox(
-                            child: Text('Kesalahan Server',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF999494)),
-                            textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
-                                    child: FittedBox(
-                                      child: Text('Oke',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
-                                  })
-                            ])
-                      ]))));
-          });
+                    },
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFF4F7F8)),
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: FittedBox(
+                                child: Text('Kesalahan Server',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Color(0xFF999494)),
+                                textAlign: TextAlign.center))),
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  FlatButton(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.08,
+                                        child: FittedBox(
+                                          child: Text('Oke',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xFF0B8CAD))))),
+                                      onPressed: () {
+                                        Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                          builder: (context) => new Home()));
+                                      })
+                                ])
+                          ]))));
+              });
       }
-    }
-
-    else {
+    } else {
     var url = 'https://bill.co.id/searchNotelp';
     final response = await http.post(url, body: {
       'notelp': barcodes.first.displayValue,

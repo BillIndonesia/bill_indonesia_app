@@ -93,7 +93,7 @@ packages:
   flutter_markdown:
     dependency: "direct main"
     description:
-      path: "E:\\Vikral punya\\bill master\\bill\\flutter_markdown master"
+      path: "/home/desktop2/Documents/plugin/flutter_markdown master"
       relative: false
     source: path
     version: "0.2.0"

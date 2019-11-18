@@ -220,7 +220,8 @@ class SayaPageState extends State<SayaPage> {
                               horizontal: MediaQuery.of(context).size.width * 0.04),
                               // height: MediaQuery.of(context).size.height * 0.069,
                               alignment: Alignment.centerLeft,
-                              child: Container(
+                              child: done == true
+                              ? Container(
                                 // color: Colors.red,
                                 width: MediaQuery.of(context).size.width * 0.08,
                                 child: FittedBox(
@@ -229,9 +230,19 @@ class SayaPageState extends State<SayaPage> {
                                       fontFamily: 'Montserrat',
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
-                                      color: Color(0xFF999494))))))),
+                                      color: Color(0xFF999494)))))
+                              : Shimmer.fromColors(
+                                baseColor: Colors.grey[300],
+                                highlightColor: Colors.grey[100],
+                                enabled: true,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white),
+                                  width: MediaQuery.of(context).size.width * 0.5,
+                                  height: MediaQuery.of(context).size.height * 0.025)))),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -244,7 +255,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -262,12 +274,24 @@ class SayaPageState extends State<SayaPage> {
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF423838)))))])),
-                                  Container(
+                                                color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025)),
+                                  done == true
+                                  ? Container(
                                     width: MediaQuery.of(context).size.width * 0.05,
                                     child: FittedBox(
                                       child: Icon(Icons.keyboard_arrow_right,
-                                         color: Color(0xFFBBB6B6)))),
+                                         color: Color(0xFFBBB6B6))))
+                                  : Container(),
                                   ]),
                                 ),
                             onTap: () {
@@ -277,7 +301,7 @@ class SayaPageState extends State<SayaPage> {
                                         new Bantuan(tipe: 'list')));
                               })),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -290,7 +314,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -308,12 +333,24 @@ class SayaPageState extends State<SayaPage> {
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF423838)))))])),
-                                  Container(
+                                                color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025)),
+                                  done == true
+                                  ? Container(
                                     width: MediaQuery.of(context).size.width * 0.05,
                                     child: FittedBox(
                                       child: Icon(Icons.keyboard_arrow_right,
-                                         color: Color(0xFFBBB6B6)))),
+                                         color: Color(0xFFBBB6B6))))
+                                  : Container(),
                                   ]),
                                 ),
                             onTap: () {
@@ -324,7 +361,7 @@ class SayaPageState extends State<SayaPage> {
                               })
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -338,7 +375,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -356,12 +394,24 @@ class SayaPageState extends State<SayaPage> {
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF423838)))))])),
-                                  Container(
+                                                color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025)),
+                                  done == true
+                                  ? Container(
                                     width: MediaQuery.of(context).size.width * 0.05,
                                     child: FittedBox(
                                       child: Icon(Icons.keyboard_arrow_right,
-                                         color: Color(0xFFBBB6B6)))),
+                                         color: Color(0xFFBBB6B6))))
+                                  : Container(),
                                   ]),
                                 ),
                             onTap: () {
@@ -401,7 +451,8 @@ class SayaPageState extends State<SayaPage> {
                               horizontal: MediaQuery.of(context).size.width * 0.04),
                               // height: MediaQuery.of(context).size.height * 0.069,
                               alignment: Alignment.centerLeft,
-                              child: Container(
+                              child: done == true
+                              ? Container(
                                 // color: Colors.red,
                                 width: MediaQuery.of(context).size.width * 0.22,
                                 child: FittedBox(
@@ -410,9 +461,19 @@ class SayaPageState extends State<SayaPage> {
                                         fontFamily: 'Montserrat',
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
-                                        color: Color(0xFF999494))))))),
+                                        color: Color(0xFF999494)))))
+                              : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.5,
+                                      height: MediaQuery.of(context).size.height * 0.025)))),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -425,7 +486,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -443,12 +505,24 @@ class SayaPageState extends State<SayaPage> {
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF423838)))))])),
-                                  Container(
+                                                color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025)),
+                                  done == true
+                                  ? Container(
                                     width: MediaQuery.of(context).size.width * 0.05,
                                     child: FittedBox(
                                       child: Icon(Icons.keyboard_arrow_right,
-                                         color: Color(0xFFBBB6B6)))),
+                                         color: Color(0xFFBBB6B6))))
+                                  : Container(),
                                   ]),
                                 ),
                             onTap: () {
@@ -459,7 +533,7 @@ class SayaPageState extends State<SayaPage> {
                               })
                           ),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               padding: EdgeInsets.symmetric(
@@ -472,7 +546,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -490,12 +565,24 @@ class SayaPageState extends State<SayaPage> {
                                                 fontFamily: 'Montserrat',
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
-                                                color: Color(0xFF423838)))))])),
-                                  Container(
+                                                color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025)),
+                                  done == true
+                                  ? Container(
                                     width: MediaQuery.of(context).size.width * 0.05,
                                     child: FittedBox(
                                       child: Icon(Icons.keyboard_arrow_right,
-                                         color: Color(0xFFBBB6B6)))),
+                                         color: Color(0xFFBBB6B6))))
+                                  : Container(),
                                   ]),
                                 ),
                             onTap: () {
@@ -511,7 +598,7 @@ class SayaPageState extends State<SayaPage> {
                               })
                           ),
                         Expanded(
-                          flex: 2,
+                          flex: done == false ? 1 : 2,
                           child: GestureDetector(
                             child: Container(
                               decoration: BoxDecoration(
@@ -525,7 +612,8 @@ class SayaPageState extends State<SayaPage> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                  Container(
+                                  done == true
+                                  ? Container(
                                     child: Row(
                                       children: <Widget>[
                                       Container(
@@ -544,6 +632,16 @@ class SayaPageState extends State<SayaPage> {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500,
                                                 color: Color(0xFF423838)))))]))
+                                  : Shimmer.fromColors(
+                                    baseColor: Colors.grey[300],
+                                    highlightColor: Colors.grey[100],
+                                    enabled: true,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.white),
+                                      width: MediaQuery.of(context).size.width * 0.4,
+                                      height: MediaQuery.of(context).size.height * 0.025))
                                   ]),
                                 ),
                             onTap: () async {

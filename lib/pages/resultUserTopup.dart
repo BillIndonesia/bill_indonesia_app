@@ -17,7 +17,7 @@ class ResultUserTopup extends StatelessWidget {
   ResultUserTopup({this.jumlah, this.name, this.res, this.kembali, this.type});
   @override
   Widget build(BuildContext context) {
-    return ResultUserTopupPage(jumlah, name, res, type, kembali);
+    return ResultUserTopupPage(jumlah, name, res, kembali, type);
   }
 }
 
@@ -28,7 +28,7 @@ class ResultUserTopupPage extends StatefulWidget {
   final String kmb;
   final String type;
 
-  ResultUserTopupPage(this.jml, this.nm, this.rs, this.kmb);
+  ResultUserTopupPage(this.jml, this.nm, this.rs, this.kmb, this.type);
   @override
   ResultUserTopupPageState createState() => new ResultUserTopupPageState();
 }
@@ -132,7 +132,8 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                               ))),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.03),
-                        udah == true
+                            widget.type !="voucher"
+                        ? udah == true
                         ? Container(
                             child: Column(children: <Widget>[
                           Container(
@@ -199,7 +200,8 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white)))
-                            ])),
+                            ]))
+                            : Container (),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * 0.05)
                       ]))),
@@ -238,7 +240,13 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
   @override
   void initState() {
     super.initState();
+    if (widget.type == "voucher")
+    {
+
+    }
+    else {
     this.getImage();
+    }
   }
 
   void getImage() async {

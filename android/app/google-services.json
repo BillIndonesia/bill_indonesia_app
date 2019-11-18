@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "153423192550",
+    "firebase_url": "https://billnotif.firebaseio.com",
+    "project_id": "billnotif",
+    "storage_bucket": "billnotif.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153423192550:android:8f60703cd1a6bd60bff627",
+        "android_client_info": {
+          "package_name": "bill.co.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bikbuk.bill"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153423192550:android:f9b5c927db878861",
+        "android_client_info": {
+          "package_name": "com.bikbuk.bill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bikbuk.bill"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153423192550:android:c5ae5e5a0b7d8cf2",
+        "android_client_info": {
+          "package_name": "com.example.bill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bikbuk.bill"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1650 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'dart:io';
+import 'dart:convert';
+import 'package:bill/pages/detail.dart';
+import 'package:bill/pages/saya.dart';
+import 'package:bill/pages/riwayat.dart';
+import 'package:bill/pages/topup.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
+import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
+import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:camera/camera.dart';
+// import 'package:loading/loading.dart';
+// import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:bill/pages/resultUserTopup.dart';
+
+class Home extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return HomePage();
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  HomePageState createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> with WidgetsBindingObserver {
+  var nohp = "";
+  var pin = "";
+  var name = '';
+  var amount_gl = '';
+  var amount_gl1 = '';
+  var user_role = '';
+  List dataJournal;
+  var scanned = false;
+  var image = '';
+
+  final _scanKey = GlobalKey<CameraMlVisionState>();
+  BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
+
+  @override
+  Widget build(BuildContext context) {
+    Uint8List bytes = base64.decode(image);
+
+    // print('''
+    //   height: ${MediaQuery.of(context).size.height},
+    //   width: ${MediaQuery.of(context).size.width},
+    //   top: ${MediaQuery.of(context).padding.top},
+    //   bottom: ${MediaQuery.of(context).padding.bottom},
+    //   aspectratio: ${MediaQuery.of(context).size.aspectRatio},
+    //   pixelratio: ${MediaQuery.of(context).devicePixelRatio}
+    //   ''');
+
+    final qrcode = GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => new TopUp()));
+          },
+          child: Container(
+              // color: Colors.yellow,
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.01,
+                  left: MediaQuery.of(context).size.width * 0.007),
+              child: QrImage(
+                gapless: false,
+                // embeddedImage: AssetImage('images/textbillbiru.png'),
+                // embeddedImageStyle: QrEmbeddedImageStyle(
+                //   size: Size(50, 50),
+                //   color: Colors.black),
+                // foregroundColor: Color(0xFF0B8CAD),
+                data: nohp,
+                size: MediaQuery.of(context).size.width * 0.39,
+                version: 3,
+              )));
+    final giphy = Container(
+            // color: Colors.green,
+            width: MediaQuery.of(context).size.width * 0.68,
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Image(image: AssetImage('images/giphytrans.gif')));
+
+    final cont = Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+      user_role != ''
+      ? Container(
+          width: MediaQuery.of(context).size.width,
+          height: user_role == 'vendor'
+              ? MediaQuery.of(context).size.height * 0.6
+              : MediaQuery.of(context).size.height * 0.43,
+          child: ClipRect(
+            child: OverflowBox(
+              alignment: Alignment.center,
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Container(
+                    child: CameraMlVision<List<Barcode>>(
+                        key: _scanKey,
+                        loadingBuilder: (c) {
+                          return Center();
+                        },
+                        resolution: ResolutionPreset.medium,
+                        detector: detector.detectInImage,
+                        onResult: (List<Barcode> barcodes) async {
+                          if (barcodes == null ||
+                              barcodes.isEmpty ||
+                              !mounted ||
+                              scanned == true) {
+                            return null;
+                          }
+
+                          setState(() {
+                            scanned = true;
+                          });
+
+                          // if (user_role == 'vendor') {
+                          //   Navigator.of(context).pushReplacement(
+                          //       new MaterialPageRoute(
+                          //           builder: (context) => new Detail(
+                          //               nohpResult: barcodes.first.displayValue,
+                          //               user_role: 'vendor',
+                          //               name: name)));
+                          // } else {
+                          //   Navigator.of(context).pushReplacement(
+                          //       new MaterialPageRoute(
+                          //           builder: (context) => new Detail(
+                          //               nohpResult: barcodes.first.displayValue,
+                          //               user_role: 'user',
+                          //               name: name)));
+                          // }
+
+                          scanBarcode(barcodes);
+
+                          return showDialog(
+                            barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Material(
+                                type: MaterialType.transparency,
+                                child: WillPopScope(
+                                  onWillPop: () {
+
+                                    },
+                                  child: Container()));
+                          });
+                          
+                        })),
+              ),
+            ),
+          ),
+        )
+      : Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          enabled: true,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.43,
+            color: Colors.white)),
+      ],
+    );
+
+    final saldoVendor = Expanded(
+            child: Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => new Riwayat(
+                            tipe: 'filter',
+                            awal: '',
+                            akhir: '',
+                            topup: 'true',
+                            pembayaran: 'false',
+                            debit: 'false',
+                            kredit: 'false')));
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Card(
+                          color: Color(0xFFF9F9FB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 3.0,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: MediaQuery.of(context).size.width * 0.03,
+                                  vertical: MediaQuery.of(context).size.width * 0.05),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text('Top Up',
+                                              style: TextStyle(
+                                                  color: Color(0xFF999494),
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500))))),
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                            // color: Colors.red,
+                                            width: MediaQuery.of(context).size.width * 0.06,
+                                            height: MediaQuery.of(context).size.width * 0.06,
+                                            child: Image.asset('images/icon top up.png')))
+                                        ])),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.02)),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text('Rp ',
+                                                  style: TextStyle(
+                                                      color: Color(0xFF999494),
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w500)))))
+                                        ])),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              // color: Colors.red,
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text(amount_gl1 == '-0' ? '0' : amount_gl1,
+                                              style: TextStyle(
+                                                  color: Color(0xFF6A6767),
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold)))))
+                                        ])),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              width: MediaQuery.of(context).size.width * 0.35,
+                                              height: MediaQuery.of(context).size.width * 0.02,
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                      top: BorderSide(
+                                                          color: Color(0xFF3AB673),
+                                                          width: 2.0)))))
+                                        ]))
+                                  ]))))),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => new Riwayat(
+                            tipe: 'filter',
+                            awal: '',
+                            akhir: '',
+                            topup: 'false',
+                            pembayaran: 'true',
+                            debit: 'false',
+                            kredit: 'false')));
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Card(
+                          color: Color(0xFFF9F9FB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 3.0,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: MediaQuery.of(context).size.width * 0.03,
+                                  vertical: MediaQuery.of(context).size.width * 0.05),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                              child: Text('Pembayaran',
+                                              style: TextStyle(
+                                                  color: Color(0xFF999494),
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w500))))),
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerRight,
+                                              // color: Colors.red,
+                                            // color: Colors.red,
+                                            width: MediaQuery.of(context).size.width * 0.06,
+                                            height: MediaQuery.of(context).size.width * 0.06,
+                                            child: Image.asset('images/icon pembayaran.png'))),
+                                        ])),
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: MediaQuery.of(context).size.height * 0.02)),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text('Rp ',
+                                                  style: TextStyle(
+                                                      color: Color(0xFF999494),
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w500)))))
+                                        ])),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              alignment: Alignment.centerLeft,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitWidth,
+                                                child: Text(amount_gl == '-0' ? '0' : amount_gl,
+                                                  style: TextStyle(
+                                                      color: Color(0xFF6A6767),
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 25,
+                                                      fontWeight: FontWeight.bold)))))
+                                        ])),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Container(
+                                              width: MediaQuery.of(context).size.width * 0.35,
+                                              height: MediaQuery.of(context).size.width * 0.02,
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                      top: BorderSide(
+                                                          color: Color(0xFFFFBA35),
+                                                          width: 2.0)))))
+                                        ]))
+                                  ])))))
+            ])));
+
+    final namaVendor = Container(
+        padding:EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.01),
+        width: MediaQuery.of(context).size.width,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => new Saya()));
+              },
+              child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 8.0,
+                  child: Container(
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                          )),
+                      child: Row(children: <Widget>[
+                        Container(
+                          // color: Colors.red,
+                          margin: EdgeInsets.symmetric(
+                                horizontal: MediaQuery.of(context).size.width * 0.05,
+                                // vertical: MediaQuery.of(context).size.height * 0.007
+                                ),
+                            // width: MediaQuery.of(context).size.width * 0.08,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Container(
+                            // height: MediaQuery.of(context).size.width * 0.08,
+                            decoration: image != ''
+                                ? BoxDecoration(
+                                  // color: Colors.red,
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: MemoryImage(bytes)))
+                                : BoxDecoration(shape: BoxShape.circle),
+                            child: image == ''
+                                ? CircleAvatar(
+                                    backgroundColor: Color(0xFF0485AC),
+                                    child: Center(
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.035,
+                                          child: FittedBox(
+                                            child: Text(name != '' ? name[0] : '',
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFFF4F7F8),
+                                                fontSize: 20))))))
+                                : Container()))),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                            Expanded(
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.003)),
+                              Expanded(
+                                flex: 2,
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text('Halo,',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.normal,
+                                      color: Color(0xFFF4F7F8))))),
+                              SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.001),
+                              Expanded(
+                                flex: 2,
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(name.split(' ')[0],
+                                  style: TextStyle(
+                                      fontSize: 17.0,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFFF4F7F8))))),
+                              Expanded(
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height * 0.003)),
+                            ])
+                      ]))))
+        ]));
+
+    final namaUser = Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.007),
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround, 
+          children: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => new Saya()));
+              },
+              child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 8.0,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                          )),
+                      child: user_role != ''
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                                margin: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width * 0.04,
+                                    right: MediaQuery.of(context).size.width * 0.04),
+                                width: MediaQuery.of(context).size.width * 0.08,
+                                height: MediaQuery.of(context).size.width * 0.08,
+                                decoration: image != ''
+                                    ? BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            fit: BoxFit.fill,
+                                            image: MemoryImage(bytes)))
+                                    : BoxDecoration(shape: BoxShape.circle),
+                                child: image == ''
+                                    ? CircleAvatar(
+                                        backgroundColor: Color(0xFF0485AC),
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.035,
+                                          child: FittedBox(
+                                            child: Text(
+                                                name != '' ? name[0] : '',
+                                                style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Color(0xFFF4F7F8),
+                                                    fontSize: 20)))))
+                                    : Container()),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                Expanded(
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.003)),
+                                  Expanded(
+                                    flex: 2,
+                                    child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: Text('Halo,',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          // fontSize: 15.0,
+                                          fontWeight: FontWeight.normal,
+                                          color: Color(0xFFF4F7F8))))),
+                                  Expanded(
+                                    flex: 2,
+                                    child: FittedBox(
+                                    fit: BoxFit.fitWidth,
+                                    child: Text(name.split(' ')[0],
+                                      style: TextStyle(
+                                          // fontSize: 16.0,
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFFF4F7F8))))),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.003)),
+                                ])
+                          ])
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                                margin: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width * 0.04,
+                                    right: MediaQuery.of(context).size.width * 0.04),
+                                width: MediaQuery.of(context).size.width * 0.08,
+                                height: MediaQuery.of(context).size.width * 0.08,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle)),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                Expanded(
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.003)),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10)),
+                                      width: MediaQuery.of(context).size.width * 0.15)),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.003)),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10)),
+                                      width: MediaQuery.of(context).size.width * 0.25)),
+                                  Expanded(
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *0.003)),
+                                ])
+                          ])))),
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => new Riwayat()));
+              },
+              child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 8.0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.07,
+                      vertical: MediaQuery.of(context).size.height * 0.01,),
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.centerRight,
+                            end: Alignment.centerLeft,
+                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                          )),
+                      child: user_role != ''
+                      ? Container(
+                          child: FittedBox(
+                          fit: BoxFit.contain,
+                          child : Text(amount_gl == '-0' ? 'Rp 0' : 'Rp ' + amount_gl,
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              // fontSize: 22,
+                              color: Color(0xFFF4F7F8)))))
+                      : Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.008),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.35)
+                      // Align(
+                      //     alignment: Alignment.center,
+                      //     child:Container(
+                      //         width: MediaQuery.of(context).size.width * 0.3,
+                      //         height: MediaQuery.of(context).size.height * 0.05,
+                      //         color: Colors.red,
+                      //         child: FittedBox(
+                      //           fit: BoxFit.fitWidth,
+                      //           child : Text('Rp ' + amount_gl,
+                      //           style: TextStyle(
+                      //               fontFamily: 'Montserrat',
+                      //               fontWeight: FontWeight.bold,
+                      //               // fontSize: 22,
+                                    // color: Color(0xFFF4F7F8))))))
+                      )))
+        ]));
+
+    final appbar = Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.08,
+        decoration: new BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+        )),
+        child: Container(child: Image.asset('images/textbill.png')));
+
+    if (user_role == 'vendor') {
+      return WillPopScope(
+        onWillPop: () {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        },
+        child:  Scaffold(
+        backgroundColor: Color(0xFFF4F7F8),
+        body: Column(
+          children: <Widget>[
+          appbar, 
+          cont, 
+          namaVendor, 
+          saldoVendor]),
+      ));
+    } else if (user_role == 'user') {
+      return WillPopScope(
+        onWillPop: () {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        },
+        child: Scaffold(
+        backgroundColor: Color(0xFFF4F7F8),
+        body: Column(children: <Widget>[
+          appbar,
+          cont,
+          namaUser,
+          Expanded(
+            child: Container(
+                // color: Colors.red,
+                child: Stack(children: <Widget>[
+          Align(
+            alignment: Alignment.center, 
+            child: giphy),
+          Align(
+            alignment: Alignment.center, 
+            child: qrcode)
+          ])))
+        ]),
+      ));
+    } else {
+      return WillPopScope(
+        onWillPop: () {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        },
+        child: Scaffold(
+        backgroundColor: Color(0xFFF4F7F8),
+        body: Column(children: <Widget>[
+          appbar,
+          cont,
+          namaUser,
+          Expanded(
+            child: Container(
+                // color: Colors.red,
+                child: Stack(children: <Widget>[
+          Align(
+            alignment: Alignment.center, 
+            child: giphy),
+          Align(
+            alignment: Alignment.center, 
+            child: qrcode)
+          ])))
+        ]),
+      ));
+    }
+  }
+
+  void getSignIn() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nohp = prefs.getString('nohp');
+      pin = prefs.getString('pin');
+    });
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    setState(() {
+      scanned = false;
+    });
+    super.initState();
+    this.getSignIn();
+    this.getDataJournal();
+  }
+
+  void getDataJournal() async {
+    var url = 'https://bill.co.id/getDataJournal';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var _nohp = prefs.getString('nohp');
+    var _pin = prefs.getString('pin');
+    final response = await http.post(url, body: {
+      'username': _nohp,
+      'password': _pin,
+    });
+
+    setState(() {
+      dataJournal = jsonDecode(response.body);
+      name = dataJournal[0]['name'];
+      user_role = dataJournal[0]['user_role'];
+      MoneyFormatterOutput fo = FlutterMoneyFormatter(
+          amount: double.parse(dataJournal[0]['amount_gl']),
+          settings: MoneyFormatterSettings(
+            thousandSeparator: '.',
+            decimalSeparator: ',',
+          )).output;
+      if (fo.withoutFractionDigits.length < 10) {
+        amount_gl = fo.withoutFractionDigits;
+      } else {
+        amount_gl = fo.compactNonSymbol;
+      }
+      if (dataJournal[0]['user_role'] == 'vendor') {
+        MoneyFormatterOutput fo = FlutterMoneyFormatter(
+            amount: double.parse(dataJournal[0]['amount_gl1']),
+            settings: MoneyFormatterSettings(
+              thousandSeparator: '.',
+              decimalSeparator: ',',
+            )).output;
+        if (fo.withoutFractionDigits.length < 10) {
+          amount_gl1 = fo.withoutFractionDigits;
+        } else {
+          amount_gl1 = fo.compactNonSymbol;
+        }
+      }
+      image = dataJournal[0]['image'];
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // detector.close();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print('ini inactive');
+        break;
+      case AppLifecycleState.paused:
+        print('ini paused');
+        if (context.widget.toString() == 'HomePage') {
+          SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
+        }
+        break;
+      case AppLifecycleState.suspending:
+        print('ini suspending');
+        break;
+      case AppLifecycleState.resumed:
+        print('ini resume');
+        break;
+    }
+  }
+
+  void scanBarcode(barcodes) async {
+
+    if (barcodes.first.displayValue[0] == '#' ){
+        var url= 'https://bill.co.id/searchNotelp';
+        final response = await http.post(url, body :{
+          'voucher' : barcodes.first.displayValue,
+        });
+        if(response.body == "iya"){
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ResultUserTopup(
+                      jumlah: jsonDecode(response.body)[0]["jumlah"] ,
+                      res: jsonDecode(response.body)[0]["result"] ,
+                      type : "voucher",
+                      )));
+        }
+        else if (response.body == "tidak"){
+           Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => ResultUserTopup(
+                      jumlah: jsonDecode(response.body)[0]["jumlah"] ,
+                      res: jsonDecode(response.body)[0]["result"] ,
+                      type : "voucher",
+                      )));
+        }
+        else {
+      Navigator.of(context, rootNavigator: true).pop();
+      return showDialog(
+        barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () {
+
+                },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF4F7F8)),
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: FittedBox(
+                            child: Text('Kesalahan Server',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Color(0xFF999494)),
+                            textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+          });
+      }
+    }
+
+    else {
+    var url = 'https://bill.co.id/searchNotelp';
+    final response = await http.post(url, body: {
+      'notelp': barcodes.first.displayValue,
+    });
+
+    if (response.statusCode == 200) {
+      if (response.body == "Tidak" || response.body == 'Admin' || response.body == 'Vendor') {
+        Navigator.of(context, rootNavigator: true).pop();
+        return showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () {
+
+                },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: MediaQuery.of(context).size.width * 0.06),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF4F7F8)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: FittedBox(
+                            child: Text('User tidak ditemukan',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Color(0xFF999494)),
+                            textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+          });
+
+      } else if (response.body == 'Iya'){
+
+        if (user_role == 'vendor') {
+
+          var urlCheckPrice = 'https://bill.co.id/getActive';
+          final responseCheckPrice = await http.post(urlCheckPrice, body: {
+            'nohp': nohp
+          });
+
+          if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
+
+            Navigator.of(context, rootNavigator: true).pop();
+            return showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                  onWillPop: () {
+
+                    },
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.05,
+                        vertical: MediaQuery.of(context).size.height * 0.01),
+                      width: MediaQuery.of(context).size.width * 0.65,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFF4F7F8)),
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text('Pilih salah satu',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: Color(0xFF0B8CAD)),
+                                    textAlign: TextAlign.left)))),
+                            Expanded(
+                              child: GestureDetector(
+                              child: Container(
+                                // alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('Pembayaran',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Color(0xFF999494)),
+                                textAlign: TextAlign.left))),
+                              onTap: () {
+                                var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
+                                // Navigator.of(context, rootNavigator: true).pop();
+                                penagihan(barcodes, price);
+                                })),
+                            Expanded(
+                              child: GestureDetector(
+                              child: Container(
+                                // alignment: Alignment.centerLeft,
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('Top Up',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: Color(0xFF999494)),
+                                textAlign: TextAlign.left))),
+                              onTap: () {
+                                Navigator.of(context, rootNavigator: true).pop();
+                                Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(
+                                    builder: (context) => new Detail(
+                                        nohpResult: barcodes.first.displayValue,
+                                        user_role: 'vendor',
+                                        name: name,
+                                        tipe: 'fixed')));
+                                })),
+                          ]))));
+          });
+          } else {
+            Navigator.of(context, rootNavigator: true).pop();
+            Navigator.of(context).pushReplacement(
+            new MaterialPageRoute(
+                builder: (context) => new Detail(
+                    nohpResult: barcodes.first.displayValue,
+                    user_role: 'vendor',
+                    name: name)));
+          }
+
+          } else {
+            var urlCheckPrice = 'https://bill.co.id/getActive';
+            final responseCheckPrice = await http.post(urlCheckPrice, body: {
+              'nohp': barcodes.first.displayValue
+            });
+
+            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
+              var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
+              // Navigator.of(context, rootNavigator: true).pop();
+              kirim(barcodes, price);
+              } else {
+                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context).pushReplacement(
+                new MaterialPageRoute(
+                    builder: (context) => new Detail(
+                        nohpResult: barcodes.first.displayValue,
+                        user_role: 'user',
+                        name: name)));
+              }
+          }
+
+        // if (user_role == 'vendor') {
+        //   Navigator.of(context).pushReplacement(
+        //       new MaterialPageRoute(
+        //           builder: (context) => new Detail(
+        //               nohpResult: barcodes.first.displayValue,
+        //               user_role: 'vendor',
+        //               name: name)));
+        // } else {
+        //   Navigator.of(context).pushReplacement(
+        //       new MaterialPageRoute(
+        //           builder: (context) => new Detail(
+        //               nohpResult: barcodes.first.displayValue,
+        //               user_role: 'user',
+        //               name: name)));
+        // }
+
+      } else {
+        Navigator.of(context, rootNavigator: true).pop();
+        return showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () {
+
+                },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: MediaQuery.of(context).size.width * 0.06),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF4F7F8)),
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: FittedBox(
+                            child: Text('User sedang disuspend',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Color(0xFF999494)),
+                            textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+          });
+
+      }
+    } else {
+      Navigator.of(context, rootNavigator: true).pop();
+      return showDialog(
+        barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () {
+
+                },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF4F7F8)),
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: FittedBox(
+                            child: Text('Kesalahan Server',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: Color(0xFF999494)),
+                            textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+          });
+      }
+    }
+  }
+
+  void penagihan(barcodes, jumlah) async {
+    print('masuk penagihan');
+    // Navigator.of(context, rootNavigator: true).pop();
+    var urlVendor = 'https://bill.co.id/scanVendor';
+    final responseVendor = await http.post(urlVendor, body: {
+      'username': nohp,
+      'password': pin,
+      'result': barcodes.first.displayValue,
+      'jumlah': jumlah.toString(),
+      'name': name
+    });
+
+    if (responseVendor.statusCode == 200) {
+      Navigator.of(context, rootNavigator: true).pop();
+      // print('masuk penagihan 2');
+    Future.delayed(const Duration(seconds: 15), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var udah = prefs.getString('udah');
+      var udah2 = prefs.getString('udah2');
+      if (udah != 'udah' && udah2 != 'udah') {
+      var urlKedaluwarsa = 'https://bill.co.id/kedaluwarsa';
+      final responseKedaluwarsa = await http.post(urlKedaluwarsa, body: {
+        'username': nohp,
+        'password': pin,
+        'result': barcodes.first.displayValue,
+        'name': name
+      });
+      Navigator.of(context, rootNavigator: true).pop();
+      return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () {
+
+              },
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: MediaQuery.of(context).size.width * 0.06),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFFF4F7F8)),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: FittedBox(
+                          child: Text('Tidak Ada Respon dari pelanggan',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF999494)),
+                          textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.08,
+                                child: FittedBox(
+                                  child: Text('Oke',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF0B8CAD))))),
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                  builder: (context) => new Home()));
+                              })
+                            ])
+                      ]))));
+        });
+      } else {
+        prefs.setString('udah', 'belum');
+      }
+    });
+    return showDialog(
+      barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Material(
+              type: MaterialType.transparency,
+              child: WillPopScope(
+                onWillPop: () {
+
+                  },
+                child: Stack(children: <Widget>[
+                new Opacity(
+                  opacity: 0.3,
+                  child: const ModalBarrier(
+                      dismissible: false, color: Color(0xFF000000)),
+                ),
+                new Center(
+                  child: Container(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: FittedBox(
+                            child: Text('Menunggu konfirmasi pelanggan',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFFF4F7F8),
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600))))
+                    )
+              ])));
+        });
+  } else {
+    Navigator.of(context, rootNavigator: true).pop();
+    return showDialog(
+      barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: () {
+
+              },
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: MediaQuery.of(context).size.width * 0.06),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFFF4F7F8)),
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: FittedBox(
+                          child: Text('Kesalahan Server',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF999494)),
+                          textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+        });
+      }
+  }
+
+  void kirim(barcodes, jumlah) async {
+    print('masuk penagihan');
+    // Navigator.of(context, rootNavigator: true).pop();
+    // var urlCreateJournal = 'https://bill.co.id/createJournal';
+    // final responseCreateJournal = await http.post(urlCreateJournal, body: {
+    //   'username': nohp,
+    //   'password': pin,
+    //   'result': barcodes.first.displayValue,
+    //   'amount': jumlah.toString()
+    // });
+        MoneyFormatterOutput fo = FlutterMoneyFormatter(
+              amount: double.parse(jumlah.toString()),
+              settings: MoneyFormatterSettings(
+                thousandSeparator: '.',
+                decimalSeparator: ',',
+              )).output;
+
+        var urlNama = 'https://bill.co.id/getNama';
+        final responseNama = await http.post(urlNama,
+            body: {
+              'username': nohp, 
+              'password': pin, 
+              'result': barcodes.first.displayValue});
+
+        Navigator.of(context, rootNavigator: true).pop();
+
+        return showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (_) {
+                return WillPopScope(
+                  onWillPop: () {
+
+                    },
+                  child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.of(context).size.width * 0.05,
+                            vertical: MediaQuery.of(context).size.width * 0.06),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFF4F7F8)),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        height: MediaQuery.of(context).size.height * 0.23,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                            Container(
+                            // color: Colors.green,
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: FittedBox(
+                              child: RichText(
+                              textAlign: TextAlign.center,
+                              text: new TextSpan(
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Color(0xFF999494),
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat'),
+                                children: <TextSpan>[
+                                  new TextSpan(
+                                      text:
+                                          'Anda akan melakukan pembayaran\n'),
+                                  new TextSpan(
+                                      text:
+                                          'Sebesar Rp ${fo.withoutFractionDigits} kepada ${jsonDecode(responseNama.body)[0]['name']}'),
+                                ],
+                              ),
+                            ))),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    FlatButton(
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.08,
+                                          child: FittedBox(
+                                            child: Text('Oke',
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFF0B8CAD))))),
+                                        onPressed: () {
+                                          // Navigator.pop(
+                                          //     context, false);
+                                          resultTransac(
+                                              'Berhasil',
+                                              jsonDecode(responseNama.body)[0]['name'],
+                                              jumlah.toString());
+                                          return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                                type: MaterialType.transparency);
+                                          });
+                                        }),
+                                    FlatButton(
+                                        child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.1,
+                                    child: FittedBox(
+                                      child: Text('Tidak',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF999494))))),
+                                        onPressed: () {
+                                          // Navigator.pop(
+                                          //     context, false);
+                                          resultTransac(
+                                              'Gagal',
+                                              jsonDecode(responseNama.body)[0]['name'],
+                                              jumlah.toString());
+
+                                          return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                                type: MaterialType.transparency);
+                                          });
+                                        })
+                                  ])
+                            ]))));
+              });
+        // return showDialog(
+        //   barrierDismissible: false,
+        //   context: context,
+        //   builder: (context) {
+        //     return WillPopScope(
+        //       onWillPop: () {
+
+        //         },
+        //       child: Dialog(
+        //         shape: RoundedRectangleBorder(
+        //             borderRadius: BorderRadius.circular(10.0)),
+        //         child: Container(
+        //             padding: EdgeInsets.symmetric(
+        //                 horizontal: MediaQuery.of(context).size.width * 0.05,
+        //                 vertical: MediaQuery.of(context).size.width * 0.06),
+        //             width: MediaQuery.of(context).size.width * 0.65,
+        //             decoration: BoxDecoration(
+        //                 borderRadius: BorderRadius.circular(10),
+        //                 color: Color(0xFFF4F7F8)),
+        //             height: MediaQuery.of(context).size.height * 0.18,
+        //             child: Column(
+        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //                     children: <Widget>[
+        //                       Text('Transaksi Berhasil',
+        //                           style: TextStyle(
+        //                               fontFamily: 'Montserrat',
+        //                               fontWeight: FontWeight.w600,
+        //                               fontSize: 14,
+        //                               color: Color(0xFF999494)),
+        //                           textAlign: TextAlign.center),
+        //                       Row(
+        //                           mainAxisAlignment: MainAxisAlignment.end,
+        //                           children: <Widget>[
+        //                             FlatButton(
+        //                                 child: Text('Oke',
+        //                                     style: TextStyle(
+        //                                         fontFamily: 'Montserrat',
+        //                                         fontSize: 16,
+        //                                         fontWeight: FontWeight.w600,
+        //                                         color: Color(0xFF0B8CAD))),
+        //                                 onPressed: () {
+        //                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(
+        //                                     builder: (context) => new Home()));
+        //                                 })
+        //                           ])
+        //                     ]))));
+        //   });
+  }
+
+  void resultTransac(result, nm, jml) async {
+    var urlTransac = 'https://bill.co.id/resultTransac';
+    final responseTransac = await http.post(urlTransac, body: {
+      'username': nohp,
+      'password': pin,
+      'result': result,
+      'desti': nm,
+      'jumlah': jml
+    });
+
+    if (responseTransac.statusCode == 200) {
+    } else {
+      Navigator.of(context, rootNavigator: true).pop();
+      return showDialog(
+        barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () {
+
+                },
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.65,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Color(0xFFF4F7F8)),
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: FittedBox(
+                          child: Text('Kesalahan Server',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xFF999494)),
+                          textAlign: TextAlign.center))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.08,
+                                    child: FittedBox(
+                                      child: Text('Oke',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                      builder: (context) => new Home()));
+                                  })
+                            ])
+                      ]))));
+          });
+    }
+  }
+}

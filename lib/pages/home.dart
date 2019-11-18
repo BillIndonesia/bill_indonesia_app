@@ -839,6 +839,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void scanBarcode(barcodes) async {
 
+	lksdanlkclcbdb
+
     if (barcodes.first.displayValue[0] == '#' ){
         var url= 'https://bill.co.id/searchNotelp';
         final response = await http.post(url, body :{

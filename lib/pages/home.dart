@@ -40,6 +40,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> with WidgetsBindingObserver {
+   AppLifecycleState _notification;
   var nohp = "";
   var pin = "";
   var name = '';
@@ -112,7 +113,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               child: FittedBox(
                 fit: BoxFit.fitWidth,
                 child: Container(
-                    child: CameraMlVision<List<Barcode>>(
+                    child: _notification != AppLifecycleState.paused &&  _notification != AppLifecycleState.inactive
+                    ?CameraMlVision<List<Barcode>>(
                         key: _scanKey,
                         loadingBuilder: (c) {
                           return Center();
@@ -162,7 +164,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                   child: Container()));
                           });
                           
-                        })),
+                        })
+                        : Container()
+                        ),
               ),
             ),
           ),
@@ -710,7 +714,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         body: Column(
           children: <Widget>[
           appbar, 
-          cont, 
+          cont,
           namaVendor, 
           saldoVendor]),
       ));
@@ -866,24 +870,11 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.inactive:
-        print('ini inactive');
-        break;
-      case AppLifecycleState.paused:
-        print('ini paused');
-        if (context.widget.toString() == 'HomePage') {
-          SystemChannels.platform.invokeMethod<void>('SystemNavigator.pop');
-        }
-        break;
-      case AppLifecycleState.suspending:
-        print('ini suspending');
-        break;
-      case AppLifecycleState.resumed:
-        print('ini resume');
-        break;
-    }
-  }
+  print(state.toString());
+  setState(() {
+    _notification = state;
+  });
+}
 
   void scanBarcode(barcodes) async {
 

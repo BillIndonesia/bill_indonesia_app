@@ -18,8 +18,7 @@ class TentangPageState extends State<TentangPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        Navigator.of(context).pushReplacement(
-              new MaterialPageRoute(builder: (context) => new Saya()));
+        Navigator.of(context).pop(); 
       },
       child: Scaffold(
           appBar: AppBar(
@@ -37,8 +36,7 @@ class TentangPageState extends State<TentangPage> {
               leading: IconButton(
                   icon: Icon(Icons.arrow_back,
                       color: Color(0xFF777E81), size: 30),
-                  onPressed: () => Navigator.of(context).pushReplacement(
-              new MaterialPageRoute(builder: (context) => new Saya()))),
+                  onPressed: () => Navigator.of(context).pop() ),
               backgroundColor: Color(0xFFF4F7F8),
               elevation: 0.0),
           body: Column(

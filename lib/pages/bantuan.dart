@@ -322,13 +322,8 @@ Silakan hubungi kami dengan menekan tombol telepon di bawah. Kami akan membantu 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
-        if (widget.tp == 'list') {
-          Navigator.of(context).pushReplacement(
-              new MaterialPageRoute(builder: (context) => new Saya()));
-        } else {
-          Navigator.of(context).pop();
-        }
+      onWillPop: () { 
+        Navigator.of(context).pop();  
       },
       child: Scaffold(
           appBar: widget.tp == 'list'
@@ -414,13 +409,7 @@ Silakan hubungi kami dengan menekan tombol telepon di bawah. Kami akan membantu 
                   icon: Icon(Icons.arrow_back,
                       color: Color(0xFF777E81), size: 30),
                   onPressed: () {
-                    if (widget.tp == 'list') {
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(
-                              builder: (context) => new Saya()));
-                    } else {
                       Navigator.of(context).pop();
-                    }
                   }),
               backgroundColor: Color(0xFFF4F7F8),
               elevation: 0.0))

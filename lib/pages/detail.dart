@@ -45,6 +45,7 @@ class DetailPageState extends State<DetailPage> {
   var image = '';
   Uint8List bytes;
   bool done = false;
+  var user_role;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class DetailPageState extends State<DetailPage> {
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => new Home()));
+            MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
           appBar: AppBar(
@@ -73,7 +74,7 @@ class DetailPageState extends State<DetailPage> {
                       color: Color(0xFF777E81), size: 30),
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => new Home()));
+                        MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
                   }),
               backgroundColor: Color(0xFFF4F7F8),
               elevation: 0.0),
@@ -1212,6 +1213,7 @@ class DetailPageState extends State<DetailPage> {
     setState(() {
       nohp = prefs.getString('nohp');
       pin = prefs.getString('pin');
+      user_role = prefs.getString('user_role');
     });
 
     var url = 'https://bill.co.id/getNama';
@@ -1309,7 +1311,7 @@ class DetailPageState extends State<DetailPage> {
                                                 color: Color(0xFF0B8CAD))))),
                                         onPressed: () {
                                           Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                            builder: (context) => new Home()));
+                                            builder: (context) => new Home(usr: user_role)));
                                         })
                                   ])
                             ]))));

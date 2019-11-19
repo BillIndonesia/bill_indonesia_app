@@ -59,13 +59,14 @@ class RiwayatPageState extends State<RiwayatPage> {
   int i = 0;
   List items = new List();
   var tunggu = '';
+  var user_role;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => new Home()));
+            MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
           backgroundColor: Color(0xFFF4F7F8),
@@ -274,7 +275,7 @@ class RiwayatPageState extends State<RiwayatPage> {
                                   color: Color(0xFF777E81), size: 30),
                               onPressed: () => Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => new Home()))))),
+                                      builder: (context) => new Home(usr: user_role)))))),
                   backgroundColor: Color(0xFFF4F7F8),
                   elevation: 0.0,
                   actions: <Widget>[
@@ -741,6 +742,7 @@ class RiwayatPageState extends State<RiwayatPage> {
 
   @override
   void initState() {
+    this.getUserRole();
     if (widget.tp == 'filter') {
       this.makeRequestFilter();
     } else {
@@ -755,6 +757,13 @@ class RiwayatPageState extends State<RiwayatPage> {
           this.loadMore();
         }
       }
+    });
+  }
+
+  void getUserRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      user_role = prefs.getString('user_role');
     });
   }
 

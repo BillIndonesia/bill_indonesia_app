@@ -35,6 +35,7 @@ class SayaPageState extends State<SayaPage> {
   var nama = '';
   List data = List();
   bool done = false;
+  var user_role;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class SayaPageState extends State<SayaPage> {
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => new Home()));
+            MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -72,7 +73,7 @@ class SayaPageState extends State<SayaPage> {
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                          builder: (context) => new Home()));
+                                          builder: (context) => new Home(usr: user_role)));
                                 }))),
                           SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                           Container(
@@ -744,6 +745,7 @@ class SayaPageState extends State<SayaPage> {
     setState(() {
       nohp = prefs.getString('nohp');
       pin = prefs.getString('pin');
+      user_role = prefs.getString('user_role');
     });
 
     var url = 'https://bill.co.id/getProfile';

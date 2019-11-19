@@ -41,6 +41,7 @@ class SignupProfilePageState extends State<SignupProfilePage> {
 
   File _image;
   var formatted;
+  var user_role;
 
   @override
   Widget build(BuildContext context) {
@@ -474,7 +475,7 @@ class SignupProfilePageState extends State<SignupProfilePage> {
 
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new Home()));
+            new MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       } else {
         Navigator.of(context, rootNavigator: true).pop();
         return showDialog(
@@ -525,6 +526,19 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                     )));
           });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getUserRole();
+  }
+
+  void getUserRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      user_role = prefs.getString('user_role');
+    });
   }
 }
 

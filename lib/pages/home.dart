@@ -24,13 +24,17 @@ import 'package:shimmer/shimmer.dart';
 import 'package:bill/pages/resultUserTopup.dart';
 
 class Home extends StatelessWidget {
+  final String usr;
+  Home({this.usr});
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return HomePage(usr);
   }
 }
 
 class HomePage extends StatefulWidget {
+  final String user_role;
+  HomePage(this.user_role);
   @override
   HomePageState createState() => HomePageState();
 }
@@ -41,7 +45,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   var name = '';
   var amount_gl = '';
   var amount_gl1 = '';
-  var user_role = '';
+  // var user_role = '';
   List dataJournal;
   var scanned = false;
   var image = '';
@@ -53,6 +57,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     Uint8List bytes = base64.decode(image);
+
+    print('ini tu ${widget.user_role}');
 
     // print('''
     //   height: ${MediaQuery.of(context).size.height},
@@ -97,7 +103,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       done == true
       ? Container(
           width: MediaQuery.of(context).size.width,
-          height: user_role == 'vendor'
+          height: widget.user_role == 'vendor'
               ? MediaQuery.of(context).size.height * 0.6
               : MediaQuery.of(context).size.height * 0.43,
           child: ClipRect(
@@ -169,7 +175,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             margin: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.01),
             width: MediaQuery.of(context).size.width * 0.95,
-            height: MediaQuery.of(context).size.height * 0.43,
+            height: widget.user_role == 'vendor'
+              ? MediaQuery.of(context).size.height * 0.6
+              : MediaQuery.of(context).size.height * 0.43,
             color: Colors.white)),
       ],
     );
@@ -179,313 +187,347 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-              GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => new Riwayat(
-                            tipe: 'filter',
-                            awal: '',
-                            akhir: '',
-                            topup: 'true',
-                            pembayaran: 'false',
-                            debit: 'false',
-                            kredit: 'false')));
-                  },
-                  child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Card(
-                          color: Color(0xFFF9F9FB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 3.0,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: MediaQuery.of(context).size.width * 0.03,
-                                  vertical: MediaQuery.of(context).size.width * 0.05),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    done == true
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => new Riwayat(
+                                  tipe: 'filter',
+                                  awal: '',
+                                  akhir: '',
+                                  topup: 'true',
+                                  pembayaran: 'false',
+                                  debit: 'false',
+                                  kredit: 'false')));
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Card(
+                                color: Color(0xFFF9F9FB),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                elevation: 3.0,
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: MediaQuery.of(context).size.width * 0.03,
+                                        vertical: MediaQuery.of(context).size.width * 0.05),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text('Top Up',
+                                                    style: TextStyle(
+                                                        color: Color(0xFF999494),
+                                                        fontFamily: 'Montserrat',
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w500))))),
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.centerRight,
+                                                  // color: Colors.red,
+                                                  width: MediaQuery.of(context).size.width * 0.06,
+                                                  height: MediaQuery.of(context).size.width * 0.06,
+                                                  child: Image.asset('images/icon top up.png')))
+                                              ])),
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.02)),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text('Rp ',
+                                                        style: TextStyle(
+                                                            color: Color(0xFF999494),
+                                                            fontFamily: 'Montserrat',
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.w500)))))
+                                              ])),
                                           Expanded(
                                             flex: 2,
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text('Top Up',
-                                              style: TextStyle(
-                                                  color: Color(0xFF999494),
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500))))),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    // color: Colors.red,
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text(amount_gl1 == '-0' ? '0' : amount_gl1,
+                                                    style: TextStyle(
+                                                        color: Color(0xFF6A6767),
+                                                        fontFamily: 'Montserrat',
+                                                        fontSize: 25,
+                                                        fontWeight: FontWeight.bold)))))
+                                              ])),
                                           Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                            // color: Colors.red,
-                                            width: MediaQuery.of(context).size.width * 0.06,
-                                            height: MediaQuery.of(context).size.width * 0.06,
-                                            child: Image.asset('images/icon top up.png')))
-                                        ])),
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.02)),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.width * 0.02,
+                                                    decoration: BoxDecoration(
+                                                        border: Border(
+                                                            top: BorderSide(
+                                                                color: Color(0xFF3AB673),
+                                                                width: 2.0)))))
+                                              ]))
+                                        ])))))
+                    : Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: true,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.height * 0.2)),
+                    done == true
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (context) => new Riwayat(
+                                  tipe: 'filter',
+                                  awal: '',
+                                  akhir: '',
+                                  topup: 'false',
+                                  pembayaran: 'true',
+                                  debit: 'false',
+                                  kredit: 'false')));
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width * 0.45,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Card(
+                                color: Color(0xFFF9F9FB),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                elevation: 3.0,
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: MediaQuery.of(context).size.width * 0.03,
+                                        vertical: MediaQuery.of(context).size.width * 0.05),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text('Rp ',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF999494),
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.w500)))))
-                                        ])),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                    child: Text('Pembayaran',
+                                                    style: TextStyle(
+                                                        color: Color(0xFF999494),
+                                                        fontFamily: 'Montserrat',
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.w500))))),
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.centerRight,
+                                                    // color: Colors.red,
+                                                  // color: Colors.red,
+                                                  width: MediaQuery.of(context).size.width * 0.06,
+                                                  height: MediaQuery.of(context).size.width * 0.06,
+                                                  child: Image.asset('images/icon pembayaran.png'))),
+                                              ])),
                                           Expanded(
-                                            child: Container(
-                                              // color: Colors.red,
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text(amount_gl1 == '-0' ? '0' : amount_gl1,
-                                              style: TextStyle(
-                                                  color: Color(0xFF6A6767),
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 25,
-                                                  fontWeight: FontWeight.bold)))))
-                                        ])),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
+                                            child: SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.02)),
                                           Expanded(
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.35,
-                                              height: MediaQuery.of(context).size.width * 0.02,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      top: BorderSide(
-                                                          color: Color(0xFF3AB673),
-                                                          width: 2.0)))))
-                                        ]))
-                                  ]))))),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => new Riwayat(
-                            tipe: 'filter',
-                            awal: '',
-                            akhir: '',
-                            topup: 'false',
-                            pembayaran: 'true',
-                            debit: 'false',
-                            kredit: 'false')));
-                  },
-                  child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Card(
-                          color: Color(0xFFF9F9FB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 3.0,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: MediaQuery.of(context).size.width * 0.03,
-                                  vertical: MediaQuery.of(context).size.width * 0.05),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text('Rp ',
+                                                        style: TextStyle(
+                                                            color: Color(0xFF999494),
+                                                            fontFamily: 'Montserrat',
+                                                            fontSize: 15,
+                                                            fontWeight: FontWeight.w500)))))
+                                              ])),
                                           Expanded(
                                             flex: 2,
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                              child: Text('Pembayaran',
-                                              style: TextStyle(
-                                                  color: Color(0xFF999494),
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500))))),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitWidth,
+                                                      child: Text(amount_gl == '-0' ? '0' : amount_gl,
+                                                        style: TextStyle(
+                                                            color: Color(0xFF6A6767),
+                                                            fontFamily: 'Montserrat',
+                                                            fontSize: 25,
+                                                            fontWeight: FontWeight.bold)))))
+                                              ])),
                                           Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                              // color: Colors.red,
-                                            // color: Colors.red,
-                                            width: MediaQuery.of(context).size.width * 0.06,
-                                            height: MediaQuery.of(context).size.width * 0.06,
-                                            child: Image.asset('images/icon pembayaran.png'))),
-                                        ])),
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: MediaQuery.of(context).size.height * 0.02)),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text('Rp ',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF999494),
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.w500)))))
-                                        ])),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              child: FittedBox(
-                                                fit: BoxFit.fitWidth,
-                                                child: Text(amount_gl == '-0' ? '0' : amount_gl,
-                                                  style: TextStyle(
-                                                      color: Color(0xFF6A6767),
-                                                      fontFamily: 'Montserrat',
-                                                      fontSize: 25,
-                                                      fontWeight: FontWeight.bold)))))
-                                        ])),
-                                    Expanded(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.35,
-                                              height: MediaQuery.of(context).size.width * 0.02,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      top: BorderSide(
-                                                          color: Color(0xFFFFBA35),
-                                                          width: 2.0)))))
-                                        ]))
-                                  ])))))
-            ])));
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Container(
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.width * 0.02,
+                                                    decoration: BoxDecoration(
+                                                        border: Border(
+                                                            top: BorderSide(
+                                                                color: Color(0xFFFFBA35),
+                                                                width: 2.0)))))
+                                              ]))
+                                        ])))))
+                    : Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: true,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        height: MediaQuery.of(context).size.height * 0.2))
+                  ])));
 
     final namaVendor = Container(
-        padding:EdgeInsets.only(
-          top: MediaQuery.of(context).size.height * 0.01),
-        width: MediaQuery.of(context).size.width,
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => new Saya()));
-              },
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 8.0,
-                  child: Container(
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-                          )),
-                      child: Row(children: <Widget>[
-                        Container(
-                          // color: Colors.red,
-                          margin: EdgeInsets.symmetric(
-                                horizontal: MediaQuery.of(context).size.width * 0.05,
-                                // vertical: MediaQuery.of(context).size.height * 0.007
-                                ),
-                            // width: MediaQuery.of(context).size.width * 0.08,
-                            height: MediaQuery.of(context).size.height * 0.05,
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: Container(
-                            // height: MediaQuery.of(context).size.width * 0.08,
-                            decoration: image != ''
-                                ? BoxDecoration(
-                                  // color: Colors.red,
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: MemoryImage(bytes)))
-                                : BoxDecoration(shape: BoxShape.circle),
-                            child: image == ''
-                                ? CircleAvatar(
-                                    backgroundColor: Color(0xFF0485AC),
-                                    child: Center(
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.width * 0.035,
-                                          child: FittedBox(
-                                            child: Text(name != '' ? name[0] : '',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                color: Color(0xFFF4F7F8),
-                                                fontSize: 20))))))
-                                : Container()))),
-                        Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+      padding:EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.01),
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center, 
+        children: <Widget>[
+        done == true
+        ? GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => new Saya()));
+            },
+            child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                elevation: 8.0,
+                child: Container(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                        )),
+                    child: Row(children: <Widget>[
+                      Container(
+                        // color: Colors.red,
+                        margin: EdgeInsets.symmetric(
+                              horizontal: MediaQuery.of(context).size.width * 0.05,
+                              // vertical: MediaQuery.of(context).size.height * 0.007
+                              ),
+                          // width: MediaQuery.of(context).size.width * 0.08,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                          // height: MediaQuery.of(context).size.width * 0.08,
+                          decoration: image != ''
+                              ? BoxDecoration(
+                                // color: Colors.red,
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: MemoryImage(bytes)))
+                              : BoxDecoration(shape: BoxShape.circle),
+                          child: image == ''
+                              ? CircleAvatar(
+                                  backgroundColor: Color(0xFF0485AC),
+                                  child: Center(
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.035,
+                                        child: FittedBox(
+                                          child: Text(name != '' ? name[0] : '',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              color: Color(0xFFF4F7F8),
+                                              fontSize: 20))))))
+                              : Container()))),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                          Expanded(
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.003)),
                             Expanded(
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.003)),
-                              Expanded(
-                                flex: 2,
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text('Halo,',
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.normal,
-                                      color: Color(0xFFF4F7F8))))),
-                              SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.001),
-                              Expanded(
-                                flex: 2,
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text(name.split(' ')[0],
-                                  style: TextStyle(
-                                      fontSize: 17.0,
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFFF4F7F8))))),
-                              Expanded(
-                                child: SizedBox(
-                                  height: MediaQuery.of(context).size.height * 0.003)),
-                            ])
-                      ]))))
+                              flex: 2,
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text('Halo,',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFFF4F7F8))))),
+                            SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.001),
+                            Expanded(
+                              flex: 2,
+                              child: FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(name.split(' ')[0],
+                                style: TextStyle(
+                                    fontSize: 17.0,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFFF4F7F8))))),
+                            Expanded(
+                              child: SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.003)),
+                          ])
+                    ]))))
+        : Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            enabled: true,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white),
+              height: MediaQuery.of(context).size.height * 0.07,
+              width: MediaQuery.of(context).size.width * 0.9,)),
         ]));
 
     final namaUser = Container(
@@ -658,7 +700,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         )),
         child: Container(child: Image.asset('images/textbill.png')));
 
-    if (user_role == 'vendor') {
+    if (widget.user_role == 'vendor') {
       return WillPopScope(
         onWillPop: () {
           SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -672,7 +714,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           namaVendor, 
           saldoVendor]),
       ));
-    } else if (user_role == 'user') {
+    } else if (widget.user_role == 'user') {
       return WillPopScope(
         onWillPop: () {
           SystemChannels.platform.invokeMethod('SystemNavigator.pop');
@@ -683,31 +725,19 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           appbar,
           cont,
           namaUser,
-          Expanded(
+          done == true
+          ? Expanded(
             child: Container(
-                // color: Colors.red,
-                child: Stack(children: <Widget>[
-          Align(
-            alignment: Alignment.center, 
-            child: giphy),
-          Align(
-            alignment: Alignment.center, 
-            child: qrcode)
-          ])))
-        ]),
-      ));
-    } else {
-      return WillPopScope(
-        onWillPop: () {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-        },
-        child: Scaffold(
-        backgroundColor: Color(0xFFF4F7F8),
-        body: Column(children: <Widget>[
-          appbar,
-          cont,
-          namaUser,
-          Expanded(
+              // color: Colors.red,
+              child: Stack(children: <Widget>[
+                Align(
+                  alignment: Alignment.center, 
+                  child: giphy),
+                Align(
+                  alignment: Alignment.center, 
+                  child: qrcode)
+                ])))
+          : Expanded(
             child: Shimmer.fromColors(
               baseColor: Colors.grey[300],
               highlightColor: Colors.grey[100],
@@ -720,20 +750,47 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10)))))
-          // Expanded(
-          //   child: Container(
-          //       // color: Colors.red,
-          //       child: Stack(children: <Widget>[
-          // Align(
-          //   alignment: Alignment.center, 
-          //   child: giphy),
-          // Align(
-          //   alignment: Alignment.center, 
-          //   child: qrcode)
-          // ])))
         ]),
       ));
-    }
+    } 
+    // else {
+    //   return WillPopScope(
+    //     onWillPop: () {
+    //       SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    //     },
+    //     child: Scaffold(
+    //     backgroundColor: Color(0xFFF4F7F8),
+    //     body: Column(children: <Widget>[
+    //       appbar,
+    //       cont,
+    //       namaUser,
+    //       Expanded(
+    //         child: Shimmer.fromColors(
+    //           baseColor: Colors.grey[300],
+    //           highlightColor: Colors.grey[100],
+    //           enabled: true,
+    //           child: Container(
+    //             margin: EdgeInsets.symmetric(
+    //               vertical: MediaQuery.of(context).size.height * 0.03),
+    //             width: MediaQuery.of(context).size.width * 0.7,
+    //             height: MediaQuery.of(context).size.height * 0.2,
+    //             decoration: BoxDecoration(
+    //               color: Colors.white,
+    //               borderRadius: BorderRadius.circular(10)))))
+    //       // Expanded(
+    //       //   child: Container(
+    //       //       // color: Colors.red,
+    //       //       child: Stack(children: <Widget>[
+    //       // Align(
+    //       //   alignment: Alignment.center, 
+    //       //   child: giphy),
+    //       // Align(
+    //       //   alignment: Alignment.center, 
+    //       //   child: qrcode)
+    //       // ])))
+    //     ]),
+    //   ));
+    // }
   }
 
   void getSignIn() async {
@@ -765,10 +822,12 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       'password': _pin,
     });
 
+    // user_role = prefs.getString('user_role');
+
     setState(() {
       dataJournal = jsonDecode(response.body);
       name = dataJournal[0]['name'];
-      user_role = dataJournal[0]['user_role'];
+      // user_role = dataJournal[0]['user_role'];
       MoneyFormatterOutput fo = FlutterMoneyFormatter(
           amount: double.parse(dataJournal[0]['amount_gl']),
           settings: MoneyFormatterSettings(
@@ -794,6 +853,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         }
       }
       image = dataJournal[0]['image'];
+      done = true;
     });
   }
 
@@ -899,7 +959,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                               color: Color(0xFF0B8CAD))))),
                                       onPressed: () {
                                         Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                          builder: (context) => new Home()));
+                                          builder: (context) => new Home(usr: widget.user_role)));
                                       })
                                 ])
                           ]))));
@@ -962,7 +1022,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           color: Color(0xFF0B8CAD))))),
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
+                                      builder: (context) => new Home(usr: widget.user_role)));
                                   })
                             ])
                       ]))));
@@ -970,7 +1030,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
       } else if (response.body == 'Iya'){
 
-        if (user_role == 'vendor') {
+        if (widget.user_role == 'vendor') {
 
           var urlCheckPrice = 'https://bill.co.id/getActive';
           final responseCheckPrice = await http.post(urlCheckPrice, body: {
@@ -1158,7 +1218,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           color: Color(0xFF0B8CAD))))),
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
+                                      builder: (context) => new Home(usr: widget.user_role)));
                                   })
                             ])
                       ]))));
@@ -1212,7 +1272,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           color: Color(0xFF0B8CAD))))),
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
+                                      builder: (context) => new Home(usr: widget.user_role)));
                                   })
                             ])
                       ]))));
@@ -1297,7 +1357,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       color: Color(0xFF0B8CAD))))),
                               onPressed: () {
                                 Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                  builder: (context) => new Home()));
+                                  builder: (context) => new Home(usr: widget.user_role)));
                               })
                             ])
                       ]))));
@@ -1385,7 +1445,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           color: Color(0xFF0B8CAD))))),
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
+                                      builder: (context) => new Home(usr: widget.user_role)));
                                   })
                             ])
                       ]))));
@@ -1626,7 +1686,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                           color: Color(0xFF0B8CAD))))),
                                   onPressed: () {
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home()));
+                                      builder: (context) => new Home(usr: widget.user_role)));
                                   })
                             ])
                       ]))));

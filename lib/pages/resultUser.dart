@@ -35,6 +35,7 @@ class ResultUserPageState extends State<ResultUserPage> {
   var image = '';
   List data = List();
   bool udah = false;
+  var user_role;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class ResultUserPageState extends State<ResultUserPage> {
       onWillPop: () {
         Navigator.pop(context, false);
         Navigator.of(context)
-            .pushReplacement(new MaterialPageRoute(builder: (context) => new Home()));
+            .pushReplacement(new MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
         backgroundColor: Color(0xFFF4F7F8),
@@ -212,7 +213,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                           onPressed: () {
                             // Navigator.pop(context, false);
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                builder: (context) => new Home()));
+                                builder: (context) => new Home(usr: user_role)));
                           }))
                 ])),
       ),
@@ -230,6 +231,7 @@ class ResultUserPageState extends State<ResultUserPage> {
     setState(() {
       nohp = prefs.getString('nohp');
       pin = prefs.getString('pin');
+      user_role = prefs.getString('user_role');
     });
 
     var urlgetImage = 'https://bill.co.id/getImage';

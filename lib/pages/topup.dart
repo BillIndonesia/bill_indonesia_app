@@ -17,12 +17,14 @@ class TopUpPage extends StatefulWidget {
 }
 
 class TopUpPageState extends State<TopUpPage> {
+  var user_role;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => new Home()));
+            MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
           appBar: AppBar(
@@ -42,7 +44,7 @@ class TopUpPageState extends State<TopUpPage> {
                   icon: Icon(Icons.arrow_back,
                       color: Color(0xFF777E81), size: 30),
                   onPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => new Home()))),
+                      MaterialPageRoute(builder: (context) => new Home(usr: user_role)))),
               backgroundColor: Color(0xFFF4F7F8),
               elevation: 0.0),
           body: Column(children: <Widget>[
@@ -366,5 +368,18 @@ class TopUpPageState extends State<TopUpPage> {
                     ])))
           ])),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getUserRole();
+  }
+
+  void getUserRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      user_role = prefs.getString('user_role');
+    });
   }
 }

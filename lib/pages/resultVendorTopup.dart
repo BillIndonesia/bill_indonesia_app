@@ -33,6 +33,7 @@ class ResultVendorTopupPage extends StatefulWidget {
 class ResultVendorTopupPageState extends State<ResultVendorTopupPage> {
   var nohp = '';
   var pin = '';
+  var user_role = '';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class ResultVendorTopupPageState extends State<ResultVendorTopupPage> {
       onWillPop: () {
         Navigator.pop(context, false);
         Navigator.of(context)
-            .pushReplacement(new MaterialPageRoute(builder: (context) => new Home()));
+            .pushReplacement(new MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
       },
       child: Scaffold(
         backgroundColor: Color(0xFFF4F7F8),
@@ -186,10 +187,23 @@ class ResultVendorTopupPageState extends State<ResultVendorTopupPage> {
                           onPressed: () {
                             Navigator.pop(context, false);
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                builder: (context) => new Home()));
+                                builder: (context) => new Home(usr: user_role)));
                           }))
                 ])),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.getUserRole();
+  }
+
+  void getUserRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      user_role = prefs.getString('user_role');
+    });
   }
 }

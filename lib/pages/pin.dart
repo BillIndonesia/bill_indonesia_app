@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'package:bill/pages/home.dart';
 import 'package:bill/pages/forgotPin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -183,9 +184,16 @@ class PinPageState extends State<PinPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('nohp', widget.nomer);
         prefs.setString('pin', pinController.text);
+
+        var url2 = 'https://bill.co.id/getActive';
+        final response2 = await http.post(url2,
+            body: {'nohp': widget.nomer,});
+
+        prefs.setString('user_role', jsonDecode(response2.body)[0]['user_role']);
+
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new Home()));
+            new MaterialPageRoute(builder: (context) => new Home(usr: jsonDecode(response2.body)[0]['user_role'])));
       }
     } else {
       Navigator.of(context, rootNavigator: true).pop();

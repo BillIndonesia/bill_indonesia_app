@@ -233,9 +233,12 @@ class FirebaseNotifications {
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,
                                                 color: Color(0xFF999494))))),
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                                          var user_role = prefs.getString('user_role');
+
                                           Navigator.push(navKey.currentContext,
-                                            MaterialPageRoute(builder: (_) => Home()));
+                                            MaterialPageRoute(builder: (_) => Home(usr: user_role)));
                                         })
                                   ])
                             ]))));
@@ -745,9 +748,12 @@ class FirebaseNotifications {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                           color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(navKey.currentContext).pushReplacement(new MaterialPageRoute(
-                                      builder: (_) => new Home()));
+                                  onPressed: () async {
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    var user_role = prefs.getString('user_role');
+
+                                    Navigator.push(navKey.currentContext,
+                                      MaterialPageRoute(builder: (_) => Home(usr: user_role)));
                                   })
                             ])
                       ]))));

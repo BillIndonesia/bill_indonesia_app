@@ -117,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           home: nohp == null 
           ? Intro(navigatorKey: navigatorKey) 
           : active == true
-            ? Home()
+            ? Home(usr: user_role)
             : Suspend()
         );
         } else {

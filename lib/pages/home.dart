@@ -45,6 +45,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   List dataJournal;
   var scanned = false;
   var image = '';
+  bool done = false;
 
   final _scanKey = GlobalKey<CameraMlVisionState>();
   BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
@@ -93,7 +94,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-      user_role != ''
+      done == true
       ? Container(
           width: MediaQuery.of(context).size.width,
           height: user_role == 'vendor'
@@ -493,7 +494,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround, 
           children: <Widget>[
-          user_role != ''
+          done == true
           ? GestureDetector(
               onTap: () {
                 Navigator.of(context).pushReplacement(
@@ -585,7 +586,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10)))),
-          user_role != ''
+          done == true
           ? GestureDetector(
               onTap: () {
                 Navigator.of(context).pushReplacement(

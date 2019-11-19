@@ -682,7 +682,7 @@ class SayaPageState extends State<SayaPage> {
                                                             'Anda yakin akan keluar\n'),
                                                     new TextSpan(
                                                         text:
-                                                            'dari aplikasi ?'),
+                                                            'dari akun ?'),
                                                   ],
                                                 ),
                                               ))),

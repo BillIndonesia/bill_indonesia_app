@@ -54,6 +54,104 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   final _scanKey = GlobalKey<CameraMlVisionState>();
   BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
+  Future<bool> onBackPress() {
+    openDialog();
+      return Future.value(false);
+  }
+  Future<Null> openDialog() async {
+    switch (await showDialog(
+        context: context,
+        builder: (_) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0)),
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: MediaQuery.of(context).size.width * 0.06
+                    ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xFFF4F7F8)
+                    ),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                     Container(
+                        // color: Colors.green,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: FittedBox(
+                        child: RichText(
+                        textAlign: TextAlign.center,
+                        text: new TextSpan(
+                        style: TextStyle(
+                        fontSize: 14.0,
+                        color: Color(0xFF999494),
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'Montserrat'),
+                        children: <TextSpan>[
+                        new TextSpan(
+                        text:
+                           'Anda yakin akan keluar\n'),
+                        new TextSpan(
+                          text: 'dari aplikasi ?'),
+                           ],
+                            ),
+                )
+                  )
+                    ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                            FlatButton(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.06,
+                                child: FittedBox(
+                                child: Text('Iya',
+                                style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF999494)
+                                )
+                                    )
+                                       )
+                                           ),
+                            onPressed: () {
+                           exit(0);
+                                  }
+                            ),
+                             FlatButton(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                child: FittedBox(
+                                child: Text('Tidak',
+                                style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF0B8CAD)
+                                )
+                                    )
+                                       )
+                                           ),
+                            onPressed: () {
+                             Navigator.of(context, rootNavigator: true).pop();
+                                  }
+                              )
+                          ]
+                          ),                   
+                    ]
+                  )
+                )
+              );
+        })) {
+      case 1:
+        exit(0);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -706,9 +804,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (widget.user_role == 'vendor') {
       return WillPopScope(
-        onWillPop: () {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-        },
+        onWillPop: onBackPress,
         child:  Scaffold(
         backgroundColor: Color(0xFFF4F7F8),
         body: Column(
@@ -720,9 +816,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       ));
     } else if (widget.user_role == 'user') {
       return WillPopScope(
-        onWillPop: () {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-        },
+        onWillPop:  onBackPress,
         child: Scaffold(
         backgroundColor: Color(0xFFF4F7F8),
         body: Column(children: <Widget>[

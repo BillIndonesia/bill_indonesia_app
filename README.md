@@ -1,6 +1,6 @@
 # bill
 
-A new Flutter project.
+A new Flutter project. tinu tinu
 
 ## Getting Started
 

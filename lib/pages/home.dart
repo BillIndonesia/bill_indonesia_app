@@ -973,13 +973,13 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void scanBarcode(barcodes) async {
 
     if (barcodes.first.displayValue[0] == '#' ){
-        var url = 'https://bill.co.id/';
+        var url = 'https://bill.co.id/scanVoucher';
         final response = await http.post(url, body :{
           'username': nohp,
           'password': pin,
           'voucher': barcodes.first.displayValue.replaceAll('#',''),
         });
-        if(response.body == "iya"){
+        if (response.body == "iya"){
              Navigator.push(
               context,
               MaterialPageRoute(

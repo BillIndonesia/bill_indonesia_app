@@ -1,6 +1,6 @@
 # bill
 
-A new Flutter project. yooo
+A new Flutter project.
 
 ## Getting Started
 

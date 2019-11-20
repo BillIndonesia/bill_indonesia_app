@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:bill/pages/detail.dart';
@@ -16,7 +15,6 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:camera/camera.dart';
 // import 'package:loading/loading.dart';
 // import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
@@ -156,8 +154,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     Uint8List bytes = base64.decode(image);
-
-    print('ini tu ${widget.user_role}');
 
     // print('''
     //   height: ${MediaQuery.of(context).size.height},

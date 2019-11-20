@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
-import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:bill/pages/saya.dart';
 import 'package:bill/pages/getotp.dart';
 import 'package:random_string/random_string.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';

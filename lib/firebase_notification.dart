@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bill/pages/riwayat.dart';
 import 'package:bill/pages/home.dart';
-import 'package:bill/pages/detail.dart';
 import 'package:bill/pages/resultVendor.dart';
 import 'package:bill/pages/resultUser.dart';
 import 'package:bill/pages/resultUserTopup.dart';

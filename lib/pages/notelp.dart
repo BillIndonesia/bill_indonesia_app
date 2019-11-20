@@ -4,9 +4,7 @@ import 'package:bill/pages/pin.dart';
 import 'package:bill/pages/getotp.dart';
 import 'package:bill/pages/suspend.dart';
 import 'package:bill/pages/termCondition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:random_string/random_string.dart';
 import 'package:flutter/gestures.dart';
 
 class NoTelp extends StatelessWidget {

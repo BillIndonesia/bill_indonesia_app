@@ -4,7 +4,6 @@ import 'package:bill/pages/home.dart';
 import 'package:bill/pages/suspend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:bill/firebase_notification.dart';

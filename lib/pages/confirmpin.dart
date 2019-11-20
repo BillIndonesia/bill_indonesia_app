@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'dart:async';
 import 'package:bill/pages/signupProfile.dart';
 
 class ConfirmPin extends StatelessWidget {

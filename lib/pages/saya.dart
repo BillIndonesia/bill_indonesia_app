@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
-import 'package:bill/pages/detail.dart';
 import 'package:bill/pages/termCondition.dart';
 import 'package:bill/pages/profile.dart';
 import 'package:bill/pages/bantuan.dart';
 import 'package:bill/pages/notelp.dart';
 import 'package:bill/pages/tentang.dart';
-import 'package:bill/pages/resultVendorTopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:bill/firebase_notification.dart';
-import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'dart:typed_data';
 import 'package:shimmer/shimmer.dart';
 

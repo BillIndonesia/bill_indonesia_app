@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:bill/pages/saya.dart';
-
 class Tentang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

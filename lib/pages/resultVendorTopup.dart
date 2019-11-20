@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:typed_data';
 

@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bill/pages/home.dart';
-import 'package:bill/pages/detail.dart';
-import 'package:bill/pages/termCondition.dart';
 import 'package:bill/pages/saya.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:loader_search_bar/loader_search_bar.dart';

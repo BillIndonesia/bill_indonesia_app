@@ -127,7 +127,7 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                                             'Karena saldo anda telah menacapai limit\n'),
                                     new TextSpan(
                                         text:
-                                            'Silahkan Top Up maksimal Rp ${fok.withoutFractionDigits}'),
+                                            'Silahkan Top Up maksimal Rp ${fok.withoutFractionDigits} lagi'),
                                   ],
                                 ),
                               ))),

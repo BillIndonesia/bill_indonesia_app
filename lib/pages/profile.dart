@@ -39,7 +39,8 @@ class ProfilePageState extends State<ProfilePage> {
     Uint8List bytes = base64.decode(image);
     return WillPopScope(
         onWillPop: () {
-           Navigator.of(context).pop(); 
+           Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => new Saya())) ;
         },
         child: Scaffold(
             resizeToAvoidBottomPadding: false,
@@ -77,7 +78,8 @@ class ProfilePageState extends State<ProfilePage> {
                                                 color: Color(0xFFF4F7F8), 
                                                 size: 30),
                                             onPressed: () {
-                                               Navigator.of(context).pop(); 
+                                               Navigator.of(context).pushReplacement(
+                                                    MaterialPageRoute(builder: (context) => new Saya())) ; 
                                             }))),
                                     SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                                     Container(

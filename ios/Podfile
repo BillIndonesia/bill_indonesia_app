@@ -16,5 +16,4 @@ pod 'Firebase/MLVisionTextModel'
 
 pod 'Protobuf', :inhibit_warnings => true
 
-
 end

@@ -124,9 +124,10 @@ DEPENDENCIES:
   - Firebase/MLVisionFaceModel
   - Firebase/MLVisionLabelModel
   - Firebase/MLVisionTextModel
+  - Protobuf
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -172,6 +173,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
 
-PODFILE CHECKSUM: f2172b6b056a194fda61338aec3ad0fdf411057d
+PODFILE CHECKSUM: faa809f7f88040b0db1a5f3bc4a89ece14a72adc
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4

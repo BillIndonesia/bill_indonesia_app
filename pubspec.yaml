@@ -28,8 +28,8 @@ dependencies:
   http:
   qr_flutter:
   flutter_money_formatter:
+  flutter_camera_ml_vison:
   firebase_messaging: 
-  flutter_camera_ml_vision:
   random_string:
   pin_code_text_field:
   intl:

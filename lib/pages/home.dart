@@ -10,12 +10,12 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+// import 'package:flutter_camera_ml_vision/flutter_camera_ml_vision.dart';
+// import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
-import 'package:camera/camera.dart';
+// import 'package:camera/camera.dart';
 // import 'package:loading/loading.dart';
 // import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:shimmer/shimmer.dart';
@@ -50,8 +50,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   var image = '';
   bool done = false;
 
-  final _scanKey = GlobalKey<CameraMlVisionState>();
-  BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
+  // final _scanKey = GlobalKey<CameraMlVisionState>();
+  // BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
   Future<bool> onBackPress() {
     openDialog();
       return Future.value(false);
@@ -208,57 +208,58 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 fit: BoxFit.fitWidth,
                 child: Container(
                     child: _notification != AppLifecycleState.paused &&  _notification != AppLifecycleState.inactive
-                    ?CameraMlVision<List<Barcode>>(
-                        key: _scanKey,
-                        loadingBuilder: (c) {
-                          return Center();
-                        },
-                        resolution: ResolutionPreset.medium,
-                        detector: detector.detectInImage,
-                        onResult: (List<Barcode> barcodes) async {
-                          if (barcodes == null ||
-                              barcodes.isEmpty ||
-                              !mounted ||
-                              scanned == true) {
-                            return null;
-                          }
+                    // ? CameraMlVision<List<Barcode>>(
+                    //     key: _scanKey,
+                    //     loadingBuilder: (c) {
+                    //       return Center();
+                    //     },
+                    //     resolution: ResolutionPreset.medium,
+                    //     detector: detector.detectInImage,
+                    //     onResult: (List<Barcode> barcodes) async {
+                    //       if (barcodes == null ||
+                    //           barcodes.isEmpty ||
+                    //           !mounted ||
+                    //           scanned == true) {
+                    //         return null;
+                    //       }
 
-                          setState(() {
-                            scanned = true;
-                          });
+                    //       setState(() {
+                    //         scanned = true;
+                    //       });
 
-                          // if (user_role == 'vendor') {
-                          //   Navigator.of(context).pushReplacement(
-                          //       new MaterialPageRoute(
-                          //           builder: (context) => new Detail(
-                          //               nohpResult: barcodes.first.displayValue,
-                          //               user_role: 'vendor',
-                          //               name: name)));
-                          // } else {
-                          //   Navigator.of(context).pushReplacement(
-                          //       new MaterialPageRoute(
-                          //           builder: (context) => new Detail(
-                          //               nohpResult: barcodes.first.displayValue,
-                          //               user_role: 'user',
-                          //               name: name)));
-                          // }
+                    //       // if (user_role == 'vendor') {
+                    //       //   Navigator.of(context).pushReplacement(
+                    //       //       new MaterialPageRoute(
+                    //       //           builder: (context) => new Detail(
+                    //       //               nohpResult: barcodes.first.displayValue,
+                    //       //               user_role: 'vendor',
+                    //       //               name: name)));
+                    //       // } else {
+                    //       //   Navigator.of(context).pushReplacement(
+                    //       //       new MaterialPageRoute(
+                    //       //           builder: (context) => new Detail(
+                    //       //               nohpResult: barcodes.first.displayValue,
+                    //       //               user_role: 'user',
+                    //       //               name: name)));
+                    //       // }
 
-                          scanBarcode(barcodes);
+                    //       scanBarcode(barcodes);
 
-                          return showDialog(
-                            barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return Material(
-                                type: MaterialType.transparency,
-                                child: WillPopScope(
-                                  onWillPop: () {
+                    //       return showDialog(
+                    //         barrierDismissible: false,
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return Material(
+                    //             type: MaterialType.transparency,
+                    //             child: WillPopScope(
+                    //               onWillPop: () {
 
-                                    },
-                                  child: Container()));
-                          });
+                    //                 },
+                    //               child: Container()));
+                    //       });
                           
-                        })
+                    //     })
+                    ? Container()
                         : Container()
                         ),
               ),

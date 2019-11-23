@@ -973,24 +973,28 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         final response = await http.post(url, body :{
           'username': nohp,
           'password': pin,
-          'voucher': barcodes.first.displayValue.replaceAll('#',''),
+          'voucher_code': barcodes.first.displayValue.replaceAll('#',''),
         });
-        if (response.body == "iya"){
+        if (jsonDecode(response.body)[0]["result"] == 'berhasil'){
+          Navigator.of(context, rootNavigator: true).pop();
              Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ResultUserTopup(
-                      jumlah: jsonDecode(response.body)[0]["jumlah"] ,
-                      res: jsonDecode(response.body)[0]["result"] ,
+                  builder: (context) => ResultUserTopup(
+                      jumlah: jsonDecode(response.body)[0]["jumlah"].toString(),
+                      res: jsonDecode(response.body)[0]["result"],
+                      kembali: 0.toString(),
                       type : "voucher",
                       )));
-        } else if (response.body == "tidak"){
+        } else if (jsonDecode(response.body)[0]["result"] == 'tidak'){
+          Navigator.of(context, rootNavigator: true).pop();
            Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (_) => ResultUserTopup(
-                      jumlah: jsonDecode(response.body)[0]["jumlah"] ,
+                  builder: (context) => ResultUserTopup(
+                      jumlah: 0.toString(),
                       res: jsonDecode(response.body)[0]["result"] ,
+                      kembali: 0.toString(),
                       type : "voucher",
                       )));
         } else {

@@ -563,10 +563,10 @@ class RiwayatPageState extends State<RiwayatPage> {
                                                                           child: data[index]['image'] == '' 
                                                                           ? CircleAvatar(
                                                                             backgroundColor: data[index]['name'] != 'Akun ini telah dihapus' 
-                                                                              ? Color(0xFF0485AC) 
+                                                                              ? Color(0xFF0485AC)
                                                                               : Color(0xFFF4F7F8), 
                                                                             child: Center(
-                                                                              child: data[index]['name'] != 'Bonus Top Up' 
+                                                                              child: (data[index]['name'] != 'Bonus Top Up' && data[index]['name'] != 'Voucher') 
                                                                                 ? data[index]['name'] != 'Akun ini telah dihapus' 
                                                                                   ? Container(
                                                                                     width: MediaQuery.of(context).size.width * 0.04, 

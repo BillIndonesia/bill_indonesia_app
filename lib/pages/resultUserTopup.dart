@@ -43,6 +43,7 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
 
   @override
   Widget build(BuildContext context) {
+
     MoneyFormatterOutput fo = FlutterMoneyFormatter(
         amount: double.parse(widget.jml),
         settings: MoneyFormatterSettings(
@@ -102,11 +103,12 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                                     new TextSpan(
                                         text: 'Anda Berhasil menerima Top Up\n'),
                                     new TextSpan(
-                                        text: 'Sebesar Rp ${fo.withoutFractionDigits} dari'),
+                                        text: 'Sebesar Rp ${fo.withoutFractionDigits}'),
                                   ],
                                 ),
                               )))
-                            : Container(
+                            : widget.type != 'voucher'
+                              ? Container(
                               // width: MediaQuery.of(context).size.width * 0.9,
                               // color: Colors.green,
                               child: FittedBox(
@@ -128,6 +130,28 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                                     new TextSpan(
                                         text:
                                             'Silahkan Top Up maksimal Rp ${fok.withoutFractionDigits} lagi'),
+                                  ],
+                                ),
+                              )))
+                              : Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              // color: Colors.green,
+                              child: FittedBox(
+                                child: RichText(
+                                textAlign: TextAlign.center,
+                                text: new TextSpan(
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Color(0xFF999494),
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Montserrat'),
+                                  children: <TextSpan>[
+                                    new TextSpan(
+                                        text:
+                                            'Top Up gagal dilakukan\n'),
+                                    new TextSpan(
+                                        text:
+                                            'Karean voucher sudah tidak berlaku\n'),
                                   ],
                                 ),
                               ))),
@@ -229,6 +253,7 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           onPressed: () {
+                            // print("ini teken oke");
                             // Navigator.pop(context, false);
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(
                                 builder: (context) => new Home(usr: user_role)));
@@ -241,13 +266,7 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.type == "voucher")
-    {
-
-    }
-    else {
     this.getImage();
-    }
   }
 
   void getImage() async {
@@ -258,15 +277,21 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
       user_role = prefs.getString('user_role');
     });
 
-    var urlgetImage = 'https://bill.co.id/getImage';
-    final responsegetImage = await http.post(urlgetImage,
-        body: {'username': nohp, 'password': pin, 'name': widget.nm});
+    if (widget.type == 'voucher') {
+        setState(() {
+          udah = true;
+          });
+      } else {
+        var urlgetImage = 'https://bill.co.id/getImage';
+        final responsegetImage = await http.post(urlgetImage,
+            body: {'username': nohp, 'password': pin, 'name': widget.nm});
 
-    data = jsonDecode(responsegetImage.body);
+        data = jsonDecode(responsegetImage.body);
 
-    setState(() {
-      udah = true;
-      image = data[0]['image'];
-    });
+        setState(() {
+          udah = true;
+          image = data[0]['image'];
+        });
+      }
   }
 }

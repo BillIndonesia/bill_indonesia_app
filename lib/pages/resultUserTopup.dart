@@ -151,7 +151,7 @@ class ResultUserTopupPageState extends State<ResultUserTopupPage> {
                                             'Top Up gagal dilakukan\n'),
                                     new TextSpan(
                                         text:
-                                            'Karean voucher sudah tidak berlaku\n'),
+                                            'Karena voucher sudah tidak berlaku\n'),
                                   ],
                                 ),
                               ))),

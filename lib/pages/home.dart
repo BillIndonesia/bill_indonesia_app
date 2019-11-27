@@ -968,7 +968,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void scanBarcode(barcodes) async {
 
-    if (barcodes.first.displayValue[0] == '#' ){
+    if (barcodes.first.displayValue[0] == '#' && widget.user_role == 'user'){
         var url = 'https://bill.co.id/scanVoucher';
         final response = await http.post(url, body :{
           'username': nohp,

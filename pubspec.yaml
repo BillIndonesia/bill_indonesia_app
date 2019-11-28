@@ -39,10 +39,9 @@ dependencies:
   flutter_datetime_picker:
   url_launcher:
   flutter_markdown:
-    path: /Users/appledeveloperekabill.co.id/Documents/bill/flutter_markdown master
+    path: E:\Vikral punya\bill master\bill\flutter_markdown master
   loader_search_bar:
   shimmer:
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

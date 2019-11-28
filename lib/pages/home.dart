@@ -213,7 +213,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         loadingBuilder: (c) {
                           return Center();
                         },
-                        resolution: ResolutionPreset.medium,
+                        resolution: ResolutionPreset.max,
                         detector: detector.detectInImage,
                         onResult: (List<Barcode> barcodes) async {
                           if (barcodes == null ||

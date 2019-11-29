@@ -1122,99 +1122,21 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             'nohp': nohp
           });
 
-          if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
+            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
 
-            Navigator.of(context, rootNavigator: true).pop();
-            return showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return WillPopScope(
-                  onWillPop: () {
+              var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
+              // Navigator.of(context, rootNavigator: true).pop();
+              penagihan(barcodes, price);
 
-                    },
-                  child: Dialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.05,
-                        vertical: MediaQuery.of(context).size.height * 0.01),
-                      width: MediaQuery.of(context).size.width * 0.65,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xFFF4F7F8)),
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                child: FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text('Pilih salah satu',
-                                    style: TextStyle(
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: Color(0xFF0B8CAD)),
-                                    textAlign: TextAlign.left)))),
-                            Expanded(
-                              child: GestureDetector(
-                              child: Container(
-                                // alignment: Alignment.centerLeft,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text('Pembayaran',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Color(0xFF999494)),
-                                textAlign: TextAlign.left))),
-                              onTap: () {
-                                var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
-                                // Navigator.of(context, rootNavigator: true).pop();
-                                penagihan(barcodes, price);
-                                })),
-                            Expanded(
-                              child: GestureDetector(
-                              child: Container(
-                                // alignment: Alignment.centerLeft,
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text('Top Up',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Color(0xFF999494)),
-                                textAlign: TextAlign.left))),
-                              onTap: () {
-                                Navigator.of(context, rootNavigator: true).pop();
-                                Navigator.of(context).pushReplacement(
-                                new MaterialPageRoute(
-                                    builder: (context) => new Detail(
-                                        nohpResult: barcodes.first.displayValue,
-                                        user_role: 'vendor',
-                                        name: name,
-                                        tipe: 'fixed')));
-                                })),
-                          ]))));
-          });
-          } else {
-            Navigator.of(context, rootNavigator: true).pop();
-            Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(
-                builder: (context) => new Detail(
-                    nohpResult: barcodes.first.displayValue,
-                    user_role: 'vendor',
-                    name: name)));
-          }
+            } else {
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context).pushReplacement(
+              new MaterialPageRoute(
+                  builder: (context) => new Detail(
+                      nohpResult: barcodes.first.displayValue,
+                      user_role: 'vendor',
+                      name: name)));
+            }
 
           } else {
             var urlCheckPrice = 'https://bill.co.id/getActive';
@@ -1562,7 +1484,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               'password': pin, 
               'result': barcodes.first.displayValue});
 
-        Navigator.of(context, rootNavigator: true).pop();
+        // Navigator.of(context, rootNavigator: true).pop();
 
         return showDialog(
               barrierDismissible: false,

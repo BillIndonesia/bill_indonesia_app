@@ -10,6 +10,12 @@
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
   [FIRApp configure];
+    
+    if (@available(iOS 10.0, *)) {
+      [UNUserNotificationCenter currentNotificationCenter].delegate = (id<UNUserNotificationCenterDelegate>) self;
+    }
+    
+    [GeneratedPluginRegistrant registerWithRegistry:self];
 
  //  [FIRMessaging messaging].delegate = self;
 
@@ -35,7 +41,7 @@
 
 	// [application registerForRemoteNotifications];AppDelegate.m
 
-	return YES;
+	return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 @end

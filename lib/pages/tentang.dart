@@ -89,7 +89,7 @@ class TentangPageState extends State<TentangPage> {
                         fontFamily: 'Montserrat'),
                     children: <TextSpan>[
                       TextSpan(
-                          text: 'Bill V.0.7.3\n'),
+                          text: 'Bill V.0.7.4\n'),
                       TextSpan(
                           text: '© 2019 Copyright Bill'),
                     ],

@@ -6,6 +6,8 @@ import 'package:bill/pages/suspend.dart';
 import 'package:bill/pages/termCondition.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
+import 'package:random_string/random_string.dart';
+
 
 class NoTelp extends StatelessWidget {
   @override
@@ -203,13 +205,13 @@ class NoTelpPageState extends State<NoTelpPage> {
     if (response.statusCode == 200) {
       Navigator.of(context, rootNavigator: true).pop();
       if (response.body == "Tidak") {
-        // var otpCode = int.parse(randomNumeric(4));
+        var otpCode = int.parse(randomNumeric(4));
         var noOtp = int.parse(nohp);
-        var otpCode = 1234;
+        // var otpCode = 1234;
         // final otp = await http.post(
         //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
-        // final otp = await http.post(
-        //   'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: $otpCode. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp')
+        final otp = await http.post(
+          'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: $otpCode. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
         Navigator.of(context).push(new MaterialPageRoute(
             builder: (context) => new GetOtp(
                 nohp: nohp, otpCode: otpCode.toString())));

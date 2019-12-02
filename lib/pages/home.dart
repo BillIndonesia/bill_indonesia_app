@@ -928,11 +928,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
             thousandSeparator: '.',
             decimalSeparator: ',',
           )).output;
-      if (fo.withoutFractionDigits.length < 10) {
-        amount_gl = fo.withoutFractionDigits;
-      } else {
-        amount_gl = fo.compactNonSymbol;
-      }
+      amount_gl = fo.withoutFractionDigits;
       if (dataJournal[0]['user_role'] == 'vendor') {
         MoneyFormatterOutput fo = FlutterMoneyFormatter(
             amount: double.parse(dataJournal[0]['amount_gl1']),
@@ -940,11 +936,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               thousandSeparator: '.',
               decimalSeparator: ',',
             )).output;
-        if (fo.withoutFractionDigits.length < 10) {
-          amount_gl1 = fo.withoutFractionDigits;
-        } else {
-          amount_gl1 = fo.compactNonSymbol;
-        }
+        amount_gl1 = fo.withoutFractionDigits;
       }
       image = dataJournal[0]['image'];
       done = true;

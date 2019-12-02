@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:bill/pages/getotp.dart';
 import 'package:random_string/random_string.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+import 'package:random_string/random_string.dart';
+
 
 class UbahNohp extends StatelessWidget {
   @override
@@ -219,8 +221,10 @@ class UbahNohpPageState extends State<UbahNohpPage> {
                               var otpCode = int.parse(randomNumeric(4));
                               var noOtp = int.parse(nohpController.text);
                               // var otpCode = 1234;
+                              // final otp = await http.post(
+                              //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
                               final otp = await http.post(
-                                  'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
+                                'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: $otpCode. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
                               Navigator.of(context).push(new MaterialPageRoute(
                                   builder: (context) => new GetOtp(
                                       nohp: nohpController.text,

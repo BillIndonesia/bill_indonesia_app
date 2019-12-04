@@ -33,18 +33,34 @@ class PinSignupPageState extends State<PinSignupPage> {
             },
             child: Stack(children: <Widget>[
               Container(
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top),
-                  child: Image.asset('images/bgpinsignup.png',
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      fit: BoxFit.fill)),
+                margin:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                child: Image.asset('images/bgpolos.png',
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    fit: BoxFit.fill),
+              ),
               Container(
                   margin: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.3),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: Column(children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).size.height * 0.05),
+                      child: FittedBox(
+                        child: Text(
+                          'Buat 6 digit PIN anda',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Young'),
+                        ),
+                      ),
+                    ),
                     Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: MediaQuery.of(context).size.width * 0.01,
@@ -77,19 +93,19 @@ class PinSignupPageState extends State<PinSignupPage> {
                       child: Container(
                           width: MediaQuery.of(context).size.width * 0.25,
                           child: FittedBox(
-                            child: Text(
+                              child: Text(
                             "Isi Semua Kolom",
                             style: TextStyle(
-                                  color: Colors.red[800],
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
+                                color: Colors.red[800],
+                                fontFamily: 'Montserrat',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ))),
                       visible: hasError,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.1,
                         width: MediaQuery.of(context).size.width * 0.5,
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.05),
@@ -111,14 +127,14 @@ class PinSignupPageState extends State<PinSignupPage> {
                           },
                           color: Color(0xFF0A9ABC),
                           child: Container(
-                                width: MediaQuery.of(context).size.width * 0.17,
-                                // color: Colors.red,
-                                child: FittedBox(
+                              width: MediaQuery.of(context).size.width * 0.17,
+                              // color: Colors.red,
+                              child: FittedBox(
                                   child: Text('Lanjut',
-                                  style: TextStyle(
-                                      fontSize: 22.0,
-                                      color: Colors.white,
-                                      fontFamily: 'Montserrat')))),
+                                      style: TextStyle(
+                                          fontSize: 22.0,
+                                          color: Colors.white,
+                                          fontFamily: 'Montserrat')))),
                         ))
                   ]))
             ])));

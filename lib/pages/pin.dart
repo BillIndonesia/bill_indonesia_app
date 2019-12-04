@@ -38,7 +38,8 @@ class PinPageState extends State<PinPage> {
             },
             child: Stack(children: <Widget>[
               Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                  margin:
+                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                   child: Image.asset('images/bgpolos.png',
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
@@ -53,11 +54,15 @@ class PinPageState extends State<PinPage> {
                       width: MediaQuery.of(context).size.width * 0.35,
                       // color: Colors.red,
                       child: FittedBox(
-                        child: Text('Masukan Pin Anda',
+                        child: Text(
+                          'Masukan Pin Anda',
                           style: TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'Montserrat',
-                              color: Colors.white)))),
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
                     Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: MediaQuery.of(context).size.width * 0.01,
@@ -89,20 +94,20 @@ class PinPageState extends State<PinPage> {
                     Visibility(
                       child: pinController.text.length < 6
                           ? Container(
-                            width: MediaQuery.of(context).size.width * 0.25,
-                            // color: Colors.red,
-                            child: FittedBox(
-                              child: Text(
-                              "Isi Semua Kolom",
-                              style: TextStyle(
-                                  color: Colors.red[800],
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            )))
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              // color: Colors.red,
+                              child: FittedBox(
+                                  child: Text(
+                                "Isi Semua Kolom",
+                                style: TextStyle(
+                                    color: Colors.red[800],
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              )))
                           : Container(
-                            child: FittedBox(
-                              child: Text(
+                              child: FittedBox(
+                                  child: Text(
                               "PIN Salah",
                               style: TextStyle(
                                   color: Colors.red[800],
@@ -114,22 +119,22 @@ class PinPageState extends State<PinPage> {
                     ),
                     FlatButton(
                       child: Container(
-                        width: MediaQuery.of(context).size.width * 0.23,
-                        child: FittedBox(
-                          child: Text(
-                        'Lupa Pin',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 19.0,
-                            fontFamily: 'Montserrat'),
-                      ))),
+                          width: MediaQuery.of(context).size.width * 0.23,
+                          child: FittedBox(
+                              child: Text(
+                            'Lupa Pin',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 19.0,
+                                fontFamily: 'Montserrat'),
+                          ))),
                       onPressed: () {
                         Navigator.of(context).push(new MaterialPageRoute(
                             builder: (context) => new ForgotPin()));
                       },
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
+                        height: MediaQuery.of(context).size.height * 0.08,
                         width: MediaQuery.of(context).size.width * 0.5,
                         padding: EdgeInsets.only(
                             top: MediaQuery.of(context).size.height * 0.03),
@@ -154,13 +159,13 @@ class PinPageState extends State<PinPage> {
                           },
                           color: Color(0xFF0A9ABC),
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: FittedBox(
-                              child: Text('Masuk',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 20.0)))),
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: FittedBox(
+                                  child: Text('Masuk',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 20.0)))),
                         ))
                   ]))
             ])));
@@ -185,14 +190,17 @@ class PinPageState extends State<PinPage> {
         prefs.setString('pin', pinController.text);
 
         var url2 = 'https://bill.co.id/getActive';
-        final response2 = await http.post(url2,
-            body: {'nohp': widget.nomer,});
+        final response2 = await http.post(url2, body: {
+          'nohp': widget.nomer,
+        });
 
-        prefs.setString('user_role', jsonDecode(response2.body)[0]['user_role']);
+        prefs.setString(
+            'user_role', jsonDecode(response2.body)[0]['user_role']);
 
         // Navigator.pop(context, false);
-        Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new Home(usr: jsonDecode(response2.body)[0]['user_role'])));
+        Navigator.of(context).pushReplacement(new MaterialPageRoute(
+            builder: (context) =>
+                new Home(usr: jsonDecode(response2.body)[0]['user_role'])));
       }
     } else {
       Navigator.of(context, rootNavigator: true).pop();
@@ -203,7 +211,7 @@ class PinPageState extends State<PinPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
+                    width: MediaQuery.of(context).size.width * 0.65,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xFFF4F7F8)),

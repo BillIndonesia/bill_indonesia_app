@@ -8,7 +8,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/gestures.dart';
 import 'package:random_string/random_string.dart';
 
-
 class NoTelp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,169 +25,177 @@ class NoTelpPageState extends State<NoTelpPage> {
   bool termVal = false;
   var nohp;
   bool hasError = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
-         SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-         },
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        backgroundColor: Color(0XFF0485AC),
-        body: GestureDetector(
-          onTap: () {
-            FocusScope.of(context).requestFocus(new FocusNode());
-          },
-          child: Stack(children: <Widget>[
-              Container(
-                  margin:
-                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-                  child: Image.asset('images/bgnotelp.png',
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      fit: BoxFit.fill)),
-              Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.3),
-                  child: Column(children: <Widget>[
-                    Container(
-                        child: TextFormField(
-                      onChanged: (text) {
-                        setState(() {
-                          hasError = false;
-                        });
-                      },
-                      controller: nohpController,
-                      inputFormatters: [LengthLimitingTextInputFormatter(13)],
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(
-                          color: Color(0xFF93CCDA),
-                          fontSize: 28.0,
-                          fontFamily: 'Montserrat'),
-                      textAlign: TextAlign.center,
-                      showCursor: false,
-                      autofocus: false,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Nomor  Telepon',
-                        hintStyle: TextStyle(
-                            color: Color(0xFF93CCDA),
-                            fontSize: 28.0,
-                            fontFamily: 'Montserrat'),
-                      ),
-                    )),
-                    Column(children: <Widget>[
-                      Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          height: MediaQuery.of(context).size.width * 0.02,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  top: BorderSide(
-                                      color: Colors.white, width: 3.0)))),
-                      Visibility(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          // color: Colors.red,
-                          child: FittedBox(
-                            child: Text(
-                                "Masukan Nomor Telepon",
-                                style: TextStyle(
-                                  color: Colors.red[800],
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                              ))),
-                        visible: hasError,
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.05),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Checkbox(
-                              activeColor: Color(0XFF0485AC),
-                              value: termVal,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  termVal = value;
-                                });
-                              },
-                            ),
-                            Expanded(
-                              child: Container(
+        onWillPop: () {
+          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        },
+        child: Scaffold(
+            resizeToAvoidBottomPadding: false,
+            backgroundColor: Color(0XFF0485AC),
+            body: GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
+                child: Stack(children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).padding.top),
+                      child: Image.asset('images/bgnotelp.png',
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          fit: BoxFit.fill)),
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.3),
+                      child: Column(children: <Widget>[
+                        Container(
+                            child: TextFormField(
+                          onChanged: (text) {
+                            setState(() {
+                              hasError = false;
+                            });
+                          },
+                          controller: nohpController,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(13)
+                          ],
+                          keyboardType: TextInputType.phone,
+                          style: TextStyle(
+                              color: Color(0xFF93CCDA),
+                              fontSize: 28.0,
+                              fontFamily: 'Montserrat'),
+                          textAlign: TextAlign.center,
+                          showCursor: false,
+                          autofocus: false,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Nomor  Telepon',
+                            hintStyle: TextStyle(
+                                color: Color(0xFF93CCDA),
+                                fontSize: 28.0,
+                                fontFamily: 'Montserrat'),
+                          ),
+                        )),
+                        Column(children: <Widget>[
+                          Container(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: MediaQuery.of(context).size.width * 0.02,
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: BorderSide(
+                                          color: Colors.white, width: 3.0)))),
+                          Visibility(
+                            child: Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 // color: Colors.red,
                                 child: FittedBox(
-                                  child: RichText(
-                              textAlign: TextAlign.center,
-                              text: new TextSpan(
-                                style: new TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.white,
-                                ),
-                                children: <TextSpan>[
-                                  new TextSpan(text: 'Setuju dengan '),
-                                  new TextSpan(
-                                      text: 'Ketentuan Layanan ',
-                                      style: new TextStyle(
-                                          decoration: TextDecoration.underline),
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context).push(
-                                              new MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      new TermCondition()));
-                                        }),
-                                  new TextSpan(text: 'dan '),
-                                  new TextSpan(
-                                      text: 'Kebijakan Privasi',
-                                      style: new TextStyle(
-                                          decoration: TextDecoration.underline),
-                                      recognizer: new TapGestureRecognizer()
-                                        ..onTap = () {
-                                          Navigator.of(context).push(
-                                              new MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      new TermCondition()));
-                                        }),
-                                ],
-                              ),
-                            )))),
-                          ])),
-                      // SizedBox(
-                      //     height: MediaQuery.of(context).size.height * 0.001),
-                      Visibility(
-                          visible: termVal,
-                          child: FlatButton(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                // color: Colors.red,
-                                child: FittedBox(
-                                  child: Text('Lanjut',
+                                    child: Text(
+                                  "Masukan Nomor Telepon",
                                   style: TextStyle(
-                                      fontSize: 22.0,
-                                      color: Colors.white,
-                                      fontFamily: 'Montserrat')))),
-                              onPressed: () {
-                                if (nohpController.text == '') {
-                                  setState(() {
-                                    hasError = true;
-                                    });
-                                } else {
-                                  lanjut();
-                                  return showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Material(
-                                        type: MaterialType.transparency);
-                                  });
-                                }
-                                
-                              }))
-                    ]),
-                  ]))
-            ]))));
+                                      color: Colors.red[800],
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ))),
+                            visible: hasError,
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Checkbox(
+                                      activeColor: Color(0XFF0485AC),
+                                      value: termVal,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          termVal = value;
+                                        });
+                                      },
+                                    ),
+                                    Expanded(
+                                        child: Container(
+                                            // color: Colors.red,
+                                            child: FittedBox(
+                                                child: RichText(
+                                      textAlign: TextAlign.center,
+                                      text: new TextSpan(
+                                        style: new TextStyle(
+                                          fontSize: 12.0,
+                                          color: Colors.white,
+                                        ),
+                                        children: <TextSpan>[
+                                          new TextSpan(text: 'Setuju dengan '),
+                                          new TextSpan(
+                                              text: 'Ketentuan Layanan ',
+                                              style: new TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                              recognizer:
+                                                  new TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.of(context).push(
+                                                          new MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  new TermCondition()));
+                                                    }),
+                                          new TextSpan(text: 'dan '),
+                                          new TextSpan(
+                                              text: 'Kebijakan Privasi',
+                                              style: new TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline),
+                                              recognizer:
+                                                  new TapGestureRecognizer()
+                                                    ..onTap = () {
+                                                      Navigator.of(context).push(
+                                                          new MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  new TermCondition()));
+                                                    }),
+                                        ],
+                                      ),
+                                    )))),
+                                  ])),
+                          // SizedBox(
+                          //     height: MediaQuery.of(context).size.height * 0.001),
+                          Visibility(
+                              visible: termVal,
+                              child: FlatButton(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      // color: Colors.red,
+                                      child: FittedBox(
+                                          child: Text('Lanjut',
+                                              style: TextStyle(
+                                                  fontSize: 22.0,
+                                                  color: Colors.white,
+                                                  fontFamily: 'Montserrat')))),
+                                  onPressed: () {
+                                    if (nohpController.text == '') {
+                                      setState(() {
+                                        hasError = true;
+                                      });
+                                    } else {
+                                      lanjut();
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                                type:
+                                                    MaterialType.transparency);
+                                          });
+                                    }
+                                  }))
+                        ]),
+                      ]))
+                ]))));
   }
 
   void lanjut() async {
@@ -210,43 +217,47 @@ class NoTelpPageState extends State<NoTelpPage> {
         // var otpCode = 1234;
         // final otp = await http.post(
         //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
+        print("kode otp: ${otpCode.toString().padLeft(4, '0')}");
         final otp = await http.post(
-          'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: $otpCode. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
+            'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: ${otpCode.toString().padLeft(4, '0')}. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
         Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => new GetOtp(
-                nohp: nohp, otpCode: otpCode.toString())));
-      } else if (response.body == 'Iya' || response.body == 'Vendor'){
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => new Pin(nohp: nohp)));
-      } else if (response.body == 'Suspend'){
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => new Suspend()));
+            builder: (context) =>
+                new GetOtp(nohp: nohp, otpCode: otpCode.toString())));
+      } else if (response.body == 'Iya' || response.body == 'Vendor') {
+        Navigator.of(context).push(
+            new MaterialPageRoute(builder: (context) => new Pin(nohp: nohp)));
+      } else if (response.body == 'Suspend') {
+        Navigator.of(context).push(
+          new MaterialPageRoute(
+            builder: (context) => new Suspend(),
+          ),
+        );
       } else {
         return showDialog(
-          context: context,
-          builder: (context) {
-            return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: FittedBox(
-                          child: Text('Admin tidak bisa masuk',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center))),
-                    )));
-          });
+            context: context,
+            builder: (context) {
+              return Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xFFF4F7F8)),
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      child: Center(
+                        child: Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: FittedBox(
+                                child: Text('Admin tidak bisa masuk',
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                        color: Color(0xFF999494)),
+                                    textAlign: TextAlign.center))),
+                      )));
+            });
       }
     } else {
       Navigator.of(context, rootNavigator: true).pop();
@@ -257,21 +268,21 @@ class NoTelpPageState extends State<NoTelpPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
+                    width: MediaQuery.of(context).size.width * 0.65,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xFFF4F7F8)),
                     height: MediaQuery.of(context).size.height * 0.15,
                     child: Center(
                       child: Container(
-                        child: FittedBox(
-                          child: Text('Kesalahan Server',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center))),
+                          child: FittedBox(
+                              child: Text('Kesalahan Server',
+                                  style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: Color(0xFF999494)),
+                                  textAlign: TextAlign.center))),
                     )));
           });
     }

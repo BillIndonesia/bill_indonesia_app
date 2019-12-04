@@ -54,7 +54,7 @@ class PinSignupPageState extends State<PinSignupPage> {
                           'Buat 6 digit PIN anda',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 20.0,
+                              fontSize: 16.0,
                               color: Colors.white70,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Young'),

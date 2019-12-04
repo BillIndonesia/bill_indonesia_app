@@ -41,52 +41,72 @@ class NoTelpPageState extends State<NoTelpPage> {
                 },
                 child: Stack(children: <Widget>[
                   Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).padding.top),
-                      child: Image.asset('images/bgnotelp.png',
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          fit: BoxFit.fill)),
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).padding.top),
+                    child: Image.asset('images/bgpolos.png',
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        fit: BoxFit.fill),
+                  ),
                   Container(
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.3),
+                          top: MediaQuery.of(context).size.height * 0.23),
                       child: Column(children: <Widget>[
                         Container(
-                            child: TextFormField(
-                          onChanged: (text) {
-                            setState(() {
-                              hasError = false;
-                            });
-                          },
-                          controller: nohpController,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(13)
-                          ],
-                          keyboardType: TextInputType.phone,
-                          style: TextStyle(
-                              color: Color(0xFF93CCDA),
-                              fontSize: 28.0,
-                              fontFamily: 'Montserrat'),
-                          textAlign: TextAlign.center,
-                          showCursor: false,
-                          autofocus: false,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Nomor  Telepon',
-                            hintStyle: TextStyle(
+                          margin: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).size.height * 0.05),
+                          child: FittedBox(
+                            child: Text(
+                              'Masukkan nomor telephone anda',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Young'),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: TextFormField(
+                            onChanged: (text) {
+                              setState(() {
+                                hasError = false;
+                              });
+                            },
+                            controller: nohpController,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(13)
+                            ],
+                            keyboardType: TextInputType.phone,
+                            style: TextStyle(
                                 color: Color(0xFF93CCDA),
                                 fontSize: 28.0,
                                 fontFamily: 'Montserrat'),
+                            textAlign: TextAlign.center,
+                            showCursor: false,
+                            autofocus: false,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Nomor  Telepon',
+                              hintStyle: TextStyle(
+                                  color: Color(0xFF93CCDA),
+                                  fontSize: 28.0,
+                                  fontFamily: 'Montserrat'),
+                            ),
                           ),
-                        )),
+                        ),
                         Column(children: <Widget>[
                           Container(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              height: MediaQuery.of(context).size.width * 0.02,
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      top: BorderSide(
-                                          color: Colors.white, width: 3.0)))),
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: MediaQuery.of(context).size.width * 0.02,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top:
+                                    BorderSide(color: Colors.white, width: 3.0),
+                              ),
+                            ),
+                          ),
                           Visibility(
                             child: Container(
                                 width: MediaQuery.of(context).size.width * 0.4,

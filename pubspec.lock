@@ -100,7 +100,7 @@ packages:
   flutter_markdown:
     dependency: "direct main"
     description:
-      path: "/home/desktop2/Documents/bitbucket/bill/flutter_markdown master"
+      path: "/home/vikral/dev/flutter/bill master/flutter_markdown master"
       relative: false
     source: path
     version: "0.2.0"
@@ -185,7 +185,7 @@ packages:
       name: markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.2"
+    version: "2.1.3"
   matcher:
     dependency: transitive
     description:

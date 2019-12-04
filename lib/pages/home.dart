@@ -166,8 +166,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     final qrcode = GestureDetector(
           onTap: () {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => new TopUp()));
+            // Navigator.of(context).pushReplacement(
+            //     MaterialPageRoute(builder: (context) => new TopUp()));
           },
           child: Container(
               // color: Colors.yellow,

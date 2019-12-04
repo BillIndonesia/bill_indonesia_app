@@ -45,82 +45,101 @@ class SignupProfilePageState extends State<SignupProfilePage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () {
-          Navigator.of(context).pop();
-        },
-        child: Scaffold(
-            backgroundColor: Color(0xFFF4F7F8),
-            body: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                },
-                child: ScrollConfiguration(
-                    behavior: MyBehavior(),
-                    child: ListView(
-                      padding: EdgeInsets.all(0.0), 
-                      children: <Widget>[
+      onWillPop: () {
+        Navigator.of(context).pop();
+      },
+      child: Scaffold(
+        backgroundColor: Color(0xFFF4F7F8),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: ListView(
+              padding: EdgeInsets.all(0.0),
+              children: <Widget>[
+                Container(
+                    height: MediaQuery.of(context).size.height * 0.28,
+                    child: Stack(children: <Widget>[
                       Container(
-                          height: MediaQuery.of(context).size.height * 0.28,
-                          child: Stack(
-                            children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
                                   image: AssetImage('images/banner.png'),
                                   fit: BoxFit.fill))),
-                            Column(children: <Widget>[
+                      Column(children: <Widget>[
+                        Container(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top),
+                            child: Row(children: <Widget>[
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.01),
                               Container(
-                                padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).padding.top),
-                                child: Row(children: <Widget>[
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.1,
-                                    child: FittedBox(
-                                      child: IconButton(
-                                        icon: Icon(Icons.arrow_back,
-                                            color: Color(0xFFF4F7F8), size: 30),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        }))),
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.12,
-                                    child: FittedBox(
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                child: FittedBox(
+                                  child: IconButton(
+                                      icon: Icon(Icons.arrow_back,
+                                          color: Color(0xFFF4F7F8), size: 30),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      }),
+                                ),
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.03),
+                              Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.12,
+                                  child: FittedBox(
                                       child: Text('Profil',
-                                        style: TextStyle(
-                                            fontFamily: 'Montserrat',
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFF4F7F8)))))
-                                ])),
-                              Expanded(
-                                child: GestureDetector(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                              color: Color(0xFFF4F7F8)))))
+                            ])),
+                        Expanded(
+                            child: GestureDetector(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
-                                        margin: EdgeInsets.only(
-                                          bottom: MediaQuery.of(context).size.width * 0.035),
-                                          width: MediaQuery.of(context).size.width * 0.2,
-                                          height: MediaQuery.of(context).size.width * 0.2,
+                                          margin: EdgeInsets.only(
+                                              bottom: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.035),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.2,
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: _image == null
-                                                      ? AssetImage('images/unggah.png')
+                                                      ? AssetImage(
+                                                          'images/unggah.png')
                                                       : FileImage(_image)))),
                                       Container(
-                                        width: MediaQuery.of(context).size.width * 0.32,
-                                        child: FittedBox(
-                                          child: Text('Unggah foto anda',
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFFF4F7F8),
-                                              fontSize: 14))))
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.32,
+                                          child: FittedBox(
+                                              child: Text('Unggah foto anda',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Color(0xFFF4F7F8),
+                                                      fontSize: 14))))
                                     ]),
                                 onTap: () async {
                                   var image = await ImagePicker.pickImage(
@@ -133,305 +152,268 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                     _image = image;
                                   });
                                 }))
-                          ])])),
-                      Container(
-                          height: MediaQuery.of(context).size.height * 0.72,
-                          child: ScrollConfiguration(
-                              behavior: MyBehavior(),
-                              child: ListView(
-                                  padding: EdgeInsets.all(0),
-                                  children: <Widget>[
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.05,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            0),
-                                        child: Text('Nama',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                                color: Color(0xFF999494)))),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        child: TextFormField(
-                                          validator: (value) {
-                                            if (value == '') {
-                                              return 'Nama tidak boleh kosong';
-                                            }
-                                            return null;
-                                          },
-                                          controller: nameController,
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                              color: Color(0xFF6C6565)),
-                                          textAlign: TextAlign.left,
-                                          decoration: new InputDecoration(
-                                              focusedBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(
-                                                  color: Colors.black87, width: 1.0
-                                                )
-                                              )
-                                            ),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.05,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            0),
-                                        child: Text('Email',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                                color: Color(0xFF999494)))),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        child: TextFormField(
-                                          validator: (value) {
-                                            if (value == '') {
-                                              return 'Email tidak boleh kosong';
-                                            }
-                                            return null;
-                                          },
-                                          keyboardType:
-                                              TextInputType.emailAddress,
-                                          controller: emailController,
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                              color: Color(0xFF6C6565)),
-                                          textAlign: TextAlign.left,
-                                          decoration: new InputDecoration(
-                                              focusedBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(
-                                                  color: Colors.black87, width: 1.0
-                                                )
-                                              )
-                                            ),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.05,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            0),
-                                        child: Text('Tempat Lahir',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                                color: Color(0xFF999494)))),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        child: TextFormField(
-                                          controller: tempatController,
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                              color: Color(0xFF6C6565)),
-                                          textAlign: TextAlign.left,
-                                          decoration: new InputDecoration(
-                                              focusedBorder: new UnderlineInputBorder(
-                                                borderSide: new BorderSide(
-                                                  color: Colors.black87, width: 1.0
-                                                )
-                                              )
-                                            ),
-                                        )),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.05,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            0),
-                                        child: Text('Tanggal Lahir',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                                color: Color(0xFF999494)))),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        child: GestureDetector(
-                                            child: AbsorbPointer(
-                                              child: TextFormField(
-                                                controller: tanggalController,
-                                                validator: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'Masukan Tanggal Lahir';
-                                                  }
-                                                  return null;
-                                                },
-                                                autofocus: false,
-                                              ),
-                                            ),
-                                            onTap: () {
-                                              DatePicker.showDatePicker(context,
-                                                  showTitleActions: true,
-                                                  minTime: DateTime(1900),
-                                                  maxTime: DateTime(2100),
-                                                  onConfirm: (date) {
-                                                var picked =
-                                                    DateFormat('dd / MM / yyyy')
-                                                        .format(date);
-                                                setState(() {
-                                                  selectedDate = date;
-                                                  tanggalController.text =
-                                                      picked;
-                                                });
-                                              },
-                                                  currentTime: selectedDate,
-                                                  locale: LocaleType.id);
-                                            })),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        child: DropdownButtonHideUnderline(
-                                            child: DropdownButton<String>(
-                                          value: trackValue,
-                                          onChanged: (String newValue) {
-                                            setState(() {
-                                              trackValue = newValue;
-                                            });
-                                          },
-                                          items: <String>[
-                                            'Dari mana anda tau Bill ?',
-                                            'Email',
-                                            'Teman',
-                                            'Website',
-                                            'Social Media',
-                                            'Lainnya'
-                                          ].map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(value),
-                                            );
-                                          }).toList(),
-                                        ))),
-                                    Container(
-                                        margin: EdgeInsets.fromLTRB(
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00,
-                                            MediaQuery.of(context).size.width *
-                                                0.045,
-                                            MediaQuery.of(context).size.width *
-                                                0.00),
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.02,
-                                        decoration: BoxDecoration(
-                                            border: Border(
-                                                top: BorderSide(width: 0.5)))),
-                                    Visibility(
-                                        visible: (trackValue !=
-                                                    'Dari mana anda tau Bill ?') &&
-                                                (nameController.text != '') &&
-                                                (emailController.text != '') &&
-                                                (tempatController.text != '') &&
-                                                (tanggalController.text != '')
-                                            ? true
-                                            : false,
-                                        child: Container(
-                                            margin: EdgeInsets.fromLTRB(
-                                                MediaQuery.of(context).size.width *
-                                                    0.045,
-                                                MediaQuery.of(context).size.width *
-                                                    0.05,
-                                                MediaQuery.of(context).size.width *
-                                                    0.045,
-                                                MediaQuery.of(context).size.width *
-                                                    0.045),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Color(0xFF8b8484)),
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.07,
-                                            child: RaisedButton(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                onPressed: () async {
-                                                  createJournal();
-                                                  return showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return Material(
-                                                            type: MaterialType.transparency);
-                                                      });
-                                                },
-                                                color: Color(0xFF0B8CAD),
-                                                child: Text('Simpan', style: TextStyle(color: Color(0xFFF4F7F8), fontFamily: 'Montserrat', fontSize: 16, fontWeight: FontWeight.w600)))))
-                                  ])))
-                    ])))));
+                      ])
+                    ])),
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.72,
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: ListView(
+                      padding: EdgeInsets.all(0),
+                      children: <Widget>[
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.width * 0.045,
+                                0),
+                            child: Text('Nama',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFF999494)))),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == '') {
+                                  return 'Nama tidak boleh kosong';
+                                }
+                                return null;
+                              },
+                              controller: nameController,
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF6C6565)),
+                              textAlign: TextAlign.left,
+                              decoration: new InputDecoration(
+                                  focusedBorder: new UnderlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.black87, width: 1.0))),
+                            )),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.width * 0.045,
+                                0),
+                            child: Text('Email',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFF999494)))),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value == '') {
+                                  return 'Email tidak boleh kosong';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                              controller: emailController,
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF6C6565)),
+                              textAlign: TextAlign.left,
+                              decoration: new InputDecoration(
+                                  focusedBorder: new UnderlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.black87, width: 1.0))),
+                            )),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.width * 0.045,
+                                0),
+                            child: Text('Tempat Lahir',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFF999494)))),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            child: TextFormField(
+                              controller: tempatController,
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0xFF6C6565)),
+                              textAlign: TextAlign.left,
+                              decoration: new InputDecoration(
+                                  focusedBorder: new UnderlineInputBorder(
+                                      borderSide: new BorderSide(
+                                          color: Colors.black87, width: 1.0))),
+                            )),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.width * 0.045,
+                                0),
+                            child: Text('Tanggal Lahir',
+                                style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Color(0xFF999494)))),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            child: GestureDetector(
+                                child: AbsorbPointer(
+                                  child: TextFormField(
+                                    controller: tanggalController,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Masukan Tanggal Lahir';
+                                      }
+                                      return null;
+                                    },
+                                    autofocus: false,
+                                  ),
+                                ),
+                                onTap: () {
+                                  DatePicker.showDatePicker(context,
+                                      showTitleActions: true,
+                                      minTime: DateTime(1900),
+                                      maxTime: DateTime(2100),
+                                      onConfirm: (date) {
+                                    var picked = DateFormat('dd / MM / yyyy')
+                                        .format(date);
+                                    setState(() {
+                                      selectedDate = date;
+                                      tanggalController.text = picked;
+                                    });
+                                  },
+                                      currentTime: selectedDate,
+                                      locale: LocaleType.id);
+                                })),
+                        Container(
+                          margin: EdgeInsets.fromLTRB(
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.00),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: trackValue,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  trackValue = newValue;
+                                });
+                              },
+                              items: <String>[
+                                'Dari mana anda tau Bill ?',
+                                'Email',
+                                'Teman',
+                                'Website',
+                                'Social Media',
+                                'Lainnya'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            height: MediaQuery.of(context).size.width * 0.02,
+                            decoration: BoxDecoration(
+                                border: Border(top: BorderSide(width: 0.5)))),
+                        Visibility(
+                          visible:
+                              (trackValue != 'Dari mana anda tau Bill ?') &&
+                                      (nameController.text != '') &&
+                                      (emailController.text != '') &&
+                                      (tempatController.text != '') &&
+                                      (tanggalController.text != '')
+                                  ? true
+                                  : false,
+                          child: Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.05,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.045),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFF8b8484)),
+                                borderRadius: BorderRadius.circular(10)),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              onPressed: () async {
+                                createJournal();
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return WillPopScope(
+                                        onWillPop: () async {
+                                          Future.value(false);
+                                        },
+                                        child: Material(
+                                            type: MaterialType.transparency),
+                                      );
+                                    });
+                              },
+                              color: Color(0xFF0B8CAD),
+                              child: Text(
+                                'Simpan',
+                                style: TextStyle(
+                                  color: Color(0xFFF4F7F8),
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   void createJournal() async {
@@ -474,31 +456,36 @@ class SignupProfilePageState extends State<SignupProfilePage> {
 
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new Home(usr: user_role)));
+          new MaterialPageRoute(
+            builder: (context) => new Home(usr: user_role),
+          ),
+        );
       } else {
         Navigator.of(context, rootNavigator: true).pop();
         return showDialog(
-          context: context,
-          builder: (context) {
-            return Dialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Center(
-                      child: Text('Gagal membuat akun',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center),
-                    )));
-          });
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFFF4F7F8)),
+                  height: MediaQuery.of(context).size.height * 0.15,
+                  child: Center(
+                    child: Text('Gagal membuat akun',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                            color: Color(0xFF999494)),
+                        textAlign: TextAlign.center),
+                  ),
+                ),
+              );
+            });
       }
     } else {
       Navigator.of(context, rootNavigator: true).pop();
@@ -506,23 +493,26 @@ class SignupProfilePageState extends State<SignupProfilePage> {
           context: context,
           builder: (context) {
             return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Center(
-                      child: Text('Gagal membuat akun',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center),
-                    )));
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.65,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xFFF4F7F8)),
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Center(
+                  child: Text('Gagal membuat akun',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Color(0xFF999494),
+                      ),
+                      textAlign: TextAlign.center),
+                ),
+              ),
+            );
           });
     }
   }

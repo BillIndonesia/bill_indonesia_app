@@ -239,8 +239,8 @@ class NoTelpPageState extends State<NoTelpPage> {
         // final otp = await http.post(
         //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
         print("kode otp: ${otpCode.toString()}");
-        //final otp = await http.post(
-        //'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: ${otpCode.toString().padLeft(4, '0')}. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
+        final otp = await http.post(
+        'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: ${otpCode.toString().padLeft(4, '0')}. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
         Navigator.of(context).push(
           new MaterialPageRoute(
             builder: (context) => new GetOtp(

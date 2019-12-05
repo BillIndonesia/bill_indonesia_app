@@ -50,9 +50,10 @@ class ConfirmPinPageState extends State<ConfirmPinPage> {
                     Container(
                       margin: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height * 0.05),
+                      width: MediaQuery.of(context).size.width * 0.35,
                       child: FittedBox(
                         child: Text(
-                          'Konfirmasi PIN anda',
+                          'Konfirmasi PIN Anda',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16.0,

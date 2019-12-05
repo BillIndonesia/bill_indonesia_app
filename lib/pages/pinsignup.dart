@@ -49,9 +49,10 @@ class PinSignupPageState extends State<PinSignupPage> {
                     Container(
                       margin: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height * 0.05),
+                          width: MediaQuery.of(context).size.width * 0.35,
                       child: FittedBox(
                         child: Text(
-                          'Buat 6 digit PIN anda',
+                          'Buat 6 digit PIN Anda',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16.0,

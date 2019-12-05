@@ -53,18 +53,19 @@ class NoTelpPageState extends State<NoTelpPage> {
                           top: MediaQuery.of(context).size.height * 0.23),
                       child: Column(children: <Widget>[
                         Container(
+                          width: MediaQuery.of(context).size.width * 0.7,
                           margin: EdgeInsets.only(
                               bottom:
                                   MediaQuery.of(context).size.height * 0.05),
                           child: FittedBox(
                             child: Text(
-                              'Masukkan nomor telephone anda',
+                              'Masukan nomor telephone anda',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 18.0,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
-                                  fontFamily: 'Young'),
+                                  fontFamily: 'Montserrat'),
                             ),
                           ),
                         ),

@@ -62,10 +62,9 @@ class NoTelpPageState extends State<NoTelpPage> {
                               'Masukan nomor telephone anda',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Montserrat'),
+                                fontSize: 16.0,
+                                fontFamily: 'Montserrat',
+                                color: Colors.white),
                             ),
                           ),
                         ),

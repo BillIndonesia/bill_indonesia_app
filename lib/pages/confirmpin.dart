@@ -57,9 +57,8 @@ class ConfirmPinPageState extends State<ConfirmPinPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 16.0,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Young'),
+                              fontFamily: 'Montserrat',
+                              color: Colors.white),
                         ),
                       ),
                     ),

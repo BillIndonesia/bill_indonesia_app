@@ -1,3 +1,4 @@
+import 'package:bill/main.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -378,18 +379,22 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               onPressed: () async {
-                                createJournal();
-                                return showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return WillPopScope(
-                                        onWillPop: () async {
-                                          Future.value(false);
-                                        },
-                                        child: Material(
-                                            type: MaterialType.transparency),
-                                      );
-                                    });
+                                try {
+                                  createJournal();
+                                  return showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return WillPopScope(
+                                          onWillPop: () async {
+                                            Future.value(false);
+                                          },
+                                          child: Material(
+                                              type: MaterialType.transparency),
+                                        );
+                                      });
+                                } catch (e) {
+                                  runApp(MyApp());
+                                }
                               },
                               color: Color(0xFF0B8CAD),
                               child: Text(

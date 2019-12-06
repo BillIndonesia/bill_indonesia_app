@@ -62,9 +62,10 @@ class NoTelpPageState extends State<NoTelpPage> {
                               'Masukan nomor telephone anda',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 16.0,
-                                fontFamily: 'Montserrat',
-                                color: Colors.white),
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Montserrat'),
                             ),
                           ),
                         ),
@@ -233,14 +234,16 @@ class NoTelpPageState extends State<NoTelpPage> {
     if (response.statusCode == 200) {
       Navigator.of(context, rootNavigator: true).pop();
       if (response.body == "Tidak") {
-        var otpCode = int.parse(randomNumeric(4).toString().padRight(4, '0'));
+        var otpCodeGenerator = int.parse(randomNumeric(4));
+        var otpCode = otpCodeGenerator.toString().padRight(4, '0');
         var noOtp = int.parse(nohp);
         // var otpCode = 1234;
         // final otp = await http.post(
         //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
+        print("kode otp: ${otpCodeGenerator.toString()}");
         print("kode otp: ${otpCode.toString()}");
         final otp = await http.post(
-        'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: ${otpCode.toString().padLeft(4, '0')}. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
+        'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=Kode OTP: $otpCode. Hati-hati penipuan, Kode OTP ini hanya untuk kamu&type=otp');
         Navigator.of(context).push(
           new MaterialPageRoute(
             builder: (context) => new GetOtp(

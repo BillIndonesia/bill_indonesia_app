@@ -64,7 +64,6 @@ class NoTelpPageState extends State<NoTelpPage> {
                               style: TextStyle(
                                   fontSize: 18.0,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Montserrat'),
                             ),
                           ),

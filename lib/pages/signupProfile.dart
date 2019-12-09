@@ -458,11 +458,12 @@ class SignupProfilePageState extends State<SignupProfilePage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('nohp', widget.nomer);
         prefs.setString('pin', widget.pass);
+        prefs.setString('user_role', 'user');
 
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
           new MaterialPageRoute(
-            builder: (context) => new Home(usr: user_role),
+            builder: (context) => new Home(usr: 'user'),
           ),
         );
       } else {
@@ -522,18 +523,18 @@ class SignupProfilePageState extends State<SignupProfilePage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    this.getUserRole();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   this.getUserRole();
+  // }
 
-  void getUserRole() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user_role = prefs.getString('user_role');
-    });
-  }
+  // void getUserRole() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     user_role = prefs.getString('user_role');
+  //   });
+  // }
 }
 
 class MyBehavior extends ScrollBehavior {

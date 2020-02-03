@@ -1,4 +1,5 @@
 import 'package:bill/main.dart';
+import 'package:bill/pages/notelp.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -388,12 +389,83 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                           onWillPop: () async {
                                             Future.value(false);
                                           },
-                                          child: Material(
-                                              type: MaterialType.transparency),
+                                          child: Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        10.0)),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.65,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Color(0xFFF4F7F8)),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.15,
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            ),
+                                          ),
                                         );
                                       });
                                 } catch (e) {
-                                  runApp(MyApp());
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Dialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05,
+                                              vertical: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.06),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Color(0xFFF4F7F8)),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.65,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.15,
+                                          child: Center(
+                                            child: Text(
+                                              'Periksa koneksi internet anda',
+                                              style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Color(0xFF999494),
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                  Navigator.of(context).pushReplacement(
+                                    new MaterialPageRoute(
+                                      builder: (context) => new NoTelp(),
+                                    ),
+                                  );
                                 }
                               },
                               color: Color(0xFF0B8CAD),
@@ -459,7 +531,18 @@ class SignupProfilePageState extends State<SignupProfilePage> {
         prefs.setString('nohp', widget.nomer);
         prefs.setString('pin', widget.pass);
         prefs.setString('user_role', 'user');
-
+        var urlCreateJournal = 'https://bill.co.id/createJournal';
+        final responseCreateJournal = await http.post(
+          urlCreateJournal,
+          body: {
+            'username': '05',
+            'password': '111111',
+            'result': widget.nomer,
+            'amount': '1'.replaceAll('.', ''),
+          },
+        );
+        print(
+            'responseCreateJournal.statusCode = ${responseCreateJournal.statusCode}');
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
           new MaterialPageRoute(

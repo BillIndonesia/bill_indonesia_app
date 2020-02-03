@@ -38,7 +38,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> with WidgetsBindingObserver {
-   AppLifecycleState _notification;
+  AppLifecycleState _notification;
   var nohp = "";
   var pin = "";
   var name = '';
@@ -54,97 +54,81 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
   Future<bool> onBackPress() {
     openDialog();
-      return Future.value(false);
+    return Future.value(false);
   }
+
   Future<Null> openDialog() async {
     switch (await showDialog(
         context: context,
         builder: (_) {
           return Dialog(
-            shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
               child: Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05,
-                    vertical: MediaQuery.of(context).size.width * 0.06
-                    ),
+                      horizontal: MediaQuery.of(context).size.width * 0.05,
+                      vertical: MediaQuery.of(context).size.width * 0.06),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFFF4F7F8)
-                    ),
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color(0xFFF4F7F8)),
                   width: MediaQuery.of(context).size.width * 0.7,
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                     Container(
-                        // color: Colors.green,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: FittedBox(
-                        child: RichText(
-                        textAlign: TextAlign.center,
-                        text: new TextSpan(
-                        style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color(0xFF999494),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat'),
-                        children: <TextSpan>[
-                        new TextSpan(
-                        text:
-                           'Anda yakin akan keluar\n'),
-                        new TextSpan(
-                          text: 'dari aplikasi ?'),
-                           ],
-                            ),
-                )
-                  )
-                    ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                            FlatButton(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.06,
-                                child: FittedBox(
-                                child: Text('Iya',
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                            // color: Colors.green,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: FittedBox(
+                                child: RichText(
+                              textAlign: TextAlign.center,
+                              text: new TextSpan(
                                 style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF999494)
-                                )
-                                    )
-                                       )
-                                           ),
-                            onPressed: () {
-                           exit(0);
-                                  }
-                            ),
-                             FlatButton(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.1,
-                                child: FittedBox(
-                                child: Text('Tidak',
-                                style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFF0B8CAD)
-                                )
-                                    )
-                                       )
-                                           ),
-                            onPressed: () {
-                             Navigator.of(context, rootNavigator: true).pop();
-                                  }
-                              )
-                          ]
-                          ),                   
-                    ]
-                  )
-                )
-              );
+                                    fontSize: 14.0,
+                                    color: Color(0xFF999494),
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Montserrat'),
+                                children: <TextSpan>[
+                                  new TextSpan(
+                                      text: 'Anda yakin akan keluar\n'),
+                                  new TextSpan(text: 'dari aplikasi ?'),
+                                ],
+                              ),
+                            ))),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              FlatButton(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.06,
+                                      child: FittedBox(
+                                          child: Text('Iya',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF999494))))),
+                                  onPressed: () {
+                                    exit(0);
+                                  }),
+                              FlatButton(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: FittedBox(
+                                          child: Text('Tidak',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFF0B8CAD))))),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
+                                  })
+                            ]),
+                      ])));
         })) {
       case 1:
         exit(0);
@@ -165,625 +149,782 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     //   ''');
 
     final qrcode = GestureDetector(
-          onTap: () {
-            // Navigator.of(context).pushReplacement(
-            //     MaterialPageRoute(builder: (context) => new TopUp()));
-          },
-          child: Container(
-              // color: Colors.yellow,
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.01,
-                  left: MediaQuery.of(context).size.width * 0.007),
-              child: QrImage(
-                gapless: false,
-                // embeddedImage: AssetImage('images/textbillbiru.png'),
-                // embeddedImageStyle: QrEmbeddedImageStyle(
-                //   size: Size(50, 50),
-                //   color: Colors.black),
-                // foregroundColor: Color(0xFF0B8CAD),
-                data: nohp,
-                size: MediaQuery.of(context).size.width * 0.39,
-                version: 3,
-              )));
+        onTap: () {
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => new TopUp()));
+        },
+        child: Container(
+            // color: Colors.yellow,
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.01,
+                left: MediaQuery.of(context).size.width * 0.007),
+            child: QrImage(
+              gapless: false,
+              // embeddedImage: AssetImage('images/textbillbiru.png'),
+              // embeddedImageStyle: QrEmbeddedImageStyle(
+              //   size: Size(50, 50),
+              //   color: Colors.black),
+              // foregroundColor: Color(0xFF0B8CAD),
+              data: nohp,
+              size: MediaQuery.of(context).size.width * 0.39,
+              version: 3,
+            )));
     final giphy = Container(
-            // color: Colors.green,
-            width: MediaQuery.of(context).size.width * 0.68,
-            height: MediaQuery.of(context).size.height * 0.4,
-            child: Image(image: AssetImage('images/giphytrans.gif')));
+        // color: Colors.green,
+        width: MediaQuery.of(context).size.width * 0.68,
+        height: MediaQuery.of(context).size.height * 0.4,
+        child: Image(image: AssetImage('images/giphytrans.gif')));
 
     final cont = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-      done == true
-      ? Container(
-          width: MediaQuery.of(context).size.width,
-          height: widget.user_role == 'vendor'
-              ? MediaQuery.of(context).size.height * 0.6
-              : MediaQuery.of(context).size.height * 0.43,
-          child: ClipRect(
-            child: OverflowBox(
-              alignment: Alignment.center,
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
+        done == true
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                height: widget.user_role == 'vendor'
+                    ? MediaQuery.of(context).size.height * 0.6
+                    : MediaQuery.of(context).size.height * 0.43,
+                child: ClipRect(
+                  child: OverflowBox(
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Container(
+                          child: _notification != AppLifecycleState.paused &&
+                                  _notification != AppLifecycleState.inactive
+                              ? CameraMlVision<List<Barcode>>(
+                                  key: _scanKey,
+                                  loadingBuilder: (c) {
+                                    return Center();
+                                  },
+                                  resolution: ResolutionPreset.high,
+                                  detector: detector.detectInImage,
+                                  onResult: (List<Barcode> barcodes) async {
+                                    if (barcodes == null ||
+                                        barcodes.isEmpty ||
+                                        !mounted ||
+                                        scanned == true) {
+                                      return null;
+                                    }
+
+                                    setState(() {
+                                      scanned = true;
+                                    });
+
+                                    // if (user_role == 'vendor') {
+                                    //   Navigator.of(context).pushReplacement(
+                                    //       new MaterialPageRoute(
+                                    //           builder: (context) => new Detail(
+                                    //               nohpResult: barcodes.first.displayValue,
+                                    //               user_role: 'vendor',
+                                    //               name: name)));
+                                    // } else {
+                                    //   Navigator.of(context).pushReplacement(
+                                    //       new MaterialPageRoute(
+                                    //           builder: (context) => new Detail(
+                                    //               nohpResult: barcodes.first.displayValue,
+                                    //               user_role: 'user',
+                                    //               name: name)));
+                                    // }
+
+                                    scanBarcode(barcodes);
+
+                                    return showDialog(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (context) {
+                                          return Material(
+                                              type: MaterialType.transparency,
+                                              child: WillPopScope(
+                                                onWillPop: () {},
+                                                child: Dialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0)),
+                                                  backgroundColor: Colors.white,
+                                                  child: Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.005,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(2),
+                                                        color: Colors.white10),
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.20,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: <Widget>[
+                                                        Text('Harap tunggu'),
+                                                        SizedBox(height: MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.005 ,),
+                                                        CircularProgressIndicator(),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ));
+                                        });
+                                  })
+                              : Container()),
+                    ),
+                  ),
+                ),
+              )
+            : Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: true,
                 child: Container(
-                    child: _notification != AppLifecycleState.paused &&  _notification != AppLifecycleState.inactive
-                    ?CameraMlVision<List<Barcode>>(
-                        key: _scanKey,
-                        loadingBuilder: (c) {
-                          return Center();
-                        },
-                        resolution: ResolutionPreset.high,
-                        detector: detector.detectInImage,
-                        onResult: (List<Barcode> barcodes) async {
-                          if (barcodes == null ||
-                              barcodes.isEmpty ||
-                              !mounted ||
-                              scanned == true) {
-                            return null;
-                          }
-
-                          setState(() {
-                            scanned = true;
-                          });
-
-                          // if (user_role == 'vendor') {
-                          //   Navigator.of(context).pushReplacement(
-                          //       new MaterialPageRoute(
-                          //           builder: (context) => new Detail(
-                          //               nohpResult: barcodes.first.displayValue,
-                          //               user_role: 'vendor',
-                          //               name: name)));
-                          // } else {
-                          //   Navigator.of(context).pushReplacement(
-                          //       new MaterialPageRoute(
-                          //           builder: (context) => new Detail(
-                          //               nohpResult: barcodes.first.displayValue,
-                          //               user_role: 'user',
-                          //               name: name)));
-                          // }
-
-                          scanBarcode(barcodes);
-
-                          return showDialog(
-                            barrierDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return Material(
-                                type: MaterialType.transparency,
-                                child: WillPopScope(
-                                  onWillPop: () {
-
-                                    },
-                                  child: Container()));
-                          });
-                          
-                        })
-                        : Container()
-                        ),
-              ),
-            ),
-          ),
-        )
-      : Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
-          enabled: true,
-          child: Container(
-            margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.01),
-            width: MediaQuery.of(context).size.width * 0.95,
-            height: widget.user_role == 'vendor'
-              ? MediaQuery.of(context).size.height * 0.6
-              : MediaQuery.of(context).size.height * 0.43,
-            color: Colors.white)),
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.01),
+                    width: MediaQuery.of(context).size.width * 0.95,
+                    height: widget.user_role == 'vendor'
+                        ? MediaQuery.of(context).size.height * 0.6
+                        : MediaQuery.of(context).size.height * 0.43,
+                    color: Colors.white)),
       ],
     );
 
     final saldoVendor = Expanded(
-            child: Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                    done == true
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => new Riwayat(
-                                  tipe: 'filter',
-                                  awal: '',
-                                  akhir: '',
-                                  topup: 'true',
-                                  pembayaran: 'false',
-                                  debit: 'false',
-                                  kredit: 'false')));
-                        },
-                        child: Container(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Card(
-                                color: Color(0xFFF9F9FB),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                elevation: 3.0,
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: MediaQuery.of(context).size.width * 0.03,
-                                        vertical: MediaQuery.of(context).size.width * 0.05),
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
+        child: Container(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+          done == true
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => new Riwayat(
+                            tipe: 'filter',
+                            awal: '',
+                            akhir: '',
+                            topup: 'true',
+                            pembayaran: 'false',
+                            debit: 'false',
+                            kredit: 'false')));
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Card(
+                          color: Color(0xFFF9F9FB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 3.0,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                  vertical:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
+                                              flex: 2,
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: FittedBox(
                                                       fit: BoxFit.fitWidth,
                                                       child: Text('Top Up',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF999494),
-                                                        fontFamily: 'Montserrat',
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w500))))),
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.centerRight,
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF999494),
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500))))),
+                                          Expanded(
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
                                                   // color: Colors.red,
-                                                  width: MediaQuery.of(context).size.width * 0.06,
-                                                  height: MediaQuery.of(context).size.width * 0.06,
-                                                  child: Image.asset('images/icon top up.png')))
-                                              ])),
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.06,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.06,
+                                                  child: Image.asset(
+                                                      'images/icon top up.png')))
+                                        ])),
+                                    Expanded(
+                                        child: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02)),
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: SizedBox(
-                                              height: MediaQuery.of(context).size.height * 0.02)),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: FittedBox(
                                                       fit: BoxFit.fitWidth,
                                                       child: Text('Rp ',
-                                                        style: TextStyle(
-                                                            color: Color(0xFF999494),
-                                                            fontFamily: 'Montserrat',
-                                                            fontSize: 15,
-                                                            fontWeight: FontWeight.w500)))))
-                                              ])),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF999494),
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500)))))
+                                        ])),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Expanded(
                                                   child: Container(
-                                                    // color: Colors.red,
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
-                                                      fit: BoxFit.fitWidth,
-                                                      child: Text(amount_gl1 == '-0' ? '0' : amount_gl1,
-                                                    style: TextStyle(
-                                                        color: Color(0xFF6A6767),
-                                                        fontFamily: 'Montserrat',
-                                                        fontSize: 25,
-                                                        fontWeight: FontWeight.bold)))))
-                                              ])),
+                                                      // color: Colors.red,
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: FittedBox(
+                                                          fit: BoxFit.fitWidth,
+                                                          child: Text(
+                                                              amount_gl1 == '-0'
+                                                                  ? '0'
+                                                                  : amount_gl1,
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF6A6767),
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  fontSize: 25,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)))))
+                                            ])),
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.35,
-                                                    height: MediaQuery.of(context).size.width * 0.02,
-                                                    decoration: BoxDecoration(
-                                                        border: Border(
-                                                            top: BorderSide(
-                                                                color: Color(0xFF3AB673),
-                                                                width: 2.0)))))
-                                              ]))
-                                        ])))))
-                    : Shimmer.fromColors(
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.grey[100],
-                      enabled: true,
-                      child: Container(
-                        decoration: BoxDecoration(
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.35,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.02,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          top: BorderSide(
+                                                              color: Color(
+                                                                  0xFF3AB673),
+                                                              width: 2.0)))))
+                                        ]))
+                                  ])))))
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Container(
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white),
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        height: MediaQuery.of(context).size.height * 0.2)),
-                    done == true
-                    ? GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => new Riwayat(
-                                  tipe: 'filter',
-                                  awal: '',
-                                  akhir: '',
-                                  topup: 'false',
-                                  pembayaran: 'true',
-                                  debit: 'false',
-                                  kredit: 'false')));
-                        },
-                        child: Container(
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            height: MediaQuery.of(context).size.height * 0.2,
-                            child: Card(
-                                color: Color(0xFFF9F9FB),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                elevation: 3.0,
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: MediaQuery.of(context).size.width * 0.03,
-                                        vertical: MediaQuery.of(context).size.width * 0.05),
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2)),
+          done == true
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => new Riwayat(
+                            tipe: 'filter',
+                            awal: '',
+                            akhir: '',
+                            topup: 'false',
+                            pembayaran: 'true',
+                            debit: 'false',
+                            kredit: 'false')));
+                  },
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: Card(
+                          color: Color(0xFFF9F9FB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 3.0,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.03,
+                                  vertical:
+                                      MediaQuery.of(context).size.width * 0.05),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
+                                              flex: 2,
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: FittedBox(
                                                       fit: BoxFit.fitWidth,
-                                                    child: Text('Pembayaran',
-                                                    style: TextStyle(
-                                                        color: Color(0xFF999494),
-                                                        fontFamily: 'Montserrat',
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w500))))),
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.centerRight,
-                                                    // color: Colors.red,
+                                                      child: Text('Pembayaran',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF999494),
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500))))),
+                                          Expanded(
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
                                                   // color: Colors.red,
-                                                  width: MediaQuery.of(context).size.width * 0.06,
-                                                  height: MediaQuery.of(context).size.width * 0.06,
-                                                  child: Image.asset('images/icon pembayaran.png'))),
-                                              ])),
+                                                  // color: Colors.red,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.06,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.06,
+                                                  child: Image.asset(
+                                                      'images/icon pembayaran.png'))),
+                                        ])),
+                                    Expanded(
+                                        child: SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.02)),
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: SizedBox(
-                                              height: MediaQuery.of(context).size.height * 0.02)),
-                                          Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
+                                              child: Container(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: FittedBox(
                                                       fit: BoxFit.fitWidth,
                                                       child: Text('Rp ',
-                                                        style: TextStyle(
-                                                            color: Color(0xFF999494),
-                                                            fontFamily: 'Montserrat',
-                                                            fontSize: 15,
-                                                            fontWeight: FontWeight.w500)))))
-                                              ])),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF999494),
+                                                              fontFamily:
+                                                                  'Montserrat',
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500)))))
+                                        ])),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Expanded(
                                                   child: Container(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: FittedBox(
-                                                      fit: BoxFit.fitWidth,
-                                                      child: Text(amount_gl == '-0' ? '0' : amount_gl,
-                                                        style: TextStyle(
-                                                            color: Color(0xFF6A6767),
-                                                            fontFamily: 'Montserrat',
-                                                            fontSize: 25,
-                                                            fontWeight: FontWeight.bold)))))
-                                              ])),
+                                                      alignment:
+                                                          Alignment.centerLeft,
+                                                      child: FittedBox(
+                                                          fit: BoxFit.fitWidth,
+                                                          child: Text(
+                                                              amount_gl == '-0'
+                                                                  ? '0'
+                                                                  : amount_gl,
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      0xFF6A6767),
+                                                                  fontFamily:
+                                                                      'Montserrat',
+                                                                  fontSize: 25,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)))))
+                                            ])),
+                                    Expanded(
+                                        child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
                                           Expanded(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.35,
-                                                    height: MediaQuery.of(context).size.width * 0.02,
-                                                    decoration: BoxDecoration(
-                                                        border: Border(
-                                                            top: BorderSide(
-                                                                color: Color(0xFFFFBA35),
-                                                                width: 2.0)))))
-                                              ]))
-                                        ])))))
-                    : Shimmer.fromColors(
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.grey[100],
-                      enabled: true,
-                      child: Container(
-                        decoration: BoxDecoration(
+                                              child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.35,
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.02,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          top: BorderSide(
+                                                              color: Color(
+                                                                  0xFFFFBA35),
+                                                              width: 2.0)))))
+                                        ]))
+                                  ])))))
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Container(
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white),
-                        width: MediaQuery.of(context).size.width * 0.45,
-                        height: MediaQuery.of(context).size.height * 0.2))
-                  ])));
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.2))
+        ])));
 
     final namaVendor = Container(
-      padding:EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.01),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, 
-        children: <Widget>[
-        done == true
-        ? GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => new Saya()));
-            },
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                elevation: 8.0,
-                child: Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    width: MediaQuery.of(context).size.width * 0.9,
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
+        width: MediaQuery.of(context).size.width,
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          done == true
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => new Saya()));
+                  },
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 8.0,
+                      child: Container(
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.centerLeft,
+                                colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                              )),
+                          child: Row(children: <Widget>[
+                            Container(
+                                // color: Colors.red,
+                                margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  // vertical: MediaQuery.of(context).size.height * 0.007
+                                ),
+                                // width: MediaQuery.of(context).size.width * 0.08,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                child: AspectRatio(
+                                    aspectRatio: 1,
+                                    child: Container(
+                                        // height: MediaQuery.of(context).size.width * 0.08,
+                                        decoration: image != ''
+                                            ? BoxDecoration(
+                                                // color: Colors.red,
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image: MemoryImage(bytes)))
+                                            : BoxDecoration(
+                                                shape: BoxShape.circle),
+                                        child: image == ''
+                                            ? CircleAvatar(
+                                                backgroundColor:
+                                                    Color(0xFF0485AC),
+                                                child: Center(
+                                                    child: Container(
+                                                        width: MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.035,
+                                                        child: FittedBox(
+                                                            child: Text(
+                                                                name != ''
+                                                                    ? name[0]
+                                                                    : '',
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'Montserrat',
+                                                                    color: Color(0xFFF4F7F8),
+                                                                    fontSize: 20))))))
+                                            : Container()))),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                      child: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.003)),
+                                  Expanded(
+                                      flex: 2,
+                                      child: FittedBox(
+                                          fit: BoxFit.fitWidth,
+                                          child: Text('Halo,',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Color(0xFFF4F7F8))))),
+                                  SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.001),
+                                  Expanded(
+                                      flex: 2,
+                                      child: FittedBox(
+                                          fit: BoxFit.fitWidth,
+                                          child: Text(name.split(' ')[0],
+                                              style: TextStyle(
+                                                  fontSize: 17.0,
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color(0xFFF4F7F8))))),
+                                  Expanded(
+                                      child: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.003)),
+                                ])
+                          ]))))
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft,
-                          colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-                        )),
-                    child: Row(children: <Widget>[
-                      Container(
-                        // color: Colors.red,
-                        margin: EdgeInsets.symmetric(
-                              horizontal: MediaQuery.of(context).size.width * 0.05,
-                              // vertical: MediaQuery.of(context).size.height * 0.007
-                              ),
-                          // width: MediaQuery.of(context).size.width * 0.08,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                        child: AspectRatio(
-                          aspectRatio: 1,
-                          child: Container(
-                          // height: MediaQuery.of(context).size.width * 0.08,
-                          decoration: image != ''
-                              ? BoxDecoration(
-                                // color: Colors.red,
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: MemoryImage(bytes)))
-                              : BoxDecoration(shape: BoxShape.circle),
-                          child: image == ''
-                              ? CircleAvatar(
-                                  backgroundColor: Color(0xFF0485AC),
-                                  child: Center(
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width * 0.035,
-                                        child: FittedBox(
-                                          child: Text(name != '' ? name[0] : '',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Color(0xFFF4F7F8),
-                                              fontSize: 20))))))
-                              : Container()))),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                          Expanded(
-                              child: SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.003)),
-                            Expanded(
-                              flex: 2,
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text('Halo,',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xFFF4F7F8))))),
-                            SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.001),
-                            Expanded(
-                              flex: 2,
-                              child: FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text(name.split(' ')[0],
-                                style: TextStyle(
-                                    fontSize: 17.0,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFFF4F7F8))))),
-                            Expanded(
-                              child: SizedBox(
-                                height: MediaQuery.of(context).size.height * 0.003)),
-                          ])
-                    ]))))
-        : Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            enabled: true,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white),
-              height: MediaQuery.of(context).size.height * 0.07,
-              width: MediaQuery.of(context).size.width * 0.9,)),
+                        color: Colors.white),
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                  )),
         ]));
 
     final namaUser = Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.007),
+        padding:
+            EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.007),
         width: MediaQuery.of(context).size.width,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround, 
-          children: <Widget>[
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: <
+            Widget>[
           done == true
-          ? GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => new Saya()));
-              },
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 8.0,
-                  child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-                          )),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                                margin: EdgeInsets.only(
-                                    left: MediaQuery.of(context).size.width * 0.04,
-                                    right: MediaQuery.of(context).size.width * 0.04),
-                                width: MediaQuery.of(context).size.width * 0.08,
-                                height: MediaQuery.of(context).size.width * 0.08,
-                                decoration: image != ''
-                                    ? BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: MemoryImage(bytes)))
-                                    : BoxDecoration(shape: BoxShape.circle),
-                                child: image == ''
-                                    ? CircleAvatar(
-                                        backgroundColor: Color(0xFF0485AC),
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.width * 0.035,
-                                          child: FittedBox(
-                                            child: Text(
-                                                name != '' ? name[0] : '',
-                                                style: TextStyle(
-                                                    fontFamily: 'Montserrat',
-                                                    color: Color(0xFFF4F7F8),
-                                                    fontSize: 20)))))
-                                    : Container()),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                Expanded(
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.003)),
-                                  Expanded(
-                                    flex: 2,
-                                    child: FittedBox(
-                                    fit: BoxFit.fitWidth,
-                                    child: Text('Halo,',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          // fontSize: 15.0,
-                                          fontWeight: FontWeight.normal,
-                                          color: Color(0xFFF4F7F8))))),
-                                  Expanded(
-                                    flex: 2,
-                                    child: FittedBox(
-                                    fit: BoxFit.fitWidth,
-                                    child: Text(name.split(' ')[0],
-                                      style: TextStyle(
-                                          // fontSize: 16.0,
-                                          fontFamily: 'Montserrat',
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFFF4F7F8))))),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: MediaQuery.of(context).size.height *0.003)),
-                                ])
-                          ]))))
-        : Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
-          enabled: true,
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.45,
-            height: MediaQuery.of(context).size.height * 0.07,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10)))),
-          done == true
-          ? GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => new Riwayat()));
-              },
-              child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 8.0,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.07,
-                      vertical: MediaQuery.of(context).size.height * 0.01,),
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-                          )),
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => new Saya()));
+                  },
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 8.0,
                       child: Container(
-                          child: FittedBox(
-                          fit: BoxFit.contain,
-                          child : Text(amount_gl == '-0' ? 'Rp 0' : 'Rp ' + amount_gl,
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              // fontSize: 22,
-                              color: Color(0xFFF4F7F8)))))
-                      // Align(
-                      //     alignment: Alignment.center,
-                      //     child:Container(
-                      //         width: MediaQuery.of(context).size.width * 0.3,
-                      //         height: MediaQuery.of(context).size.height * 0.05,
-                      //         color: Colors.red,
-                      //         child: FittedBox(
-                      //           fit: BoxFit.fitWidth,
-                      //           child : Text('Rp ' + amount_gl,
-                      //           style: TextStyle(
-                      //               fontFamily: 'Montserrat',
-                      //               fontWeight: FontWeight.bold,
-                      //               // fontSize: 22,
-                                    // color: Color(0xFFF4F7F8))))))
-                      )))
-          : Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
-              enabled: true,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.45,
-                height: MediaQuery.of(context).size.height * 0.07,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)))),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.centerLeft,
+                                colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                              )),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                    margin: EdgeInsets.only(
+                                        left: MediaQuery.of(context).size.width *
+                                            0.04,
+                                        right: MediaQuery.of(context).size.width *
+                                            0.04),
+                                    width: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    height: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    decoration: image != ''
+                                        ? BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: MemoryImage(bytes)))
+                                        : BoxDecoration(shape: BoxShape.circle),
+                                    child: image == ''
+                                        ? CircleAvatar(
+                                            backgroundColor: Color(0xFF0485AC),
+                                            child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.035,
+                                                child: FittedBox(
+                                                    child: Text(name != '' ? name[0] : '', style: TextStyle(fontFamily: 'Montserrat', color: Color(0xFFF4F7F8), fontSize: 20)))))
+                                        : Container()),
+                                Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                          child: SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.003)),
+                                      Expanded(
+                                          flex: 2,
+                                          child: FittedBox(
+                                              fit: BoxFit.fitWidth,
+                                              child: Text('Halo,',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      // fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                      color:
+                                                          Color(0xFFF4F7F8))))),
+                                      Expanded(
+                                          flex: 2,
+                                          child: FittedBox(
+                                              fit: BoxFit.fitWidth,
+                                              child: Text(name.split(' ')[0],
+                                                  style: TextStyle(
+                                                      // fontSize: 16.0,
+                                                      fontFamily: 'Montserrat',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          Color(0xFFF4F7F8))))),
+                                      Expanded(
+                                          child: SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.003)),
+                                    ])
+                              ]))))
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)))),
+          done == true
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => new Riwayat()));
+                  },
+                  child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 8.0,
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.07,
+                            vertical: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.centerLeft,
+                                colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+                              )),
+                          child: Container(
+                              child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                      amount_gl == '-0'
+                                          ? 'Rp 0'
+                                          : 'Rp ' + amount_gl,
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.bold,
+                                          // fontSize: 22,
+                                          color: Color(0xFFF4F7F8)))))
+                          // Align(
+                          //     alignment: Alignment.center,
+                          //     child:Container(
+                          //         width: MediaQuery.of(context).size.width * 0.3,
+                          //         height: MediaQuery.of(context).size.height * 0.05,
+                          //         color: Colors.red,
+                          //         child: FittedBox(
+                          //           fit: BoxFit.fitWidth,
+                          //           child : Text('Rp ' + amount_gl,
+                          //           style: TextStyle(
+                          //               fontFamily: 'Montserrat',
+                          //               fontWeight: FontWeight.bold,
+                          //               // fontSize: 22,
+                          // color: Color(0xFFF4F7F8))))))
+                          )))
+              : Shimmer.fromColors(
+                  baseColor: Colors.grey[300],
+                  highlightColor: Colors.grey[100],
+                  enabled: true,
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: MediaQuery.of(context).size.height * 0.07,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)))),
         ]));
 
     final appbar = Container(
@@ -800,53 +941,48 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (widget.user_role == 'vendor') {
       return WillPopScope(
-        onWillPop: onBackPress,
-        child:  Scaffold(
-        backgroundColor: Color(0xFFF4F7F8),
-        body: Column(
-          children: <Widget>[
-          appbar, 
-          cont,
-          namaVendor, 
-          saldoVendor]),
-      ));
+          onWillPop: onBackPress,
+          child: Scaffold(
+            backgroundColor: Color(0xFFF4F7F8),
+            body: Column(
+                children: <Widget>[appbar,
+                 cont,
+                  namaVendor, saldoVendor]),
+          ));
     } else if (widget.user_role == 'user') {
       return WillPopScope(
-        onWillPop:  onBackPress,
-        child: Scaffold(
-        backgroundColor: Color(0xFFF4F7F8),
-        body: Column(children: <Widget>[
-          appbar,
-          cont,
-          namaUser,
-          done == true
-          ? Expanded(
-            child: Container(
-              // color: Colors.red,
-              child: Stack(children: <Widget>[
-                Align(
-                  alignment: Alignment.center, 
-                  child: giphy),
-                Align(
-                  alignment: Alignment.center, 
-                  child: qrcode)
-                ])))
-          : Expanded(
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
-              enabled: true,
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.03),
-                width: MediaQuery.of(context).size.width * 0.7,
-                height: MediaQuery.of(context).size.height * 0.2,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10)))))
-        ]),
-      ));
-    } 
+          onWillPop: onBackPress,
+          child: Scaffold(
+            backgroundColor: Color(0xFFF4F7F8),
+            body: Column(children: <Widget>[
+              appbar,
+              cont,
+              namaUser,
+              done == true
+                  ? Expanded(
+                      child: Container(
+                          // color: Colors.red,
+                          child: Stack(children: <Widget>[
+                      Align(alignment: Alignment.center, child: giphy),
+                      Align(alignment: Alignment.center, child: qrcode)
+                    ])))
+                  : Expanded(
+                      child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: true,
+                          child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.03),
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)))))
+            ]),
+          ));
+    }
     // else {
     //   return WillPopScope(
     //     onWillPop: () {
@@ -876,10 +1012,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     //       //       // color: Colors.red,
     //       //       child: Stack(children: <Widget>[
     //       // Align(
-    //       //   alignment: Alignment.center, 
+    //       //   alignment: Alignment.center,
     //       //   child: giphy),
     //       // Align(
-    //       //   alignment: Alignment.center, 
+    //       //   alignment: Alignment.center,
     //       //   child: qrcode)
     //       // ])))
     //     ]),
@@ -952,330 +1088,368 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-  print(state.toString());
-  setState(() {
-    _notification = state;
-  });
-}
+    print(state.toString());
+    setState(() {
+      _notification = state;
+    });
+  }
 
   void scanBarcode(barcodes) async {
-
-    if (barcodes.first.displayValue[0] == '#' && widget.user_role == 'user'){
-        var url = 'https://bill.co.id/scanVoucher';
-        final response = await http.post(url, body :{
-          'username': nohp,
-          'password': pin,
-          'voucher_code': barcodes.first.displayValue.replaceAll('#',''),
-        });
-        if (jsonDecode(response.body)[0]["result"] == 'berhasil'){
-          Navigator.of(context, rootNavigator: true).pop();
-             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ResultUserTopup(
+    if (barcodes.first.displayValue[0] == '#' && widget.user_role == 'user') {
+      var url = 'https://bill.co.id/scanVoucher';
+      final response = await http.post(url, body: {
+        'username': nohp,
+        'password': pin,
+        'voucher_code': barcodes.first.displayValue.replaceAll('#', ''),
+      });
+      if (jsonDecode(response.body)[0]["result"] == 'berhasil') {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResultUserTopup(
                       jumlah: jsonDecode(response.body)[0]["jumlah"].toString(),
                       res: jsonDecode(response.body)[0]["result"],
                       kembali: 0.toString(),
-                      type : "voucher",
-                      )));
-        } else if (jsonDecode(response.body)[0]["result"] == 'tidak'){
-          Navigator.of(context, rootNavigator: true).pop();
-           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ResultUserTopup(
+                      type: "voucher",
+                    )));
+      } else if (jsonDecode(response.body)[0]["result"] == 'tidak') {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResultUserTopup(
                       jumlah: 0.toString(),
-                      res: jsonDecode(response.body)[0]["result"] ,
+                      res: jsonDecode(response.body)[0]["result"],
                       kembali: 0.toString(),
-                      type : "voucher",
-                      )));
-        } else {
+                      type: "voucher",
+                    )));
+      } else {
+        Navigator.of(context, rootNavigator: true).pop();
+        return showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return WillPopScope(
+                  onWillPop: () {},
+                  child: Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xFFF4F7F8)),
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    child: FittedBox(
+                                        child: Text('Kesalahan Server',
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Color(0xFF999494)),
+                                            textAlign: TextAlign.center))),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                          child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.08,
+                                              child: FittedBox(
+                                                  child: Text('Oke',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Color(
+                                                              0xFF0B8CAD))))),
+                                          onPressed: () {
+                                            Navigator.of(context).pushReplacement(
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        new Home(
+                                                            usr: widget
+                                                                .user_role)));
+                                          })
+                                    ])
+                              ]))));
+            });
+      }
+    } else {
+      var url = 'https://bill.co.id/searchNotelp';
+      final response = await http.post(url, body: {
+        'notelp': barcodes.first.displayValue,
+      });
+
+      if (response.statusCode == 200) {
+        if (response.body == "Tidak" ||
+            response.body == 'Admin' ||
+            response.body == 'Vendor') {
           Navigator.of(context, rootNavigator: true).pop();
           return showDialog(
-            barrierDismissible: false,
+              barrierDismissible: false,
               context: context,
               builder: (context) {
                 return WillPopScope(
-                  onWillPop: () {
-
-                    },
-                  child: Dialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.65,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xFFF4F7F8)),
-                        height: MediaQuery.of(context).size.height * 0.15,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: FittedBox(
-                                child: Text('Kesalahan Server',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: Color(0xFF999494)),
-                                textAlign: TextAlign.center))),
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                    onWillPop: () {},
+                    child: Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                vertical:
+                                    MediaQuery.of(context).size.width * 0.06),
+                            width: MediaQuery.of(context).size.width * 0.65,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFFF4F7F8)),
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  FlatButton(
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width * 0.08,
-                                        child: FittedBox(
-                                          child: Text('Oke',
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                              color: Color(0xFF0B8CAD))))),
-                                      onPressed: () {
-                                        Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                          builder: (context) => new Home(usr: widget.user_role)));
-                                      })
-                                ])
-                          ]))));
+                                  Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      child: FittedBox(
+                                          child: Text('User tidak ditemukan',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                  color: Color(0xFF999494)),
+                                              textAlign: TextAlign.center))),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        FlatButton(
+                                            child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.08,
+                                                child: FittedBox(
+                                                    child: Text('Oke',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Color(
+                                                                0xFF0B8CAD))))),
+                                            onPressed: () {
+                                              Navigator.of(context).pushReplacement(
+                                                  new MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          new Home(
+                                                              usr: widget
+                                                                  .user_role)));
+                                            })
+                                      ])
+                                ]))));
               });
-      }
-    } else {
-    var url = 'https://bill.co.id/searchNotelp';
-    final response = await http.post(url, body: {
-      'notelp': barcodes.first.displayValue,
-    });
+        } else if (response.body == 'Iya') {
+          if (widget.user_role == 'vendor') {
+            var urlCheckPrice = 'https://bill.co.id/getActive';
+            final responseCheckPrice =
+                await http.post(urlCheckPrice, body: {'nohp': nohp});
 
-    if (response.statusCode == 200) {
-      if (response.body == "Tidak" || response.body == 'Admin' || response.body == 'Vendor') {
-        Navigator.of(context, rootNavigator: true).pop();
-        return showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return WillPopScope(
-              onWillPop: () {
-
-                },
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05,
-                    vertical: MediaQuery.of(context).size.width * 0.06),
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: FittedBox(
-                            child: Text('User tidak ditemukan',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF999494)),
-                            textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
-                                    child: FittedBox(
-                                      child: Text('Oke',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home(usr: widget.user_role)));
-                                  })
-                            ])
-                      ]))));
-          });
-
-      } else if (response.body == 'Iya'){
-
-        if (widget.user_role == 'vendor') {
-
-          var urlCheckPrice = 'https://bill.co.id/getActive';
-          final responseCheckPrice = await http.post(urlCheckPrice, body: {
-            'nohp': nohp
-          });
-
-            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
-
-              var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
+            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] ==
+                'fixed') {
+              var price = jsonDecode(responseCheckPrice.body)[0]
+                      ['vendor_fixed_price']
+                  .toInt();
               // Navigator.of(context, rootNavigator: true).pop();
               penagihan(barcodes, price);
-
             } else {
               Navigator.of(context, rootNavigator: true).pop();
-              Navigator.of(context).pushReplacement(
-              new MaterialPageRoute(
+              Navigator.of(context).pushReplacement(new MaterialPageRoute(
                   builder: (context) => new Detail(
                       nohpResult: barcodes.first.displayValue,
                       user_role: 'vendor',
                       name: name)));
             }
-
           } else {
             var urlCheckPrice = 'https://bill.co.id/getActive';
-            final responseCheckPrice = await http.post(urlCheckPrice, body: {
-              'nohp': barcodes.first.displayValue
-            });
+            final responseCheckPrice = await http.post(urlCheckPrice,
+                body: {'nohp': barcodes.first.displayValue});
 
-            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] == 'fixed') {
-              var price = jsonDecode(responseCheckPrice.body)[0]['vendor_fixed_price'].toInt();
+            if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] ==
+                'fixed') {
+              var price = jsonDecode(responseCheckPrice.body)[0]
+                      ['vendor_fixed_price']
+                  .toInt();
               // Navigator.of(context, rootNavigator: true).pop();
               kirim(barcodes, price);
-              } else {
-                Navigator.of(context, rootNavigator: true).pop();
-                Navigator.of(context).pushReplacement(
-                new MaterialPageRoute(
-                    builder: (context) => new Detail(
-                        nohpResult: barcodes.first.displayValue,
-                        user_role: 'user',
-                        name: name)));
-              }
+            } else {
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                  builder: (context) => new Detail(
+                      nohpResult: barcodes.first.displayValue,
+                      user_role: 'user',
+                      name: name)));
+            }
           }
 
-        // if (user_role == 'vendor') {
-        //   Navigator.of(context).pushReplacement(
-        //       new MaterialPageRoute(
-        //           builder: (context) => new Detail(
-        //               nohpResult: barcodes.first.displayValue,
-        //               user_role: 'vendor',
-        //               name: name)));
-        // } else {
-        //   Navigator.of(context).pushReplacement(
-        //       new MaterialPageRoute(
-        //           builder: (context) => new Detail(
-        //               nohpResult: barcodes.first.displayValue,
-        //               user_role: 'user',
-        //               name: name)));
-        // }
+          // if (user_role == 'vendor') {
+          //   Navigator.of(context).pushReplacement(
+          //       new MaterialPageRoute(
+          //           builder: (context) => new Detail(
+          //               nohpResult: barcodes.first.displayValue,
+          //               user_role: 'vendor',
+          //               name: name)));
+          // } else {
+          //   Navigator.of(context).pushReplacement(
+          //       new MaterialPageRoute(
+          //           builder: (context) => new Detail(
+          //               nohpResult: barcodes.first.displayValue,
+          //               user_role: 'user',
+          //               name: name)));
+          // }
 
+        } else {
+          Navigator.of(context, rootNavigator: true).pop();
+          return showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                    onWillPop: () {},
+                    child: Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                vertical:
+                                    MediaQuery.of(context).size.width * 0.06),
+                            width: MediaQuery.of(context).size.width * 0.65,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFFF4F7F8)),
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      child: FittedBox(
+                                          child: Text('User sedang disuspend',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                  color: Color(0xFF999494)),
+                                              textAlign: TextAlign.center))),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        FlatButton(
+                                            child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.08,
+                                                child: FittedBox(
+                                                    child: Text('Oke',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Color(
+                                                                0xFF0B8CAD))))),
+                                            onPressed: () {
+                                              Navigator.of(context).pushReplacement(
+                                                  new MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          new Home(
+                                                              usr: widget
+                                                                  .user_role)));
+                                            })
+                                      ])
+                                ]))));
+              });
+        }
       } else {
         Navigator.of(context, rootNavigator: true).pop();
         return showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return WillPopScope(
-              onWillPop: () {
-
-                },
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.05,
-                    vertical: MediaQuery.of(context).size.width * 0.06),
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: FittedBox(
-                            child: Text('User sedang disuspend',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF999494)),
-                            textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return WillPopScope(
+                  onWillPop: () {},
+                  child: Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xFFF4F7F8)),
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
                                     child: FittedBox(
-                                      child: Text('Oke',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home(usr: widget.user_role)));
-                                  })
-                            ])
-                      ]))));
-          });
-
-      }
-    } else {
-      Navigator.of(context, rootNavigator: true).pop();
-      return showDialog(
-        barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return WillPopScope(
-              onWillPop: () {
-
-                },
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: FittedBox(
-                            child: Text('Kesalahan Server',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                                color: Color(0xFF999494)),
-                            textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
-                                    child: FittedBox(
-                                      child: Text('Oke',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home(usr: widget.user_role)));
-                                  })
-                            ])
-                      ]))));
-          });
+                                        child: Text('Kesalahan Server',
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Color(0xFF999494)),
+                                            textAlign: TextAlign.center))),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                          child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.08,
+                                              child: FittedBox(
+                                                  child: Text('Oke',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Color(
+                                                              0xFF0B8CAD))))),
+                                          onPressed: () {
+                                            Navigator.of(context).pushReplacement(
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        new Home(
+                                                            usr: widget
+                                                                .user_role)));
+                                          })
+                                    ])
+                              ]))));
+            });
       }
     }
   }
@@ -1295,161 +1469,181 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     if (responseVendor.statusCode == 200) {
       Navigator.of(context, rootNavigator: true).pop();
       // print('masuk penagihan 2');
-    Future.delayed(const Duration(seconds: 15), () async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var udah = prefs.getString('udah');
-      var udah2 = prefs.getString('udah2');
-      if (udah != 'udah' && udah2 != 'udah') {
-      var urlKedaluwarsa = 'https://bill.co.id/kedaluwarsa';
-      final responseKedaluwarsa = await http.post(urlKedaluwarsa, body: {
-        'username': nohp,
-        'password': pin,
-        'result': barcodes.first.displayValue,
-        'name': name
+      Future.delayed(const Duration(seconds: 15), () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var udah = prefs.getString('udah');
+        var udah2 = prefs.getString('udah2');
+        if (udah != 'udah' && udah2 != 'udah') {
+          var urlKedaluwarsa = 'https://bill.co.id/kedaluwarsa';
+          final responseKedaluwarsa = await http.post(urlKedaluwarsa, body: {
+            'username': nohp,
+            'password': pin,
+            'result': barcodes.first.displayValue,
+            'name': name
+          });
+          Navigator.of(context, rootNavigator: true).pop();
+          return showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return WillPopScope(
+                    onWillPop: () {},
+                    child: Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.05,
+                                vertical:
+                                    MediaQuery.of(context).size.width * 0.06),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Color(0xFFF4F7F8)),
+                            width: MediaQuery.of(context).size.width * 0.65,
+                            height: MediaQuery.of(context).size.height * 0.15,
+                            child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      child: FittedBox(
+                                          child: Text(
+                                              'Tidak Ada Respon dari pelanggan',
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 14,
+                                                  color: Color(0xFF999494)),
+                                              textAlign: TextAlign.center))),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        FlatButton(
+                                            child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.08,
+                                                child: FittedBox(
+                                                    child: Text('Oke',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Color(
+                                                                0xFF0B8CAD))))),
+                                            onPressed: () {
+                                              Navigator.of(context).pushReplacement(
+                                                  new MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          new Home(
+                                                              usr: widget
+                                                                  .user_role)));
+                                            })
+                                      ])
+                                ]))));
+              });
+        } else {
+          prefs.setString('udah', 'belum');
+        }
       });
-      Navigator.of(context, rootNavigator: true).pop();
       return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () {
-
-              },
-            child: Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
-                      vertical: MediaQuery.of(context).size.width * 0.06),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xFFF4F7F8)),
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: FittedBox(
-                          child: Text('Tidak Ada Respon dari pelanggan',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.08,
-                                child: FittedBox(
-                                  child: Text('Oke',
-                                  style: TextStyle(
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF0B8CAD))))),
-                              onPressed: () {
-                                Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                  builder: (context) => new Home(usr: widget.user_role)));
-                              })
-                            ])
-                      ]))));
-        });
-      } else {
-        prefs.setString('udah', 'belum');
-      }
-    });
-    return showDialog(
-      barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return Material(
-              type: MaterialType.transparency,
-              child: WillPopScope(
-                onWillPop: () {
-
-                  },
-                child: Stack(children: <Widget>[
-                new Opacity(
-                  opacity: 0.3,
-                  child: const ModalBarrier(
-                      dismissible: false, color: Color(0xFF000000)),
-                ),
-                new Center(
-                  child: Container(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: FittedBox(
-                            child: Text('Menunggu konfirmasi pelanggan',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFFF4F7F8),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600))))
-                    )
-              ])));
-        });
-  } else {
-    Navigator.of(context, rootNavigator: true).pop();
-    return showDialog(
-      barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () {
-
-              },
-            child: Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
-                      vertical: MediaQuery.of(context).size.width * 0.06),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Color(0xFFF4F7F8)),
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: FittedBox(
-                          child: Text('Kesalahan Server',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
-                                    child: FittedBox(
-                                      child: Text('Oke',
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return Material(
+                type: MaterialType.transparency,
+                child: WillPopScope(
+                    onWillPop: () {},
+                    child: Stack(children: <Widget>[
+                      new Opacity(
+                        opacity: 0.3,
+                        child: const ModalBarrier(
+                            dismissible: false, color: Color(0xFF000000)),
+                      ),
+                      new Center(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: FittedBox(
+                                  child: Text('Menunggu konfirmasi pelanggan',
                                       style: TextStyle(
                                           fontFamily: 'Montserrat',
+                                          color: Color(0xFFF4F7F8),
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home(usr: widget.user_role)));
-                                  })
-                            ])
-                      ]))));
-        });
-      }
+                                          fontWeight: FontWeight.w600)))))
+                    ])));
+          });
+    } else {
+      Navigator.of(context, rootNavigator: true).pop();
+      return showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+                onWillPop: () {},
+                child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.05,
+                            vertical: MediaQuery.of(context).size.width * 0.06),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFF4F7F8)),
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: FittedBox(
+                                      child: Text('Kesalahan Server',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xFF999494)),
+                                          textAlign: TextAlign.center))),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    FlatButton(
+                                        child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.08,
+                                            child: FittedBox(
+                                                child: Text('Oke',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Color(
+                                                            0xFF0B8CAD))))),
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      new Home(
+                                                          usr: widget
+                                                              .user_role)));
+                                        })
+                                  ])
+                            ]))));
+          });
+    }
   }
 
   void kirim(barcodes, jumlah) async {
@@ -1462,169 +1656,182 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     //   'result': barcodes.first.displayValue,
     //   'amount': jumlah.toString()
     // });
-        MoneyFormatterOutput fo = FlutterMoneyFormatter(
-              amount: double.parse(jumlah.toString()),
-              settings: MoneyFormatterSettings(
-                thousandSeparator: '.',
-                decimalSeparator: ',',
-              )).output;
+    MoneyFormatterOutput fo = FlutterMoneyFormatter(
+        amount: double.parse(jumlah.toString()),
+        settings: MoneyFormatterSettings(
+          thousandSeparator: '.',
+          decimalSeparator: ',',
+        )).output;
 
-        var urlNama = 'https://bill.co.id/getNama';
-        final responseNama = await http.post(urlNama,
-            body: {
-              'username': nohp, 
-              'password': pin, 
-              'result': barcodes.first.displayValue});
+    var urlNama = 'https://bill.co.id/getNama';
+    final responseNama = await http.post(urlNama, body: {
+      'username': nohp,
+      'password': pin,
+      'result': barcodes.first.displayValue
+    });
 
-        // Navigator.of(context, rootNavigator: true).pop();
+    // Navigator.of(context, rootNavigator: true).pop();
 
-        return showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (_) {
-                return WillPopScope(
-                  onWillPop: () {
-
-                    },
-                  child: Dialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: MediaQuery.of(context).size.width * 0.05,
-                            vertical: MediaQuery.of(context).size.width * 0.06),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color(0xFFF4F7F8)),
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        height: MediaQuery.of(context).size.height * 0.23,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) {
+          return WillPopScope(
+              onWillPop: () {},
+              child: Dialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.05,
+                          vertical: MediaQuery.of(context).size.width * 0.06),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xFFF4F7F8)),
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.23,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
                             Container(
-                            // color: Colors.green,
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: FittedBox(
-                              child: RichText(
-                              textAlign: TextAlign.center,
-                              text: new TextSpan(
-                                style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Color(0xFF999494),
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Montserrat'),
-                                children: <TextSpan>[
-                                  new TextSpan(
-                                      text:
-                                          'Anda akan melakukan pembayaran\n'),
-                                  new TextSpan(
-                                      text:
-                                          'Sebesar Rp ${fo.withoutFractionDigits} kepada ${jsonDecode(responseNama.body)[0]['name']}'),
-                                ],
-                              ),
-                            ))),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    FlatButton(
-                                        child: Container(
-                                          width: MediaQuery.of(context).size.width * 0.08,
+                                // color: Colors.green,
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: FittedBox(
+                                    child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: new TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Color(0xFF999494),
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Montserrat'),
+                                    children: <TextSpan>[
+                                      new TextSpan(
+                                          text:
+                                              'Anda akan melakukan pembayaran\n'),
+                                      new TextSpan(
+                                          text:
+                                              'Sebesar Rp ${fo.withoutFractionDigits} kepada ${jsonDecode(responseNama.body)[0]['name']}'),
+                                    ],
+                                  ),
+                                ))),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  FlatButton(
+                                      child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.08,
                                           child: FittedBox(
-                                            child: Text('Oke',
-                                            style: TextStyle(
-                                                fontFamily: 'Montserrat',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                                color: Color(0xFF0B8CAD))))),
-                                        onPressed: () {
-                                          // Navigator.pop(
-                                          //     context, false);
-                                          resultTransac(
-                                              'Berhasil',
-                                              jsonDecode(responseNama.body)[0]['name'],
-                                              jumlah.toString());
-                                          return showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Material(
-                                                type: MaterialType.transparency);
-                                          });
-                                        }),
-                                    FlatButton(
-                                        child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.1,
-                                    child: FittedBox(
-                                      child: Text('Tidak',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF999494))))),
-                                        onPressed: () {
-                                          // Navigator.pop(
-                                          //     context, false);
-                                          resultTransac(
-                                              'Gagal',
-                                              jsonDecode(responseNama.body)[0]['name'],
-                                              jumlah.toString());
+                                              child: Text('Oke',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          Color(0xFF0B8CAD))))),
+                                      onPressed: () {
+                                        // Navigator.pop(
+                                        //     context, false);
+                                        resultTransac(
+                                            'Berhasil',
+                                            jsonDecode(responseNama.body)[0]
+                                                ['name'],
+                                            jumlah.toString());
+                                        return showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Material(
+                                                  type: MaterialType
+                                                      .transparency);
+                                            });
+                                      }),
+                                  FlatButton(
+                                      child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: FittedBox(
+                                              child: Text('Tidak',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Montserrat',
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color:
+                                                          Color(0xFF999494))))),
+                                      onPressed: () {
+                                        // Navigator.pop(
+                                        //     context, false);
+                                        resultTransac(
+                                            'Gagal',
+                                            jsonDecode(responseNama.body)[0]
+                                                ['name'],
+                                            jumlah.toString());
 
-                                          return showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Material(
-                                                type: MaterialType.transparency);
-                                          });
-                                        })
-                                  ])
-                            ]))));
-              });
-        // return showDialog(
-        //   barrierDismissible: false,
-        //   context: context,
-        //   builder: (context) {
-        //     return WillPopScope(
-        //       onWillPop: () {
+                                        return showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Material(
+                                                  type: MaterialType
+                                                      .transparency);
+                                            });
+                                      })
+                                ])
+                          ]))));
+        });
+    // return showDialog(
+    //   barrierDismissible: false,
+    //   context: context,
+    //   builder: (context) {
+    //     return WillPopScope(
+    //       onWillPop: () {
 
-        //         },
-        //       child: Dialog(
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(10.0)),
-        //         child: Container(
-        //             padding: EdgeInsets.symmetric(
-        //                 horizontal: MediaQuery.of(context).size.width * 0.05,
-        //                 vertical: MediaQuery.of(context).size.width * 0.06),
-        //             width: MediaQuery.of(context).size.width * 0.65,
-        //             decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.circular(10),
-        //                 color: Color(0xFFF4F7F8)),
-        //             height: MediaQuery.of(context).size.height * 0.18,
-        //             child: Column(
-        //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //                     children: <Widget>[
-        //                       Text('Transaksi Berhasil',
-        //                           style: TextStyle(
-        //                               fontFamily: 'Montserrat',
-        //                               fontWeight: FontWeight.w600,
-        //                               fontSize: 14,
-        //                               color: Color(0xFF999494)),
-        //                           textAlign: TextAlign.center),
-        //                       Row(
-        //                           mainAxisAlignment: MainAxisAlignment.end,
-        //                           children: <Widget>[
-        //                             FlatButton(
-        //                                 child: Text('Oke',
-        //                                     style: TextStyle(
-        //                                         fontFamily: 'Montserrat',
-        //                                         fontSize: 16,
-        //                                         fontWeight: FontWeight.w600,
-        //                                         color: Color(0xFF0B8CAD))),
-        //                                 onPressed: () {
-        //                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(
-        //                                     builder: (context) => new Home()));
-        //                                 })
-        //                           ])
-        //                     ]))));
-        //   });
+    //         },
+    //       child: Dialog(
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Container(
+    //             padding: EdgeInsets.symmetric(
+    //                 horizontal: MediaQuery.of(context).size.width * 0.05,
+    //                 vertical: MediaQuery.of(context).size.width * 0.06),
+    //             width: MediaQuery.of(context).size.width * 0.65,
+    //             decoration: BoxDecoration(
+    //                 borderRadius: BorderRadius.circular(10),
+    //                 color: Color(0xFFF4F7F8)),
+    //             height: MediaQuery.of(context).size.height * 0.18,
+    //             child: Column(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     children: <Widget>[
+    //                       Text('Transaksi Berhasil',
+    //                           style: TextStyle(
+    //                               fontFamily: 'Montserrat',
+    //                               fontWeight: FontWeight.w600,
+    //                               fontSize: 14,
+    //                               color: Color(0xFF999494)),
+    //                           textAlign: TextAlign.center),
+    //                       Row(
+    //                           mainAxisAlignment: MainAxisAlignment.end,
+    //                           children: <Widget>[
+    //                             FlatButton(
+    //                                 child: Text('Oke',
+    //                                     style: TextStyle(
+    //                                         fontFamily: 'Montserrat',
+    //                                         fontSize: 16,
+    //                                         fontWeight: FontWeight.w600,
+    //                                         color: Color(0xFF0B8CAD))),
+    //                                 onPressed: () {
+    //                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(
+    //                                     builder: (context) => new Home()));
+    //                                 })
+    //                           ])
+    //                     ]))));
+    //   });
   }
 
   void resultTransac(result, nm, jml) async {
@@ -1641,54 +1848,63 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     } else {
       Navigator.of(context, rootNavigator: true).pop();
       return showDialog(
-        barrierDismissible: false,
+          barrierDismissible: false,
           context: context,
           builder: (context) {
             return WillPopScope(
-              onWillPop: () {
-
-                },
-              child: Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: FittedBox(
-                          child: Text('Kesalahan Server',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center))),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                onWillPop: () {},
+                child: Dialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    child: Container(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xFFF4F7F8)),
+                        height: MediaQuery.of(context).size.height * 0.15,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              FlatButton(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width * 0.08,
-                                    child: FittedBox(
-                                      child: Text('Oke',
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF0B8CAD))))),
-                                  onPressed: () {
-                                    Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                      builder: (context) => new Home(usr: widget.user_role)));
-                                  })
-                            ])
-                      ]))));
+                              Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: FittedBox(
+                                      child: Text('Kesalahan Server',
+                                          style: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14,
+                                              color: Color(0xFF999494)),
+                                          textAlign: TextAlign.center))),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    FlatButton(
+                                        child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.08,
+                                            child: FittedBox(
+                                                child: Text('Oke',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            'Montserrat',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Color(
+                                                            0xFF0B8CAD))))),
+                                        onPressed: () {
+                                          Navigator.of(context).pushReplacement(
+                                              new MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      new Home(
+                                                          usr: widget
+                                                              .user_role)));
+                                        })
+                                  ])
+                            ]))));
           });
     }
   }

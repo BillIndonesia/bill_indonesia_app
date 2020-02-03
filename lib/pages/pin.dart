@@ -195,8 +195,8 @@ class PinPageState extends State<PinPage> {
         });
 
         prefs.setString(
-            'user_role', jsonDecode(response2.body)[0]['user_role']);
 
+            'user_role', jsonDecode(response2.body)[0]['user_role']);
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(new MaterialPageRoute(
             builder: (context) =>

@@ -46,7 +46,7 @@ class RiwayatPage extends StatefulWidget {
 }
 
 class RiwayatPageState extends State<RiwayatPage> {
-  var url = 'https://bill.co.id/riwayat';
+  var url = 'https://bill.co.id/riwayatBeta';
   List data = List();
   var nohp = '';
   var pin = '';
@@ -58,6 +58,7 @@ class RiwayatPageState extends State<RiwayatPage> {
   List items = new List();
   var tunggu = '';
   var user_role;
+  var offset = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -641,6 +642,11 @@ class RiwayatPageState extends State<RiwayatPage> {
   }
 
   void makeRequest() async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       nohp = prefs.getString('nohp');
@@ -648,20 +654,25 @@ class RiwayatPageState extends State<RiwayatPage> {
     });
 
     final response =
-        await http.post(url, body: {'username': nohp, 'password': pin});
+        await http.post(url, body: {
+          'username': nohp, 
+          'password': pin,
+          'page': offset.toString()});
 
     setState(() {
       tunggu = 'sudah';
+      items = jsonDecode(response.body);
     });
-    items = jsonDecode(response.body);
-
+    
     setState(() {
-      for (i; i < 10; i++) {
+      for (int i = 0; i < 10 ; i++) {
         data.add(jsonDecode(response.body)[i]);
         setState(() {
           i = i;
         });
       }
+      offset++;
+      isLoading = false;
     });
   }
 
@@ -752,7 +763,8 @@ class RiwayatPageState extends State<RiwayatPage> {
         if (widget.tp == 'filter') {
           this.loadMoreFilter();
         } else {
-          this.loadMore();
+          // this.loadMore();
+          this.makeRequest();
         }
       }
     });

@@ -226,8 +226,8 @@ class ProfilePageState extends State<ProfilePage> {
                                           )
                                         ),
                                         controller: namaController,
-                                        style: TextStyle(
-                                            fontFamily: 'Montserrat',
+                                       style: TextStyle(
+                                             fontFamily: 'Montserrat',
                                             fontSize: 16,
                                             fontWeight: FontWeight.normal,
                                             color: Color(0xFF6C6565)),

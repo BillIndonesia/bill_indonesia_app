@@ -396,58 +396,6 @@ class RiwayatPageState extends State<RiwayatPage> {
                           slivers: <Widget>[
                             SliverList(
                                 delegate: SliverChildListDelegate([
-                              // Container(
-                              //   decoration: BoxDecoration(
-                              //         borderRadius: BorderRadius.circular(20),
-                              //         gradient: LinearGradient(
-                              //           begin: Alignment.topRight,
-                              //           end: Alignment.bottomLeft,
-                              //           colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-                              //         )),
-                              //     margin:
-                              //         EdgeInsets.symmetric(
-                              //           vertical: MediaQuery.of(context).size.width * 0.03,
-                              //           horizontal: MediaQuery.of(context).size.width * 0.05),
-                              //     padding: EdgeInsets.symmetric(
-                              //       horizontal: MediaQuery.of(context).size.width * 0.05,
-                              //       vertical: MediaQuery.of(context).size.width * 0.04),
-                              //     width: MediaQuery.of(context).size.width,
-                              //     height: MediaQuery.of(context).size.height * 0.18,
-                              //     child: Column(
-                              //       crossAxisAlignment: CrossAxisAlignment.start,
-                              //       children: <Widget>[
-                              //       Text(DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                              //         style: TextStyle(
-                              //           fontFamily: 'Montserrat',
-                              //           fontSize: 12,
-                              //           fontWeight: FontWeight.normal,
-                              //           color: Color(0xFFF4F7F8))),
-                              //       Align(
-                              //         alignment: Alignment.center,
-                              //         child: Text('Saldo',
-                              //         style: TextStyle(
-                              //           fontFamily: 'Montserrat',
-                              //           fontSize: 14,
-                              //           color: Color(0xFFFCFDFD),
-                              //           fontWeight: FontWeight.w500))),
-                              //       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                              //       Row(
-                              //         mainAxisAlignment: MainAxisAlignment.center,
-                              //         crossAxisAlignment: CrossAxisAlignment.start,
-                              //         children: <Widget>[
-                              //         Text('Rp. ',
-                              //           style: TextStyle(
-                              //             fontFamily: 'Montserrat',
-                              //             fontSize: 16,
-                              //             color: Color(0xFFFCFDFD),
-                              //             fontWeight: FontWeight.w600)),
-                              //         Text('8.000.000',
-                              //           style: TextStyle(
-                              //             fontFamily: 'Montserrat',
-                              //             fontSize: 28,
-                              //             color: Color(0xFFFCFDFD),
-                              //             fontWeight: FontWeight.bold))])
-                              //       ])),
                               Container(
                                 child: ScrollConfiguration(
                                     behavior: MyBehavior(),
@@ -676,52 +624,58 @@ class RiwayatPageState extends State<RiwayatPage> {
     });
   }
 
-  void loadMore() {
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-    }
+  // void loadMore() {
+  //   if (!isLoading) {
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //   }
 
-    setState(() {
-      isLoading = false;
-      for (i; i < 10 * page; i++) {
-        data.add(items[i]);
-        setState(() {
-          i = i;
-        });
-      }
-      page++;
-    });
-  }
+  //   setState(() {
+  //     isLoading = false;
+  //     for (i; i < 10 * page; i++) {
+  //       data.add(items[i]);
+  //       setState(() {
+  //         i = i;
+  //       });
+  //     }
+  //     page++;
+  //   });
+  // }
 
-  void loadMoreFilter() {
-    if (!isLoading) {
-      setState(() {
-        isLoading = true;
-      });
-    }
+  // void loadMoreFilter() {
+  //   if (!isLoading) {
+  //     setState(() {
+  //       isLoading = true;
+  //     });
+  //   }
 
-    setState(() {
-      isLoading = false;
-      for (i; i < 10 * page; i++) {
-        data.add(items[i]);
-        setState(() {
-          i = i;
-        });
-      }
-      page++;
-    });
-  }
+  //   setState(() {
+  //     isLoading = false;
+  //     for (i; i < 10 * page; i++) {
+  //       data.add(items[i]);
+  //       setState(() {
+  //         i = i;
+  //       });
+  //     }
+  //     page++;
+  //   });
+  // }
 
   void makeRequestFilter() async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+    }
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       nohp = prefs.getString('nohp');
       pin = prefs.getString('pin');
     });
 
-    var urlFilter = 'https://bill.co.id/filter';
+    var urlFilter = 'https://bill.co.id/filterBeta';
     final responseFilter = await http.post(urlFilter, body: {
       'username': nohp,
       'password': pin,
@@ -730,22 +684,24 @@ class RiwayatPageState extends State<RiwayatPage> {
       'topup': widget.to,
       'pembayaran': widget.pe,
       'debit': widget.db,
-      'kredit': widget.kr
+      'kredit': widget.kr,
+      'page': offset.toString()
     });
 
     setState(() {
       tunggu = 'sudah';
+      items = jsonDecode(responseFilter.body);
     });
 
-    items = jsonDecode(responseFilter.body);
-
     setState(() {
-      for (i; i < 10; i++) {
+      for (int i = 0; i < 10; i++) {
         data.add(jsonDecode(responseFilter.body)[i]);
         setState(() {
           i = i;
         });
       }
+      offset++;
+      isLoading = false;
     });
   }
 
@@ -761,7 +717,8 @@ class RiwayatPageState extends State<RiwayatPage> {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         if (widget.tp == 'filter') {
-          this.loadMoreFilter();
+          // this.loadMoreFilter();
+          this.makeRequestFilter();
         } else {
           // this.loadMore();
           this.makeRequest();

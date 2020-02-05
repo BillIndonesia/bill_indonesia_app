@@ -173,7 +173,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         // color: Colors.green,
         width: MediaQuery.of(context).size.width * 0.68,
         height: MediaQuery.of(context).size.height * 0.4,
-        child: Image(image: AssetImage('images/giphytrans.gif')));
+        child: Image(image: AssetImage('images/bingkai.png')));
 
     final cont = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -266,10 +266,13 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                               .spaceEvenly,
                                                       children: <Widget>[
                                                         Text('Harap tunggu'),
-                                                        SizedBox(height: MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.005 ,),
+                                                        SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.005,
+                                                        ),
                                                         CircularProgressIndicator(),
                                                       ],
                                                     ),
@@ -945,9 +948,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           child: Scaffold(
             backgroundColor: Color(0xFFF4F7F8),
             body: Column(
-                children: <Widget>[appbar,
-                 cont,
-                  namaVendor, saldoVendor]),
+                children: <Widget>[appbar, cont, namaVendor, saldoVendor]),
           ));
     } else if (widget.user_role == 'user') {
       return WillPopScope(
@@ -963,8 +964,8 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       child: Container(
                           // color: Colors.red,
                           child: Stack(children: <Widget>[
-                      Align(alignment: Alignment.center, child: giphy),
-                      Align(alignment: Alignment.center, child: qrcode)
+                      Align(alignment: Alignment.center, child: qrcode),
+                      Align(alignment: Alignment.center, child: giphy)
                     ])))
                   : Expanded(
                       child: Shimmer.fromColors(

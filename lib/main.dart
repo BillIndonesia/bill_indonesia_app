@@ -12,11 +12,10 @@ import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) {
-      runApp(MyApp());
-    });
+      .then((_) {
+    runApp(MyApp());
+  });
 }
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,9 +23,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bill',
       theme: ThemeData(
-        primaryColor: Color(0xFFF4F7F8),
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent),
+          primaryColor: Color(0xFFF4F7F8),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent),
       home: MyHomePage(),
     );
   }
@@ -75,19 +74,19 @@ class _MyHomePageState extends State<MyHomePage> {
             active = data[0]['active'];
             user_role = data[0]['user_role'];
             prefs.setString('user_role', user_role);
-            });
+          });
         } else {
           setState(() {
             done = true;
             connect = true;
-            });
+          });
         }
       }
     } on SocketException catch (_) {
       setState(() {
         done = true;
         connect = false;
-        });
+      });
     }
   }
 
@@ -97,52 +96,46 @@ class _MyHomePageState extends State<MyHomePage> {
       return MaterialApp(
           title: 'Bill',
           theme: ThemeData(
-            primaryColor: Color(0xFFF4F7F8),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent),
+              primaryColor: Color(0xFFF4F7F8),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent),
           navigatorKey: navigatorKey,
-          home: Scaffold(
-            body: Stack(children: <Widget>[
-            ]))
-        );
+          home: Scaffold(body: Stack(children: <Widget>[])));
+    } else {
+      if (connect == true) {
+        return MaterialApp(
+            title: 'Bill',
+            theme: ThemeData(
+                primaryColor: Color(0xFFF4F7F8),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent),
+            navigatorKey: navigatorKey,
+            home: nohp == null
+                ? Intro(navigatorKey: navigatorKey)
+                : active == true ? Home(usr: user_role) : Suspend());
       } else {
-        if (connect == true) {
-          return MaterialApp(
-          title: 'Bill',
-          theme: ThemeData(
-            primaryColor: Color(0xFFF4F7F8),
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent),
-          navigatorKey: navigatorKey,
-          home: nohp == null 
-          ? Intro(navigatorKey: navigatorKey) 
-          : active == true
-            ? Home(usr: user_role)
-            : Suspend()
-        );
-        } else {
-            return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.05,
-                        vertical: MediaQuery.of(context).size.width * 0.06),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color(0xFFF4F7F8)),
-                    width: MediaQuery.of(context).size.width * 0.65,
-                    height: MediaQuery.of(context).size.height * 0.15,
-                    child: Center(
-                      child: Text('Periksa koneksi internet anda',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Color(0xFF999494)),
-                          textAlign: TextAlign.center),
-                    )));
-        }
+        return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.05,
+                    vertical: MediaQuery.of(context).size.width * 0.06),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xFFF4F7F8)),
+                width: MediaQuery.of(context).size.width * 0.65,
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Center(
+                  child: Text('Periksa koneksi internet anda',
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Color(0xFF999494)),
+                      textAlign: TextAlign.center),
+                )));
       }
+    }
   }
 }

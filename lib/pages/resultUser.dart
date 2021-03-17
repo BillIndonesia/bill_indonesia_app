@@ -103,7 +103,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pop(context, false);
+                        Navigator.of(context, rootNavigator: true).pop();
                         Navigator.of(context).pushReplacement(
                           new MaterialPageRoute(
                             builder: (context) => new Home(usr: user_role),

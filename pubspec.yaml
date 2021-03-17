@@ -23,6 +23,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  qr_code_scanner: ^0.0.12
+  flutter_markdown:
+    path: /home/vikral/dev/flutter/project/bill/flutter_markdown master
   intro_slider:
   shared_preferences:
   http:
@@ -38,8 +41,6 @@ dependencies:
   loading:
   flutter_datetime_picker:
   url_launcher:
-  flutter_markdown:
-    path: /home/desktop2/Documents/bitbucket/flutter_markdown master
   loader_search_bar:
   shimmer:
 dev_dependencies:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
@@ -39,6 +40,9 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   AppLifecycleState _notification;
+  QRViewController controller;
+  final GlobalKey qrKey = GlobalKey();
+  String barcodes = "";
   var nohp = "";
   var pin = "";
   var name = '';
@@ -136,171 +140,37 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller.pauseCamera();
+    }
+    controller.resumeCamera();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Uint8List bytes = base64.decode(image);
-
-    // print('''
-    //   height: ${MediaQuery.of(context).size.height},
-    //   width: ${MediaQuery.of(context).size.width},
-    //   top: ${MediaQuery.of(context).padding.top},
-    //   bottom: ${MediaQuery.of(context).padding.bottom},
-    //   aspectratio: ${MediaQuery.of(context).size.aspectRatio},
-    //   pixelratio: ${MediaQuery.of(context).devicePixelRatio}
-    //   ''');
-
-    final qrcode = GestureDetector(
-        onTap: () {
-          // Navigator.of(context).pushReplacement(
-          //     MaterialPageRoute(builder: (context) => new TopUp()));
-        },
-        child: Container(
-            // color: Colors.yellow,
-            padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.01,
-                left: MediaQuery.of(context).size.width * 0.007),
-            child: QrImage(
-              gapless: false,
-              // embeddedImage: AssetImage('images/textbillbiru.png'),
-              // embeddedImageStyle: QrEmbeddedImageStyle(
-              //   size: Size(50, 50),
-              //   color: Colors.black),
-              // foregroundColor: Color(0xFF0B8CAD),
-              data: nohp,
-              size: MediaQuery.of(context).size.width * 0.39,
-              version: 3,
-            )));
+    final appbar = Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.08,
+        decoration: new BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.centerRight,
+          end: Alignment.centerLeft,
+          colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
+        )),
+        child: Container(child: Image.asset('images/textbill.png')));
     final giphy = Container(
-        // color: Colors.green,
-        width: MediaQuery.of(context).size.width * 0.68,
-        height: MediaQuery.of(context).size.height * 0.4,
-        child: Image(image: AssetImage('images/bingkai.png')));
-
-    final cont = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        done == true
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                height: widget.user_role == 'vendor'
-                    ? MediaQuery.of(context).size.height * 0.6
-                    : MediaQuery.of(context).size.height * 0.43,
-                child: ClipRect(
-                  child: OverflowBox(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Container(
-                          child: _notification != AppLifecycleState.paused &&
-                                  _notification != AppLifecycleState.inactive
-                              ? CameraMlVision<List<Barcode>>(
-                                  key: _scanKey,
-                                  loadingBuilder: (c) {
-                                    return Center();
-                                  },
-                                  resolution: ResolutionPreset.high,
-                                  detector: detector.detectInImage,
-                                  onResult: (List<Barcode> barcodes) async {
-                                    if (barcodes == null ||
-                                        barcodes.isEmpty ||
-                                        !mounted ||
-                                        scanned == true) {
-                                      return null;
-                                    }
-
-                                    setState(() {
-                                      scanned = true;
-                                    });
-
-                                    // if (user_role == 'vendor') {
-                                    //   Navigator.of(context).pushReplacement(
-                                    //       new MaterialPageRoute(
-                                    //           builder: (context) => new Detail(
-                                    //               nohpResult: barcodes.first.displayValue,
-                                    //               user_role: 'vendor',
-                                    //               name: name)));
-                                    // } else {
-                                    //   Navigator.of(context).pushReplacement(
-                                    //       new MaterialPageRoute(
-                                    //           builder: (context) => new Detail(
-                                    //               nohpResult: barcodes.first.displayValue,
-                                    //               user_role: 'user',
-                                    //               name: name)));
-                                    // }
-
-                                    scanBarcode(barcodes);
-
-                                    return showDialog(
-                                        barrierDismissible: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return Material(
-                                              type: MaterialType.transparency,
-                                              child: WillPopScope(
-                                                onWillPop: () {},
-                                                child: Dialog(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0)),
-                                                  backgroundColor: Colors.white,
-                                                  child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.005,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2),
-                                                        color: Colors.white10),
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.20,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: <Widget>[
-                                                        Text('Harap tunggu'),
-                                                        SizedBox(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.005,
-                                                        ),
-                                                        CircularProgressIndicator(),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ));
-                                        });
-                                  })
-                              : Container()),
-                    ),
-                  ),
-                ),
-              )
-            : Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
-                enabled: true,
-                child: Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.01),
-                    width: MediaQuery.of(context).size.width * 0.95,
-                    height: widget.user_role == 'vendor'
-                        ? MediaQuery.of(context).size.height * 0.6
-                        : MediaQuery.of(context).size.height * 0.43,
-                    color: Colors.white)),
-      ],
+      width: MediaQuery.of(context).size.width * 0.68,
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: Image(
+        image: AssetImage(
+          'images/bingkai.png',
+        ),
+      ),
     );
-
     final saldoVendor = Expanded(
         child: Container(
             child: Row(
@@ -320,141 +190,149 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             kredit: 'false')));
                   },
                   child: Container(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Card(
-                          color: Color(0xFFF9F9FB),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 3.0,
-                          child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.03,
-                                  vertical:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                          Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: FittedBox(
-                                                      fit: BoxFit.fitWidth,
-                                                      child: Text('Top Up',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF999494),
-                                                              fontFamily:
-                                                                  'Montserrat',
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500))))),
-                                          Expanded(
-                                              child: Container(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  // color: Colors.red,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.06,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.06,
-                                                  child: Image.asset(
-                                                      'images/icon top up.png')))
-                                        ])),
-                                    Expanded(
-                                        child: SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.02)),
-                                    Expanded(
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                          Expanded(
-                                              child: Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  child: FittedBox(
-                                                      fit: BoxFit.fitWidth,
-                                                      child: Text('Rp ',
-                                                          style: TextStyle(
-                                                              color: Color(
-                                                                  0xFF999494),
-                                                              fontFamily:
-                                                                  'Montserrat',
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500)))))
-                                        ])),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Expanded(
-                                                  child: Container(
-                                                      // color: Colors.red,
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: FittedBox(
-                                                          fit: BoxFit.fitWidth,
-                                                          child: Text(
-                                                              amount_gl1 == '-0'
-                                                                  ? '0'
-                                                                  : amount_gl1,
-                                                              style: TextStyle(
-                                                                  color: Color(
-                                                                      0xFF6A6767),
-                                                                  fontFamily:
-                                                                      'Montserrat',
-                                                                  fontSize: 25,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)))))
-                                            ])),
-                                    Expanded(
-                                        child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                          Expanded(
-                                              child: Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.35,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.02,
-                                                  decoration: BoxDecoration(
-                                                      border: Border(
-                                                          top: BorderSide(
-                                                              color: Color(
-                                                                  0xFF3AB673),
-                                                              width: 2.0)))))
-                                        ]))
-                                  ])))))
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    child: Card(
+                      color: Color(0xFFF9F9FB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      elevation: 3.0,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.03,
+                          vertical: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Text(
+                                          'Top Up',
+                                          style: TextStyle(
+                                            color: Color(0xFF999494),
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerRight,
+                                      // color: Colors.red,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.06,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.06,
+                                      child: Image.asset(
+                                        'images/icon top up.png',
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                                child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.02)),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Text(
+                                          'Rp ',
+                                          style: TextStyle(
+                                            color: Color(0xFF999494),
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      // color: Colors.red,
+                                      alignment: Alignment.centerLeft,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitWidth,
+                                        child: Text(
+                                          amount_gl1 == '-0' ? '0' : amount_gl1,
+                                          style: TextStyle(
+                                            color: Color(0xFF6A6767),
+                                            fontFamily: 'Montserrat',
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.02,
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide(
+                                            color: Color(
+                                              0xFF3AB673,
+                                            ),
+                                            width: 2.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               : Shimmer.fromColors(
                   baseColor: Colors.grey[300],
                   highlightColor: Colors.grey[100],
@@ -625,7 +503,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       width: MediaQuery.of(context).size.width * 0.45,
                       height: MediaQuery.of(context).size.height * 0.2))
         ])));
-
     final namaVendor = Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
@@ -752,7 +629,87 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     width: MediaQuery.of(context).size.width * 0.9,
                   )),
         ]));
+    final camera = Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        done == true
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.43,
+                child: QRView(
+                  key: qrKey,
+                  onQRViewCreated: (controller) {
+                    controller.scannedDataStream.listen((value) {
+                      setState(() {
+                        print(value);
+                        barcodes = value;
+                      });
+                      controller?.pauseCamera();
+                      scanBarcode(barcodes);
 
+                      //harap tunggu
+                      return showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Material(
+                                type: MaterialType.transparency,
+                                child: WillPopScope(
+                                  onWillPop: () {},
+                                  child: Dialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    backgroundColor: Colors.white,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.005,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                          color: Colors.white10),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.20,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Text('Harap tunggu'),
+                                          SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.005,
+                                          ),
+                                          CircularProgressIndicator(),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          });
+                    });
+                  },
+                ),
+              )
+            : Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: true,
+                child: Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.01),
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  height: widget.user_role == 'vendor'
+                      ? MediaQuery.of(context).size.height * 0.6
+                      : MediaQuery.of(context).size.height * 0.43,
+                  color: Colors.white,
+                ),
+              ),
+      ],
+    );
     final namaUser = Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.007),
@@ -929,18 +886,27 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10)))),
         ]));
-
-    final appbar = Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.08,
-        decoration: new BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.centerRight,
-          end: Alignment.centerLeft,
-          colors: [Color(0xFF0485AC), Color(0xFF36B8B6)],
-        )),
-        child: Container(child: Image.asset('images/textbill.png')));
+    final qrcode = GestureDetector(
+        onTap: () {
+          // Navigator.of(context).pushReplacement(
+          //     MaterialPageRoute(builder: (context) => new TopUp()));
+        },
+        child: Container(
+            // color: Colors.yellow,
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.01,
+                left: MediaQuery.of(context).size.width * 0.007),
+            child: QrImage(
+              gapless: false,
+              // embeddedImage: AssetImage('images/textbillbiru.png'),
+              // embeddedImageStyle: QrEmbeddedImageStyle(
+              //   size: Size(50, 50),
+              //   color: Colors.black),
+              // foregroundColor: Color(0xFF0B8CAD),
+              data: nohp,
+              size: MediaQuery.of(context).size.width * 0.39,
+              version: 3,
+            )));
 
     if (widget.user_role == 'vendor') {
       return WillPopScope(
@@ -948,16 +914,17 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           child: Scaffold(
             backgroundColor: Color(0xFFF4F7F8),
             body: Column(
-                children: <Widget>[appbar, cont, namaVendor, saldoVendor]),
+                children: <Widget>[appbar, camera, namaVendor, saldoVendor]),
           ));
     } else if (widget.user_role == 'user') {
       return WillPopScope(
-          onWillPop: onBackPress,
-          child: Scaffold(
-            backgroundColor: Color(0xFFF4F7F8),
-            body: Column(children: <Widget>[
+        onWillPop: onBackPress,
+        child: Scaffold(
+          backgroundColor: Color(0xFFF4F7F8),
+          body: Column(
+            children: <Widget>[
               appbar,
-              cont,
+              camera,
               namaUser,
               done == true
                   ? Expanded(
@@ -969,20 +936,26 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ])))
                   : Expanded(
                       child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          enabled: true,
-                          child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height *
-                                      0.03),
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              height: MediaQuery.of(context).size.height * 0.2,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)))))
-            ]),
-          ));
+                        baseColor: Colors.grey[300],
+                        highlightColor: Colors.grey[100],
+                        enabled: true,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.03),
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+            ],
+          ),
+        ),
+      );
     }
     // else {
     //   return WillPopScope(
@@ -1096,14 +1069,19 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void scanBarcode(barcodes) async {
-    if (barcodes.first.displayValue[0] == '#' && widget.user_role == 'user') {
+    print('disini nih');
+    print(barcodes);
+    print(barcodes.substring(0, 1));
+
+    if (barcodes.substring(0, 1) == '#' && widget.user_role == 'user') {
       var url = 'https://bill.co.id/scanVoucher';
       final response = await http.post(url, body: {
         'username': nohp,
         'password': pin,
-        'voucher_code': barcodes.first.displayValue.replaceAll('#', ''),
+        'voucher_code': barcodes.replaceAll('#', ''),
       });
       if (jsonDecode(response.body)[0]["result"] == 'berhasil') {
+        print('berhasil');
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.push(
             context,
@@ -1115,6 +1093,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       type: "voucher",
                     )));
       } else if (jsonDecode(response.body)[0]["result"] == 'tidak') {
+        print('gagal');
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.push(
             context,
@@ -1190,7 +1169,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     } else {
       var url = 'https://bill.co.id/searchNotelp';
       final response = await http.post(url, body: {
-        'notelp': barcodes.first.displayValue,
+        'notelp': barcodes,
       });
 
       if (response.statusCode == 200) {
@@ -1280,14 +1259,12 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               Navigator.of(context, rootNavigator: true).pop();
               Navigator.of(context).pushReplacement(new MaterialPageRoute(
                   builder: (context) => new Detail(
-                      nohpResult: barcodes.first.displayValue,
-                      user_role: 'vendor',
-                      name: name)));
+                      nohpResult: barcodes, user_role: 'vendor', name: name)));
             }
           } else {
             var urlCheckPrice = 'https://bill.co.id/getActive';
-            final responseCheckPrice = await http.post(urlCheckPrice,
-                body: {'nohp': barcodes.first.displayValue});
+            final responseCheckPrice =
+                await http.post(urlCheckPrice, body: {'nohp': barcodes});
 
             if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] ==
                 'fixed') {
@@ -1298,11 +1275,15 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               kirim(barcodes, price);
             } else {
               Navigator.of(context, rootNavigator: true).pop();
-              Navigator.of(context).pushReplacement(new MaterialPageRoute(
+              Navigator.of(context).pushReplacement(
+                new MaterialPageRoute(
                   builder: (context) => new Detail(
-                      nohpResult: barcodes.first.displayValue,
-                      user_role: 'user',
-                      name: name)));
+                    nohpResult: barcodes,
+                    user_role: 'user',
+                    name: name,
+                  ),
+                ),
+              );
             }
           }
 
@@ -1462,7 +1443,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final responseVendor = await http.post(urlVendor, body: {
       'username': nohp,
       'password': pin,
-      'result': barcodes.first.displayValue,
+      'result': barcodes,
       'jumlah': jumlah.toString(),
       'name': name
     });
@@ -1479,7 +1460,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
           final responseKedaluwarsa = await http.post(urlKedaluwarsa, body: {
             'username': nohp,
             'password': pin,
-            'result': barcodes.first.displayValue,
+            'result': barcodes,
             'name': name
           });
           Navigator.of(context, rootNavigator: true).pop();
@@ -1665,13 +1646,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         )).output;
 
     var urlNama = 'https://bill.co.id/getNama';
-    final responseNama = await http.post(urlNama, body: {
-      'username': nohp,
-      'password': pin,
-      'result': barcodes.first.displayValue
-    });
+    final responseNama = await http.post(urlNama,
+        body: {'username': nohp, 'password': pin, 'result': barcodes});
 
-    // Navigator.of(context, rootNavigator: true).pop();
+    Navigator.of(context, rootNavigator: true).pop();
 
     return showDialog(
         barrierDismissible: false,
@@ -1743,13 +1721,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             jsonDecode(responseNama.body)[0]
                                                 ['name'],
                                             jumlah.toString());
-                                        return showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Material(
-                                                  type: MaterialType
-                                                      .transparency);
-                                            });
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
                                       }),
                                   FlatButton(
                                       child: Container(
@@ -1774,14 +1748,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                             jsonDecode(responseNama.body)[0]
                                                 ['name'],
                                             jumlah.toString());
-
-                                        return showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Material(
-                                                  type: MaterialType
-                                                      .transparency);
-                                            });
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
                                       })
                                 ])
                           ]))));

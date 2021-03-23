@@ -71,15 +71,20 @@ class FirebaseNotifications {
                                         .size
                                         .width *
                                     0.05,
-                                vertical:
-                                    MediaQuery.of(navKey.currentContext).size.width *
-                                        0.06),
+                                vertical: MediaQuery.of(navKey.currentContext)
+                                        .size
+                                        .width *
+                                    0.06),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xFFF4F7F8)),
-                            width: MediaQuery.of(navKey.currentContext).size.width *
+                            width: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .width *
                                 0.7,
-                            height: MediaQuery.of(navKey.currentContext).size.height *
+                            height: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .height *
                                 0.23,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,6 +137,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF0B8CAD))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -139,14 +148,6 @@ class FirebaseNotifications {
                                                   message['data']['name'],
                                                   message['data']['jumlah'],
                                                   navKey);
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
                                             }),
                                         FlatButton(
                                             child: Container(
@@ -166,6 +167,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF999494))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -174,14 +179,13 @@ class FirebaseNotifications {
                                                   message['data']['jumlah'],
                                                   navKey);
 
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
+                                              // return showDialog(
+                                              //     context: navKey.currentContext,
+                                              //     builder: (_) {
+                                              //       return Material(
+                                              //           type: MaterialType
+                                              //               .transparency);
+                                              //     });
                                             })
                                       ])
                                 ]))));
@@ -194,7 +198,6 @@ class FirebaseNotifications {
                 decimalSeparator: ',',
               )).output;
           return showDialog(
-              barrierDismissible: false,
               context: navKey.currentContext,
               builder: (_) {
                 return WillPopScope(
@@ -215,10 +218,9 @@ class FirebaseNotifications {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xFFF4F7F8)),
-                            width: MediaQuery.of(navKey.currentContext)
-                                    .size
-                                    .width *
-                                0.7,
+                            width:
+                                MediaQuery.of(navKey.currentContext).size.width *
+                                    0.7,
                             height: MediaQuery.of(navKey.currentContext)
                                     .size
                                     .height *
@@ -287,6 +289,11 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF999494))))),
                                             onPressed: () async {
+                                              print('dipress');
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               SharedPreferences prefs =
                                                   await SharedPreferences
                                                       .getInstance();
@@ -334,7 +341,6 @@ class FirebaseNotifications {
                       res: message['data']['res'],
                       kembali: message['data']['kembali'])));
         } else if (message['data']['notif'] == 'userResult') {
-         
           // SharedPreferences prefs = await SharedPreferences.getInstance();
 
           // prefs.setString('udah', 'udah');
@@ -346,7 +352,6 @@ class FirebaseNotifications {
                       jumlah: message['data']['jumlah'],
                       name: message['data']['name'])));
         } else if (message['data']['notif'] == 'kedaluwarsa') {
-          Navigator.of(navKey.currentContext, rootNavigator: true).pop();
           return showDialog(
               context: navKey.currentContext,
               builder: (_) {
@@ -415,15 +420,20 @@ class FirebaseNotifications {
                                         .size
                                         .width *
                                     0.05,
-                                vertical:
-                                    MediaQuery.of(navKey.currentContext).size.width *
-                                        0.06),
+                                vertical: MediaQuery.of(navKey.currentContext)
+                                        .size
+                                        .width *
+                                    0.06),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xFFF4F7F8)),
-                            width: MediaQuery.of(navKey.currentContext).size.width *
+                            width: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .width *
                                 0.7,
-                            height: MediaQuery.of(navKey.currentContext).size.height *
+                            height: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .height *
                                 0.23,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -476,6 +486,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF0B8CAD))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -483,14 +497,6 @@ class FirebaseNotifications {
                                                   message['data']['name'],
                                                   message['data']['jumlah'],
                                                   navKey);
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
                                             }),
                                         FlatButton(
                                             child: Container(
@@ -510,6 +516,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF999494))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -517,14 +527,6 @@ class FirebaseNotifications {
                                                   message['data']['name'],
                                                   message['data']['jumlah'],
                                                   navKey);
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
                                             })
                                       ])
                                 ]))));
@@ -630,15 +632,20 @@ class FirebaseNotifications {
                                         .size
                                         .width *
                                     0.05,
-                                vertical:
-                                    MediaQuery.of(navKey.currentContext).size.width *
-                                        0.06),
+                                vertical: MediaQuery.of(navKey.currentContext)
+                                        .size
+                                        .width *
+                                    0.06),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xFFF4F7F8)),
-                            width: MediaQuery.of(navKey.currentContext).size.width *
+                            width: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .width *
                                 0.7,
-                            height: MediaQuery.of(navKey.currentContext).size.height *
+                            height: MediaQuery.of(navKey.currentContext)
+                                    .size
+                                    .height *
                                 0.23,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -691,6 +698,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF0B8CAD))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -698,15 +709,6 @@ class FirebaseNotifications {
                                                   message['data']['name'],
                                                   message['data']['jumlah'],
                                                   navKey);
-
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
                                             }),
                                         FlatButton(
                                             child: Container(
@@ -726,6 +728,10 @@ class FirebaseNotifications {
                                                             color: Color(
                                                                 0xFF999494))))),
                                             onPressed: () {
+                                              Navigator.of(
+                                                      navKey.currentContext,
+                                                      rootNavigator: true)
+                                                  .pop();
                                               // Navigator.pop(
                                               //     navKey.currentContext, false);
                                               resultTransac(
@@ -733,15 +739,6 @@ class FirebaseNotifications {
                                                   message['data']['name'],
                                                   message['data']['jumlah'],
                                                   navKey);
-
-                                              return showDialog(
-                                                  context:
-                                                      navKey.currentContext,
-                                                  builder: (_) {
-                                                    return Material(
-                                                        type: MaterialType
-                                                            .transparency);
-                                                  });
                                             })
                                       ])
                                 ]))));
@@ -850,7 +847,6 @@ class FirebaseNotifications {
     if (response.statusCode == 200) {
       // Navigator.of(navKey.currentContext, rootNavigator: true).pop();
     } else {
-      Navigator.of(navKey.currentContext, rootNavigator: true).pop();
       return showDialog(
           context: navKey.currentContext,
           builder: (_) {
@@ -875,7 +871,12 @@ class FirebaseNotifications {
                                   width: MediaQuery.of(navKey.currentContext)
                                           .size
                                           .width *
-                                      0.5,
+                                      0.45,
+                                  margin: EdgeInsets.only(
+                                      top: MediaQuery.of(navKey.currentContext)
+                                              .size
+                                              .height *
+                                          0.015),
                                   child: FittedBox(
                                       child: Text('Kesalahan Server',
                                           style: TextStyle(
@@ -905,12 +906,14 @@ class FirebaseNotifications {
                                                         color: Color(
                                                             0xFF0B8CAD))))),
                                         onPressed: () async {
+                                          Navigator.of(navKey.currentContext,
+                                                  rootNavigator: true)
+                                              .pop();
                                           SharedPreferences prefs =
                                               await SharedPreferences
                                                   .getInstance();
                                           var user_role =
                                               prefs.getString('user_role');
-
                                           Navigator.push(
                                               navKey.currentContext,
                                               MaterialPageRoute(

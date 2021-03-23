@@ -702,7 +702,7 @@ class SayaPageState extends State<SayaPage> {
                                                                 await SharedPreferences.getInstance();
                                                             prefs.remove('nohp');
                                                             prefs.remove('pin');
-                                                            Navigator.pop(context, false);
+                                                           
                                                             Navigator.of(context).pushReplacement(
                                                                 new MaterialPageRoute(
                                                                     builder: (context) => new NoTelp()));

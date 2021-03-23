@@ -1155,6 +1155,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           color: Color(
                                                               0xFF0B8CAD))))),
                                           onPressed: () {
+                                             Navigator.of(context, rootNavigator: true).pop();
                                             Navigator.of(context).pushReplacement(
                                                 new MaterialPageRoute(
                                                     builder: (context) =>
@@ -1422,6 +1423,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           color: Color(
                                                               0xFF0B8CAD))))),
                                           onPressed: () {
+                                             Navigator.of(context, rootNavigator: true).pop();
                                             Navigator.of(context).pushReplacement(
                                                 new MaterialPageRoute(
                                                     builder: (context) =>
@@ -1615,6 +1617,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                         color: Color(
                                                             0xFF0B8CAD))))),
                                         onPressed: () {
+                                           Navigator.of(context, rootNavigator: true).pop();
                                           Navigator.of(context).pushReplacement(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
@@ -1816,7 +1819,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     if (responseTransac.statusCode == 200) {
     } else {
-      Navigator.of(context, rootNavigator: true).pop();
+      // Navigator.of(context, rootNavigator: true).pop();
       return showDialog(
           barrierDismissible: false,
           context: context,
@@ -1866,6 +1869,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                         color: Color(
                                                             0xFF0B8CAD))))),
                                         onPressed: () {
+                                           Navigator.of(context, rootNavigator: true).pop();
                                           Navigator.of(context).pushReplacement(
                                               new MaterialPageRoute(
                                                   builder: (context) =>

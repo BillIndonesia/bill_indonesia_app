@@ -57,11 +57,12 @@ class GetOtpPageState extends State<GetOtpPage> {
             _start = 60;
             startTimer();
           });
-          final otp = await http.post(
-              'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=${int.parse(widget.nomer)}&kode_otp=$kodeOtp');
+
+          // final otp = await http.post(
+          //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=${int.parse(widget.nomer)}&kode_otp=$kodeOtp');
+
           Toast.show("Kode OTP sudah terkirim", context,
-              duration: Toast.LENGTH_LONG, 
-              gravity: Toast.BOTTOM);
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
       };
 
@@ -113,190 +114,200 @@ class GetOtpPageState extends State<GetOtpPage> {
                     fit: BoxFit.fill)),
             Container(
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.55 - (MediaQuery.of(context).viewInsets.bottom * 0.25),
-                  // bottom: MediaQuery.of(context).viewInsets.bottom
-                  ),
+                top: MediaQuery.of(context).size.height * 0.55 -
+                    (MediaQuery.of(context).viewInsets.bottom * 0.25),
+                // bottom: MediaQuery.of(context).viewInsets.bottom
+              ),
               // height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.045),
-                      // color: Colors.red,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: FittedBox(
-                        child: RichText(
-                          text: TextSpan(
-                              text: "Masukan kode yang dikirim ke ",
-                              children: [
-                                TextSpan(
-                                    text: widget.nomer,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16)),
-                              ],
-                              style:
-                                  TextStyle(color: Colors.white54, fontSize: 15)),
-                          textAlign: TextAlign.center,
-                        ))),
-                  Container(
-                      // color: Colors.red,
-                    padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.03),
-                    child: pinCodeTextFieldWidget),
-                  Visibility(
-                    child: pinController.text.length < 4
-                        ? Container(
-                          width: MediaQuery.of(context).size.width * 0.25,
+                  behavior: MyBehavior(),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.045),
+                          // color: Colors.red,
+                          width: MediaQuery.of(context).size.width * 0.6,
                           child: FittedBox(
-                            child: Text(
-                            "Isi Semua Kolom",
-                            style: TextStyle(
-                                  color: Colors.red[800],
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
-                          )))
-                        : Container(
-                          width: MediaQuery.of(context).size.width * 0.32,
-                          child: FittedBox(
-                            child: Text(
-                            "Kode OTP Tidak Sesuai",
-                            style: TextStyle(
-                                  color: Colors.red[800],
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
+                              child: RichText(
+                            text: TextSpan(
+                                text: "Masukan kode yang dikirim ke ",
+                                children: [
+                                  TextSpan(
+                                      text: widget.nomer,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
+                                ],
+                                style: TextStyle(
+                                    color: Colors.white54, fontSize: 15)),
                             textAlign: TextAlign.center,
                           ))),
-                    visible: hasError,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        _start.toString().length != 1
+                      Container(
+                          // color: Colors.red,
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.03),
+                          child: pinCodeTextFieldWidget),
+                      Visibility(
+                        child: pinController.text.length < 4
                             ? Container(
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              child: FittedBox(
-                                child: Text("\n\n00 : $_start",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16))))
-                            : Container(
-                              width: MediaQuery.of(context).size.width * 0.12,
-                              child: FittedBox(
-                                child: Text("\n\n00 : 0$_start",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16))))
-                      ]),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.52,
-                    child: FittedBox(
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                            text: "Tidak menerima kode? ",
-                            style: TextStyle(color: Colors.black54, fontSize: 15),
-                            children: [
-                              TextSpan(
-                                  text: " Kirim Ulang",
-                                  recognizer: onTapRecognizer,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                child: FittedBox(
+                                    child: Text(
+                                  "Isi Semua Kolom",
                                   style: TextStyle(
-                                      color: Color(0xFFF4F7F8),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16))
-                            ])))),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.03,
-                        horizontal: 30),
-                    child: ButtonTheme(
-                      height: 50,
-                      child: FlatButton(
-                        onPressed: () async {
-                          if (pinController.text.length < 4) {
-                            setState(() {
-                              hasError = true;
-                            });
-                          } else {
-                            if (kodeOtp == 0) {
-                              if (pinController.text == widget.code) {
-                                // Navigator.pop(context, true);
-                                if (widget.tp != 'ubah') {
-                                  Navigator.of(context)
-                                      .pushReplacement(new MaterialPageRoute(
-                                          builder: (context) => new PinSignup(
-                                                nohp: widget.nomer,
-                                              )));
-                                } else {
-                                  ubahNo();
-                                  return showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return Material(
-                                            type: MaterialType.transparency);
-                                      });
-                                }
-                              } else {
-                                setState(() {
-                                  hasError = true;
-                                });
-                              }
-                            } else {
-                              if (pinController.text == kodeOtp.toString()) {
-                                // Navigator.pop(context, true);
-                                if (widget.tp != 'ubah') {
-                                  Navigator.of(context)
-                                      .push(new MaterialPageRoute(
-                                          builder: (context) => new PinSignup(
-                                                nohp: widget.nomer,
-                                              )));
-                                } else {
-                                  ubahNo();
-                                  return showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return Material(
-                                            type: MaterialType.transparency);
-                                      });
-                                }
-                              } else {
-                                setState(() {
-                                  hasError = true;
-                                });
-                              }
-                            }
-                          }
-                        },
-                        child: Center(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.2,
-                              child: FittedBox(
-                                child: Text(
-                                "Verifikasi",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
-                              )))),
+                                      color: Colors.red[800],
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.center,
+                                )))
+                            : Container(
+                                width: MediaQuery.of(context).size.width * 0.32,
+                                child: FittedBox(
+                                    child: Text(
+                                  "Kode OTP Tidak Sesuai",
+                                  style: TextStyle(
+                                      color: Colors.red[800],
+                                      fontFamily: 'Montserrat',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                  textAlign: TextAlign.center,
+                                ))),
+                        visible: hasError,
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0A9ABC),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                  ),
-                ],
-              )),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            _start.toString().length != 1
+                                ? Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.12,
+                                    child: FittedBox(
+                                        child: Text("\n\n00 : $_start",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16))))
+                                : Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.12,
+                                    child: FittedBox(
+                                        child: Text("\n\n00 : 0$_start",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16))))
+                          ]),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.52,
+                          child: FittedBox(
+                              child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                      text: "Tidak menerima kode? ",
+                                      style: TextStyle(
+                                          color: Colors.black54, fontSize: 15),
+                                      children: [
+                                        TextSpan(
+                                            text: " Kirim Ulang",
+                                            recognizer: onTapRecognizer,
+                                            style: TextStyle(
+                                                color: Color(0xFFF4F7F8),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16))
+                                      ])))),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        margin: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.03,
+                            horizontal: 30),
+                        child: ButtonTheme(
+                          height: 50,
+                          child: FlatButton(
+                            onPressed: () async {
+                              if (pinController.text.length < 4) {
+                                setState(() {
+                                  hasError = true;
+                                });
+                              } else {
+                                if (kodeOtp == 0) {
+                                  if (pinController.text == widget.code) {
+                                    // Navigator.pop(context, true);
+                                    if (widget.tp != 'ubah') {
+                                      Navigator.of(context).pushReplacement(
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  new PinSignup(
+                                                    nohp: widget.nomer,
+                                                  )));
+                                    } else {
+                                      ubahNo();
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                                type:
+                                                    MaterialType.transparency);
+                                          });
+                                    }
+                                  } else {
+                                    setState(() {
+                                      hasError = true;
+                                    });
+                                  }
+                                } else {
+                                  if (pinController.text ==
+                                      kodeOtp.toString()) {
+                                    // Navigator.pop(context, true);
+                                    if (widget.tp != 'ubah') {
+                                      Navigator.of(context).push(
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  new PinSignup(
+                                                    nohp: widget.nomer,
+                                                  )));
+                                    } else {
+                                      ubahNo();
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Material(
+                                                type:
+                                                    MaterialType.transparency);
+                                          });
+                                    }
+                                  } else {
+                                    setState(() {
+                                      hasError = true;
+                                    });
+                                  }
+                                }
+                              }
+                            },
+                            child: Center(
+                                child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    child: FittedBox(
+                                        child: Text(
+                                      "Verifikasi",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
+                                    )))),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0A9ABC),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                    ],
+                  )),
             ),
           ])),
     );
@@ -357,6 +368,7 @@ class GetOtpPageState extends State<GetOtpPage> {
     }
   }
 }
+
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(

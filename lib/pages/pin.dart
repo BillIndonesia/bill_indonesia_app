@@ -193,10 +193,11 @@ class PinPageState extends State<PinPage> {
         final response2 = await http.post(url2, body: {
           'nohp': widget.nomer,
         });
-
+        // print('inilohhh ${jsonDecode(response2.body)[0]['vendor_price_type']}');
         prefs.setString(
-
             'user_role', jsonDecode(response2.body)[0]['user_role']);
+        prefs.setString(
+            'vendor_type', jsonDecode(response2.body)[0]['vendor_price_type']);
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(new MaterialPageRoute(
             builder: (context) =>

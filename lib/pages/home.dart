@@ -43,6 +43,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey();
   String barcodes = "";
+  var vendorType = '';
   var nohp = "";
   var pin = "";
   var name = '';
@@ -76,7 +77,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       borderRadius: BorderRadius.circular(10),
                       color: Color(0xFFF4F7F8)),
                   width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -908,13 +909,47 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               version: 3,
             )));
 
+    //home vendor
     if (widget.user_role == 'vendor') {
       return WillPopScope(
           onWillPop: onBackPress,
           child: Scaffold(
             backgroundColor: Color(0xFFF4F7F8),
             body: Column(
-                children: <Widget>[appbar, camera, namaVendor, saldoVendor]),
+              children: <Widget>[
+                appbar,
+                done == true
+                    ? vendorType == 'flexible'
+                        ? camera
+                        : Expanded(
+                            child: Container(
+                                // color: Colors.red,
+                                child: Stack(children: <Widget>[
+                            Align(alignment: Alignment.center, child: qrcode),
+                            Align(alignment: Alignment.center, child: giphy)
+                          ])))
+                    : Expanded(
+                        child: Shimmer.fromColors(
+                          baseColor: Colors.grey[300],
+                          highlightColor: Colors.grey[100],
+                          enabled: true,
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                      ),
+                namaVendor,
+                saldoVendor,
+              ],
+            ),
           ));
     } else if (widget.user_role == 'user') {
       return WillPopScope(
@@ -1002,6 +1037,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     setState(() {
       nohp = prefs.getString('nohp');
       pin = prefs.getString('pin');
+      vendorType = prefs.getString('vendor_type');
     });
   }
 
@@ -1155,7 +1191,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           color: Color(
                                                               0xFF0B8CAD))))),
                                           onPressed: () {
-                                             Navigator.of(context, rootNavigator: true).pop();
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
                                             Navigator.of(context).pushReplacement(
                                                 new MaterialPageRoute(
                                                     builder: (context) =>
@@ -1423,7 +1461,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                           color: Color(
                                                               0xFF0B8CAD))))),
                                           onPressed: () {
-                                             Navigator.of(context, rootNavigator: true).pop();
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
                                             Navigator.of(context).pushReplacement(
                                                 new MaterialPageRoute(
                                                     builder: (context) =>
@@ -1617,7 +1657,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                         color: Color(
                                                             0xFF0B8CAD))))),
                                         onPressed: () {
-                                           Navigator.of(context, rootNavigator: true).pop();
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop();
                                           Navigator.of(context).pushReplacement(
                                               new MaterialPageRoute(
                                                   builder: (context) =>
@@ -1869,7 +1911,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                                         color: Color(
                                                             0xFF0B8CAD))))),
                                         onPressed: () {
-                                           Navigator.of(context, rootNavigator: true).pop();
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop();
                                           Navigator.of(context).pushReplacement(
                                               new MaterialPageRoute(
                                                   builder: (context) =>

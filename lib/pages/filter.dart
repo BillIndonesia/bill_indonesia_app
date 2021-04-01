@@ -68,6 +68,7 @@ class FilterPageState extends State<FilterPage> {
           Navigator.of(context).pop();
         },
         child: Scaffold(
+            resizeToAvoidBottomPadding: false,
             appBar: AppBar(
                 automaticallyImplyLeading: true,
                 title: Text('Filter',
@@ -78,8 +79,7 @@ class FilterPageState extends State<FilterPage> {
                         color: Color(0xFF423838))),
                 leading: IconButton(
                     icon: Icon(Icons.arrow_back,
-                        color: Color(0xFF777E81), 
-                        size: 30),
+                        color: Color(0xFF777E81), size: 30),
                     onPressed: () {
                       Navigator.pop(context, false);
                     }),
@@ -96,13 +96,15 @@ class FilterPageState extends State<FilterPage> {
                       Container(
                           child: Column(children: <Widget>[
                         Container(
-                            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.045),
+                            margin: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.045),
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.15,
                             // color: Colors.yellow,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text('Tanggal',
                                       style: TextStyle(
@@ -111,33 +113,63 @@ class FilterPageState extends State<FilterPage> {
                                           fontSize: 16,
                                           color: Color(0xFF423838))),
                                   Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text('Tanggal awal',
                                                   style: TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontWeight: FontWeight.normal,
+                                                      fontWeight:
+                                                          FontWeight.normal,
                                                       fontSize: 14,
-                                                      color: Color(0xFF999494))),
+                                                      color:
+                                                          Color(0xFF999494))),
                                               GestureDetector(
                                                   child: Container(
                                                       margin: EdgeInsets.only(
-                                                          top: MediaQuery.of(context).size.height * 0.01),
-                                                      width: MediaQuery.of(context).size.width * 0.42,
-                                                      height: MediaQuery.of(context).size.height * 0.06,
+                                                          top: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.01),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.42,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.06,
                                                       child: AbsorbPointer(
                                                         child: TextFormField(
-                                                          controller: awalController,
-                                                          decoration: InputDecoration(
+                                                          controller:
+                                                              awalController,
+                                                          decoration:
+                                                              InputDecoration(
                                                             contentPadding: EdgeInsets.only(
-                                                                bottom: MediaQuery.of(context).size.height * 0.09,
-                                                                left: MediaQuery.of(context).size.width * 0.02),
-                                                            suffixIcon: Image.asset('images/calendar.png'),
+                                                                bottom: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.09,
+                                                                left: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.02),
+                                                            suffixIcon: Image.asset(
+                                                                'images/calendar.png'),
                                                             border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(10.0)),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0)),
                                                           ),
                                                         ),
                                                       )),
@@ -146,40 +178,71 @@ class FilterPageState extends State<FilterPage> {
                                                   })
                                             ]),
                                         Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               Text('Tanggal akhir',
                                                   style: TextStyle(
                                                       fontFamily: 'Montserrat',
-                                                      fontWeight: FontWeight.normal,
+                                                      fontWeight:
+                                                          FontWeight.normal,
                                                       fontSize: 14,
-                                                      color: Color(0xFF999494))),
+                                                      color:
+                                                          Color(0xFF999494))),
                                               GestureDetector(
                                                   child: Container(
                                                       margin: EdgeInsets.only(
-                                                          top: MediaQuery.of(context).size.height * 0.01),
-                                                      width: MediaQuery.of(context).size.width * 0.42,
-                                                      height: MediaQuery.of(context).size.height * 0.06,
+                                                          top: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.01),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.42,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.06,
                                                       child: AbsorbPointer(
                                                         child: TextFormField(
-                                                          controller: akhirController,
-                                                          decoration: InputDecoration(
+                                                          controller:
+                                                              akhirController,
+                                                          decoration:
+                                                              InputDecoration(
                                                             contentPadding: EdgeInsets.only(
-                                                                bottom: MediaQuery.of(context).size.height * 0.09,
-                                                                left: MediaQuery.of(context).size.width * 0.02),
-                                                            suffixIcon: Image.asset('images/calendar.png'),
+                                                                bottom: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .height *
+                                                                    0.09,
+                                                                left: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    0.02),
+                                                            suffixIcon: Image.asset(
+                                                                'images/calendar.png'),
                                                             border: OutlineInputBorder(
-                                                                borderRadius: BorderRadius.circular(10.0)),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0)),
                                                           ),
                                                         ),
                                                       )),
                                                   onTap: () {
-                                                    selectDate(context, 'akhir');
+                                                    selectDate(
+                                                        context, 'akhir');
                                                   })
                                             ])
                                       ])
                                 ])),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03),
                         Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
@@ -188,13 +251,15 @@ class FilterPageState extends State<FilterPage> {
                                         color: Color(0xFFE5E5E5),
                                         width: 1.0)))),
                         Container(
-                            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.045),
+                            margin: EdgeInsets.all(
+                                MediaQuery.of(context).size.width * 0.045),
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.13,
                             // color: Colors.yellow,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   Text('Saldo',
                                       style: TextStyle(
@@ -203,7 +268,8 @@ class FilterPageState extends State<FilterPage> {
                                           fontSize: 16,
                                           color: Color(0xFF423838))),
                                   Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
                                             decoration: BoxDecoration(
@@ -211,14 +277,25 @@ class FilterPageState extends State<FilterPage> {
                                                     color: topup == false
                                                         ? Color(0xFF8b8484)
                                                         : Color(0xFF2C81B7)),
-                                                borderRadius: BorderRadius.circular(10)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
                                             margin: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.01),
-                                            width: MediaQuery.of(context).size.width * 0.42,
-                                            height: MediaQuery.of(context).size.height * 0.063,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.42,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.063,
                                             child: RaisedButton(
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 onPressed: () {
                                                   if (topup == true) {
@@ -232,25 +309,39 @@ class FilterPageState extends State<FilterPage> {
                                                   }
                                                 },
                                                 color: Color(0xFFF4F7F8),
-                                                child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                child:
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: <Widget>[
                                                       topup == true
                                                           ? Container(
                                                               margin: EdgeInsets.only(
-                                                                  right: MediaQuery.of(context).size.width * 0.015),
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.015),
                                                               child: Icon(
                                                                   Icons.check,
-                                                                  color: Color(0xFF2C81B7)))
+                                                                  color: Color(
+                                                                      0xFF2C81B7)))
                                                           : Container(),
                                                       Text('Top Up',
                                                           style: TextStyle(
-                                                              color: topup ==false
-                                                                  ? Color(0xFF000000)
-                                                                  : Color(0xFF2C81B7),
-                                                              fontFamily: 'Montserrat',
+                                                              color: topup ==
+                                                                      false
+                                                                  ? Color(
+                                                                      0xFF000000)
+                                                                  : Color(
+                                                                      0xFF2C81B7),
+                                                              fontFamily:
+                                                                  'Montserrat',
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.normal))
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal))
                                                     ]))),
                                         Container(
                                             decoration: BoxDecoration(
@@ -258,11 +349,21 @@ class FilterPageState extends State<FilterPage> {
                                                     color: pembayaran == false
                                                         ? Color(0xFF8b8484)
                                                         : Color(0xFF2C81B7)),
-                                                borderRadius: BorderRadius.circular(10)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
                                             margin: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.01),
-                                            width: MediaQuery.of(context).size.width * 0.42,
-                                            height: MediaQuery.of(context).size.height * 0.063,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.42,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.063,
                                             child: RaisedButton(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -280,25 +381,39 @@ class FilterPageState extends State<FilterPage> {
                                                   }
                                                 },
                                                 color: Color(0xFFF4F7F8),
-                                                child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                child:
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: <Widget>[
                                                       pembayaran == true
                                                           ? Container(
                                                               margin: EdgeInsets.only(
-                                                                  right: MediaQuery.of(context).size.width * 0.015),
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.002),
                                                               child: Icon(
                                                                   Icons.check,
-                                                                  color: Color(0xFF2C81B7)))
+                                                                  color: Color(
+                                                                      0xFF2C81B7)))
                                                           : Container(),
                                                       Text('Pembayaran',
                                                           style: TextStyle(
-                                                              color: pembayaran == false
-                                                                  ? Color(0xFF000000)
-                                                                  : Color(0xFF2C81B7),
-                                                              fontFamily: 'Montserrat',
+                                                              color: pembayaran ==
+                                                                      false
+                                                                  ? Color(
+                                                                      0xFF000000)
+                                                                  : Color(
+                                                                      0xFF2C81B7),
+                                                              fontFamily:
+                                                                  'Montserrat',
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.normal))
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal))
                                                     ]))),
                                       ])
                                 ])),
@@ -338,11 +453,21 @@ class FilterPageState extends State<FilterPage> {
                                                     color: debit == false
                                                         ? Color(0xFF8b8484)
                                                         : Color(0xFF2C81B7)),
-                                                borderRadius: BorderRadius.circular(10)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
                                             margin: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.01),
-                                            width: MediaQuery.of(context).size.width * 0.42,
-                                            height: MediaQuery.of(context).size.height * 0.063,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.42,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.063,
                                             child: RaisedButton(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -360,25 +485,39 @@ class FilterPageState extends State<FilterPage> {
                                                   }
                                                 },
                                                 color: Color(0xFFF4F7F8),
-                                                child: Row(
-                                                        mainAxisAlignment:MainAxisAlignment.center,
+                                                child:
+                                                    Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: <Widget>[
                                                       debit == true
                                                           ? Container(
                                                               margin: EdgeInsets.only(
-                                                                  right: MediaQuery.of(context).size.width * 0.015),
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.015),
                                                               child: Icon(
                                                                   Icons.check,
-                                                                  color: Color(0xFF2C81B7)))
+                                                                  color: Color(
+                                                                      0xFF2C81B7)))
                                                           : Container(),
                                                       Text('Keluar',
                                                           style: TextStyle(
-                                                              color: debit == false
-                                                                  ? Color(0xFF000000)
-                                                                  : Color(0xFF2C81B7),
-                                                              fontFamily: 'Montserrat',
+                                                              color: debit ==
+                                                                      false
+                                                                  ? Color(
+                                                                      0xFF000000)
+                                                                  : Color(
+                                                                      0xFF2C81B7),
+                                                              fontFamily:
+                                                                  'Montserrat',
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.normal))
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal))
                                                     ]))),
                                         Container(
                                             decoration: BoxDecoration(
@@ -386,14 +525,25 @@ class FilterPageState extends State<FilterPage> {
                                                     color: kredit == false
                                                         ? Color(0xFF8b8484)
                                                         : Color(0xFF2C81B7)),
-                                                borderRadius: BorderRadius.circular(10)),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
                                             margin: EdgeInsets.only(
-                                                top: MediaQuery.of(context).size.height * 0.01),
-                                            width: MediaQuery.of(context).size.width * 0.42,
-                                            height: MediaQuery.of(context).size.height * 0.063,
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.01),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.42,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.063,
                                             child: RaisedButton(
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(10),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
                                                 ),
                                                 onPressed: () {
                                                   if (kredit == true) {
@@ -409,23 +559,37 @@ class FilterPageState extends State<FilterPage> {
                                                 color: Color(0xFFF4F7F8),
                                                 child:
                                                     Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
                                                         children: <Widget>[
                                                       kredit == true
                                                           ? Container(
                                                               margin: EdgeInsets.only(
-                                                                  right: MediaQuery.of(context).size.width * 0.015),
-                                                              child: Icon(Icons.check,
-                                                                  color: Color(0xFF2C81B7)))
+                                                                  right: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.015),
+                                                              child: Icon(
+                                                                  Icons.check,
+                                                                  color: Color(
+                                                                      0xFF2C81B7)))
                                                           : Container(),
                                                       Text('Masuk',
                                                           style: TextStyle(
-                                                              color: kredit == false
-                                                                  ? Color(0xFF000000)
-                                                                  : Color(0xFF2C81B7),
-                                                              fontFamily: 'Montserrat',
+                                                              color: kredit ==
+                                                                      false
+                                                                  ? Color(
+                                                                      0xFF000000)
+                                                                  : Color(
+                                                                      0xFF2C81B7),
+                                                              fontFamily:
+                                                                  'Montserrat',
                                                               fontSize: 14,
-                                                              fontWeight: FontWeight.normal))
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal))
                                                     ]))),
                                       ])
                                 ]))
@@ -501,9 +665,12 @@ class FilterPageState extends State<FilterPage> {
         context: context,
         initialDate: tipe == 'awal'
             ? dateAwal
-            : akhirController.text == '' ? dateAwal : dateAkhir,
+            : akhirController.text == ''
+                ? dateAwal
+                : dateAkhir,
         firstDate: tipe == 'awal' ? first : dateAwal,
-        lastDate: DateTime(2020));
+        lastDate: DateTime.now());
+
     var date = DateFormat('dd/MM/yyyy').format(picked);
     if (picked != null && picked != DateTime.now())
       setState(() {
@@ -521,11 +688,76 @@ class FilterPageState extends State<FilterPage> {
 
   void aktifkan() async {
     if (setAwal == true) {
-      awal = DateFormat('MM/dd/yyyy').format(dateAwal);
+      // Pop up jika duration tanggal awal lebih dari 30 hari.
+      if (dateAwal.isBefore(DateTime.now().subtract(
+        Duration(days: 31),
+      ))) {
+        return showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return WillPopScope(
+                  onWillPop: () {},
+                  child: Dialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.65,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color(0xFFF4F7F8)),
+                          height: MediaQuery.of(context).size.height * 0.15,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: FittedBox(
+                                    child: Text(
+                                      'Tanggal Awal Tidak Boleh \n Lebih jauh dari 31 hari',
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                          color: Color(0xFF999494)),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      FlatButton(
+                                          child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.08,
+                                              child: FittedBox(
+                                                  child: Text('Oke',
+                                                      style: TextStyle(
+                                                          fontFamily:
+                                                              'Montserrat',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: Color(
+                                                              0xFF0B8CAD))))),
+                                          onPressed: () {
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
+                                          })
+                                    ])
+                              ]))));
+            });
+      } else {
+        awal = DateFormat('MM/dd/yyyy').format(dateAwal);
+      }
     } else {
       awal = '';
     }
-
     if (setAkhir == true) {
       akhir = DateFormat('MM/dd/yyyy').format(dateAkhir);
     } else {
@@ -549,9 +781,9 @@ class FilterPageState extends State<FilterPage> {
       if (widget.ak != null && widget.ak != '') {
         var formatAkhir = DateFormat('MM/dd/yyyy').parse(widget.ak);
         // if (DateFormat('dd/MM/yyyy').format(formatAkhir) !=
-            // DateFormat('dd/MM/yyyy').format(dateAkhir)) {
-          akhirController.text = DateFormat('dd/MM/yyyy').format(formatAkhir);
-          dateAkhir = formatAkhir;
+        // DateFormat('dd/MM/yyyy').format(dateAkhir)) {
+        akhirController.text = DateFormat('dd/MM/yyyy').format(formatAkhir);
+        dateAkhir = formatAkhir;
         // }
       }
       if (widget.to != null) {
@@ -578,29 +810,22 @@ class FilterPageState extends State<FilterPage> {
   }
 
   void firstDate() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var nohp = prefs.getString('nohp');
-    var pin = prefs.getString('pin');
-
-    var url = 'https://bill.co.id/firstDate';
-    final response = await http.post(url, body: {'username': nohp, 'password': pin});
-
-    List data = jsonDecode(response.body);
-
     setState(() {
-      if (data.isEmpty) {
-        first = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
-        dateAwal = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
-      } else {
-        first = DateFormat('yyyy-MM-dd').parse(data[0]['payment_date']);
-        dateAwal = DateFormat('yyyy-MM-dd').parse(data[0]['payment_date']);
-      }
+      first = DateTime(2020);
+      dateAwal = DateTime.now();
+      //setup first berdasarkan tanggal pertama transaksi
+      // if (data.isEmpty) {
+      //   first = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+      //   dateAwal = DateFormat('yyyy-MM-dd').parse(DateTime.now().toString());
+      // } else {
+
+      // }
       if (widget.aw != null && widget.aw != '') {
         var formatAwal = DateFormat('MM/dd/yyyy').parse(widget.aw);
         // if (DateFormat('dd/MM/yyyy').format(formatAwal) !=
-            // DateFormat('dd/MM/yyyy').format(dateAwal)) {
-          awalController.text = DateFormat('dd/MM/yyyy').format(formatAwal);
-          dateAwal = formatAwal;
+        // DateFormat('dd/MM/yyyy').format(dateAwal)) {
+        awalController.text = DateFormat('dd/MM/yyyy').format(formatAwal);
+        dateAwal = formatAwal;
         // }
       }
     });

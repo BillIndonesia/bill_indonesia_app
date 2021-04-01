@@ -144,6 +144,7 @@ class ResultUserPageState extends State<ResultUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('should be here');
     MoneyFormatterOutput fo = FlutterMoneyFormatter(
       amount: double.parse(widget.jml),
       settings: MoneyFormatterSettings(

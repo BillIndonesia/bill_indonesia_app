@@ -1058,12 +1058,15 @@ class DetailPageState extends State<DetailPage> {
                           ])
                         ])),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    (jumlahController.text != '') && (int.parse(jumlahController.text.replaceAll('.', '')) + 1) != 1
+                    (jumlahController.text != '') &&
+                            (int.parse(jumlahController.text.replaceAll('.', '')) + 1) !=
+                                1
                         ? widget.role == 'vendor'
                             ? Visibility(
-                                visible: (int.parse(jumlahController.text.replaceAll('.', '')) + 1) != 1
-                                    ? true
-                                    : false,
+                                visible:
+                                    (int.parse(jumlahController.text.replaceAll('.', '')) + 1) != 1
+                                        ? true
+                                        : false,
                                 child: Container(
                                     width: MediaQuery.of(context).size.width *
                                         0.35,
@@ -1076,9 +1079,10 @@ class DetailPageState extends State<DetailPage> {
                                                 fontWeight:
                                                     FontWeight.normal)))))
                             : Visibility(
-                                visible: (int.parse(jumlahController.text.replaceAll('.', '')) + 1) != 1
-                                    ? true
-                                    : false,
+                                visible:
+                                    (int.parse(jumlahController.text.replaceAll('.', '')) + 1) != 1
+                                        ? true
+                                        : false,
                                 child: Text('', style: TextStyle(fontFamily: 'Montserrat', fontSize: 13, color: Color(0xFF999494), fontWeight: FontWeight.normal)))
                         : Text('', style: TextStyle(fontFamily: 'Montserrat', fontSize: 13, color: Color(0xFF999494), fontWeight: FontWeight.normal)),
                     Container(
@@ -1593,7 +1597,8 @@ class DetailPageState extends State<DetailPage> {
     });
 
     if (responseVendor.statusCode == 200) {
-      Future.delayed(const Duration(seconds: 15), () async {
+      Future.delayed(const Duration(seconds: 60), () async {
+        print('kelamaaan');
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var udah = prefs.getString('udah');
         var udah2 = prefs.getString('udah2');
@@ -1605,9 +1610,11 @@ class DetailPageState extends State<DetailPage> {
             'result': widget.nohpTujuan,
             'name': widget.nm
           });
+          print('kelamaan 2');
           Navigator.of(context, rootNavigator: true).pop();
           return showDialog(
               context: context,
+              useRootNavigator: true,
               builder: (context) {
                 return Dialog(
                     shape: RoundedRectangleBorder(
@@ -1641,6 +1648,7 @@ class DetailPageState extends State<DetailPage> {
       });
       return showDialog(
           context: context,
+          useRootNavigator: false,
           builder: (context) {
             return Material(
                 type: MaterialType.transparency,

@@ -1,3 +1,4 @@
+import 'package:bill/pages/loginAngkot.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bill/pages/pin.dart';
@@ -29,194 +30,224 @@ class NoTelpPageState extends State<NoTelpPage> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () {
-          SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-        },
-        child: Scaffold(
-            resizeToAvoidBottomPadding: false,
-            backgroundColor: Color(0XFF0485AC),
-            body: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                },
-                child: Stack(children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).padding.top),
-                    child: Image.asset('images/bgpolos.png',
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        fit: BoxFit.fill),
-                  ),
-                  Container(
+      onWillPop: () {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      },
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        backgroundColor: Color(0XFF0485AC),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: Stack(
+            children: <Widget>[
+              Container(
+                margin:
+                    EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                child: Image.asset('images/bgpolos.png',
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    fit: BoxFit.fill),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.23),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.7,
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.23),
-                      child: Column(children: <Widget>[
+                          bottom: MediaQuery.of(context).size.height * 0.05),
+                      child: FittedBox(
+                        child: Text(
+                          'Masukan nomor telephone anda',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontFamily: 'Montserrat'),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: TextFormField(
+                        onChanged: (text) {
+                          setState(() {
+                            hasError = false;
+                          });
+                        },
+                        controller: nohpController,
+                        inputFormatters: [LengthLimitingTextInputFormatter(13)],
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(
+                            color: Color(0xFF93CCDA),
+                            fontSize: 28.0,
+                            fontFamily: 'Montserrat'),
+                        textAlign: TextAlign.center,
+                        showCursor: false,
+                        autofocus: false,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Nomor  Telepon',
+                          hintStyle: TextStyle(
+                              color: Color(0xFF93CCDA),
+                              fontSize: 28.0,
+                              fontFamily: 'Montserrat'),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: <Widget>[
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: MediaQuery.of(context).size.width * 0.02,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(color: Colors.white, width: 3.0),
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              // color: Colors.red,
+                              child: FittedBox(
+                                  child: Text(
+                                "Masukan Nomor Telepon",
+                                style: TextStyle(
+                                    color: Colors.red[800],
+                                    fontFamily: 'Montserrat',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600),
+                              ))),
+                          visible: hasError,
+                        ),
+                        Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * 0.05),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Checkbox(
+                                    activeColor: Color(0XFF0485AC),
+                                    value: termVal,
+                                    onChanged: (bool value) {
+                                      setState(() {
+                                        termVal = value;
+                                      });
+                                    },
+                                  ),
+                                  Expanded(
+                                      child: Container(
+                                          // color: Colors.red,
+                                          child: FittedBox(
+                                              child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: new TextSpan(
+                                      style: new TextStyle(
+                                        fontSize: 12.0,
+                                        color: Colors.white,
+                                      ),
+                                      children: <TextSpan>[
+                                        new TextSpan(text: 'Setuju dengan '),
+                                        new TextSpan(
+                                            text: 'Ketentuan Layanan ',
+                                            style: new TextStyle(
+                                                decoration:
+                                                    TextDecoration.underline),
+                                            recognizer:
+                                                new TapGestureRecognizer()
+                                                  ..onTap = () {
+                                                    Navigator.of(context).push(
+                                                        new MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                new TermCondition()));
+                                                  }),
+                                        new TextSpan(text: 'dan '),
+                                        new TextSpan(
+                                            text: 'Kebijakan Privasi',
+                                            style: new TextStyle(
+                                                decoration:
+                                                    TextDecoration.underline),
+                                            recognizer:
+                                                new TapGestureRecognizer()
+                                                  ..onTap = () {
+                                                    Navigator.of(context).push(
+                                                        new MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                new TermCondition()));
+                                                  }),
+                                      ],
+                                    ),
+                                  )))),
+                                ])),
+                        // SizedBox(
+                        //     height: MediaQuery.of(context).size.height * 0.001),
+                        Visibility(
+                            visible: termVal,
+                            child: FlatButton(
+                                child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    // color: Colors.red,
+                                    child: FittedBox(
+                                        child: Text('Lanjut',
+                                            style: TextStyle(
+                                                fontSize: 22.0,
+                                                color: Colors.white,
+                                                fontFamily: 'Montserrat')))),
+                                onPressed: () {
+                                  if (nohpController.text == '') {
+                                    setState(() {
+                                      hasError = true;
+                                    });
+                                  } else {
+                                    lanjut();
+                                    return showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Material(
+                                              type: MaterialType.transparency);
+                                        });
+                                  }
+                                })),
+                        Container(
                           margin: EdgeInsets.only(
-                              bottom:
-                                  MediaQuery.of(context).size.height * 0.05),
-                          child: FittedBox(
-                            child: Text(
-                              'Masukan nomor telephone anda',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat'),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            onChanged: (text) {
-                              setState(() {
-                                hasError = false;
-                              });
-                            },
-                            controller: nohpController,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(13)
-                            ],
-                            keyboardType: TextInputType.phone,
-                            style: TextStyle(
-                                color: Color(0xFF93CCDA),
-                                fontSize: 28.0,
-                                fontFamily: 'Montserrat'),
-                            textAlign: TextAlign.center,
-                            showCursor: false,
-                            autofocus: false,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Nomor  Telepon',
-                              hintStyle: TextStyle(
-                                  color: Color(0xFF93CCDA),
-                                  fontSize: 28.0,
-                                  fontFamily: 'Montserrat'),
-                            ),
-                          ),
-                        ),
-                        Column(children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            height: MediaQuery.of(context).size.width * 0.02,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top:
-                                    BorderSide(color: Colors.white, width: 3.0),
+                              top: MediaQuery.of(context).size.height * 0.35),
+                          child: FlatButton(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: FittedBox(
+                                child: Text(
+                                  'masuk dengan metode lain',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 19.0,
+                                      fontFamily: 'Montserrat'),
+                                ),
                               ),
                             ),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                new MaterialPageRoute(
+                                  builder: (context) => new LoginAngkot(),
+                                ),
+                              );
+                            },
                           ),
-                          Visibility(
-                            child: Container(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                // color: Colors.red,
-                                child: FittedBox(
-                                    child: Text(
-                                  "Masukan Nomor Telepon",
-                                  style: TextStyle(
-                                      color: Colors.red[800],
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ))),
-                            visible: hasError,
-                          ),
-                          Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.05),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Checkbox(
-                                      activeColor: Color(0XFF0485AC),
-                                      value: termVal,
-                                      onChanged: (bool value) {
-                                        setState(() {
-                                          termVal = value;
-                                        });
-                                      },
-                                    ),
-                                    Expanded(
-                                        child: Container(
-                                            // color: Colors.red,
-                                            child: FittedBox(
-                                                child: RichText(
-                                      textAlign: TextAlign.center,
-                                      text: new TextSpan(
-                                        style: new TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.white,
-                                        ),
-                                        children: <TextSpan>[
-                                          new TextSpan(text: 'Setuju dengan '),
-                                          new TextSpan(
-                                              text: 'Ketentuan Layanan ',
-                                              style: new TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline),
-                                              recognizer:
-                                                  new TapGestureRecognizer()
-                                                    ..onTap = () {
-                                                      Navigator.of(context).push(
-                                                          new MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  new TermCondition()));
-                                                    }),
-                                          new TextSpan(text: 'dan '),
-                                          new TextSpan(
-                                              text: 'Kebijakan Privasi',
-                                              style: new TextStyle(
-                                                  decoration:
-                                                      TextDecoration.underline),
-                                              recognizer:
-                                                  new TapGestureRecognizer()
-                                                    ..onTap = () {
-                                                      Navigator.of(context).push(
-                                                          new MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  new TermCondition()));
-                                                    }),
-                                        ],
-                                      ),
-                                    )))),
-                                  ])),
-                          // SizedBox(
-                          //     height: MediaQuery.of(context).size.height * 0.001),
-                          Visibility(
-                              visible: termVal,
-                              child: FlatButton(
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.2,
-                                      // color: Colors.red,
-                                      child: FittedBox(
-                                          child: Text('Lanjut',
-                                              style: TextStyle(
-                                                  fontSize: 22.0,
-                                                  color: Colors.white,
-                                                  fontFamily: 'Montserrat')))),
-                                  onPressed: () {
-                                    if (nohpController.text == '') {
-                                      setState(() {
-                                        hasError = true;
-                                      });
-                                    } else {
-                                      lanjut();
-                                      return showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Material(
-                                                type:
-                                                    MaterialType.transparency);
-                                          });
-                                    }
-                                  }))
-                        ]),
-                      ]))
-                ]))));
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void lanjut() async {

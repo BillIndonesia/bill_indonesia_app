@@ -1,3 +1,5 @@
+import 'package:bill/models/services.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/intro.dart';
 import 'package:bill/pages/home.dart';
@@ -20,13 +22,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Bill',
-      theme: ThemeData(
-          primaryColor: Color(0xFFF4F7F8),
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent),
-      home: MyHomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: Services(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Bill',
+        theme: ThemeData(
+            primaryColor: Color(0xFFF4F7F8),
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent),
+        home: MyHomePage(),
+      ),
     );
   }
 }
@@ -74,6 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
             active = data[0]['active'];
             user_role = data[0]['user_role'];
             prefs.setString('user_role', user_role);
+            prefs.setString('vendor_type',
+                jsonDecode(response.body)[0]['vendor_price_type']);
           });
         } else {
           setState(() {
@@ -112,7 +123,13 @@ class _MyHomePageState extends State<MyHomePage> {
             navigatorKey: navigatorKey,
             home: nohp == null
                 ? Intro(navigatorKey: navigatorKey)
-                : active == true ? Home(usr: user_role) : Suspend());
+                // ? SignupProfile(
+                //     nohp: 'testlogin2',
+                //     pin: '111111',
+                //   )
+                : active == true
+                    ? Home(usr: user_role)
+                    : Suspend());
       } else {
         return Dialog(
             shape: RoundedRectangleBorder(

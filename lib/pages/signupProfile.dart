@@ -32,7 +32,7 @@ class SignupProfilePage extends StatefulWidget {
 }
 
 class SignupProfilePageState extends State<SignupProfilePage> {
-  final emailController = TextEditingController();
+  // final emailController = TextEditingController();
   final nameController = TextEditingController();
   final tempatController = TextEditingController();
   final tanggalController = TextEditingController();
@@ -163,6 +163,47 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                     child: ListView(
                       padding: EdgeInsets.all(0),
                       children: <Widget>[
+                        // Dari mana Anda tau bill
+                        Container(
+                          margin: EdgeInsets.fromLTRB(
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.045,
+                              MediaQuery.of(context).size.width * 0.00),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: trackValue,
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  trackValue = newValue;
+                                });
+                              },
+                              items: <String>[
+                                'Dari mana anda tau Bill ?',
+                                'Email',
+                                'Teman',
+                                'Website',
+                                'Social Media',
+                                'Lainnya'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00,
+                                MediaQuery.of(context).size.width * 0.045,
+                                MediaQuery.of(context).size.width * 0.00),
+                            height: MediaQuery.of(context).size.width * 0.02,
+                            decoration: BoxDecoration(
+                                border: Border(top: BorderSide(width: 0.5)))),
+                        //input nama
                         Container(
                             margin: EdgeInsets.fromLTRB(
                                 MediaQuery.of(context).size.width * 0.045,
@@ -189,44 +230,6 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                 return null;
                               },
                               controller: nameController,
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0xFF6C6565)),
-                              textAlign: TextAlign.left,
-                              decoration: new InputDecoration(
-                                  focusedBorder: new UnderlineInputBorder(
-                                      borderSide: new BorderSide(
-                                          color: Colors.black87, width: 1.0))),
-                            )),
-                        Container(
-                            margin: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.045,
-                                MediaQuery.of(context).size.width * 0.05,
-                                MediaQuery.of(context).size.width * 0.045,
-                                0),
-                            child: Text('Email',
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Color(0xFF999494)))),
-                        Container(
-                            margin: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.045,
-                                MediaQuery.of(context).size.width * 0.00,
-                                MediaQuery.of(context).size.width * 0.045,
-                                MediaQuery.of(context).size.width * 0.00),
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value == '') {
-                                  return 'Email tidak boleh kosong';
-                                }
-                                return null;
-                              },
-                              keyboardType: TextInputType.emailAddress,
-                              controller: emailController,
                               style: TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 16,
@@ -316,50 +319,10 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                       currentTime: selectedDate,
                                       locale: LocaleType.id);
                                 })),
-                        Container(
-                          margin: EdgeInsets.fromLTRB(
-                              MediaQuery.of(context).size.width * 0.045,
-                              MediaQuery.of(context).size.width * 0.045,
-                              MediaQuery.of(context).size.width * 0.045,
-                              MediaQuery.of(context).size.width * 0.00),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: trackValue,
-                              onChanged: (String newValue) {
-                                setState(() {
-                                  trackValue = newValue;
-                                });
-                              },
-                              items: <String>[
-                                'Dari mana anda tau Bill ?',
-                                'Email',
-                                'Teman',
-                                'Website',
-                                'Social Media',
-                                'Lainnya'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                            margin: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.045,
-                                MediaQuery.of(context).size.width * 0.00,
-                                MediaQuery.of(context).size.width * 0.045,
-                                MediaQuery.of(context).size.width * 0.00),
-                            height: MediaQuery.of(context).size.width * 0.02,
-                            decoration: BoxDecoration(
-                                border: Border(top: BorderSide(width: 0.5)))),
                         Visibility(
                           visible:
                               (trackValue != 'Dari mana anda tau Bill ?') &&
                                       (nameController.text != '') &&
-                                      (emailController.text != '') &&
                                       (tempatController.text != '') &&
                                       (tanggalController.text != '')
                                   ? true
@@ -505,7 +468,7 @@ class SignupProfilePageState extends State<SignupProfilePage> {
     request.fields['username'] = widget.nomer;
     request.fields['password'] = widget.pass;
     request.fields['name'] = nameController.text;
-    request.fields['email'] = emailController.text;
+    request.fields['email'] = '';
     request.fields['tempat'] = tempatController.text;
     request.fields['tanggal'] = formatted;
     request.fields['tracking'] = trackValue;
@@ -531,18 +494,18 @@ class SignupProfilePageState extends State<SignupProfilePage> {
         prefs.setString('nohp', widget.nomer);
         prefs.setString('pin', widget.pass);
         prefs.setString('user_role', 'user');
-        var urlCreateJournal = 'https://bill.co.id/createJournal';
-        final responseCreateJournal = await http.post(
-          urlCreateJournal,
-          body: {
-            'username': '05',
-            'password': '111111',
-            'result': widget.nomer,
-            'amount': '1'.replaceAll('.', ''),
-          },
-        );
-        print(
-            'responseCreateJournal.statusCode = ${responseCreateJournal.statusCode}');
+        // var urlCreateJournal = 'https://bill.co.id/createJournal';
+        // final responseCreateJournal = await http.post(
+        //   urlCreateJournal,
+        //   body: {
+        //     'username': '05',
+        //     'password': '111111',
+        //     'result': widget.nomer,
+        //     'amount': '1'.replaceAll('.', ''),
+        //   },
+        // );
+        // print(
+        //     'responseCreateJournal.statusCode = ${responseCreateJournal.statusCode}');
         // Navigator.pop(context, false);
         Navigator.of(context).pushReplacement(
           new MaterialPageRoute(

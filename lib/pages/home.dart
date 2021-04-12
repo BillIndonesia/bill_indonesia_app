@@ -1,3 +1,4 @@
+import 'package:bill/pages/HomePages/Widgets/VendorQRCamera.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:async';
@@ -54,6 +55,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   var scanned = false;
   var image = '';
   bool done = false;
+  bool _activateCamera = false;
 
   final _scanKey = GlobalKey<CameraMlVisionState>();
   BarcodeDetector detector = FirebaseVision.instance.barcodeDetector();
@@ -919,15 +921,60 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               children: <Widget>[
                 appbar,
                 done == true
-                    ? vendorType == 'flexible'
-                        ? camera
-                        : Expanded(
-                            child: Container(
+                    ? _activateCamera == false
+                        ? GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                vendorType == 'flexible'
+                                    ? _activateCamera = true
+                                    : _activateCamera = false;
+                              });
+                              // vendorType == 'flexible'
+                              //     ? Navigator.of(context).push(
+                              //         new MaterialPageRoute(
+                              //           builder: (context) => VendorQRCamera(),
+                              //         ),
+                              //       )
+                              //     : print('tuktuktuk');
+                            },
+                            child: Expanded(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.43,
                                 // color: Colors.red,
-                                child: Stack(children: <Widget>[
-                            Align(alignment: Alignment.center, child: qrcode),
-                            Align(alignment: Alignment.center, child: giphy)
-                          ])))
+                                child: Stack(
+                                  children: <Widget>[
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: qrcode),
+                                    Align(
+                                        alignment: Alignment.center,
+                                        child: giphy),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : Stack(
+                            children: [
+                              camera,
+                              IconButton(
+                                alignment: Alignment.bottomRight,
+                                onPressed: () {
+                                  setState(() {
+                                    _activateCamera = false;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.qr_code_scanner_rounded,
+                                  size:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          )
                     : Expanded(
                         child: Shimmer.fromColors(
                           baseColor: Colors.grey[300],
@@ -1116,6 +1163,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         'password': pin,
         'voucher_code': barcodes.replaceAll('#', ''),
       });
+      setState(() {
+        _activateCamera = false;
+      });
       if (jsonDecode(response.body)[0]["result"] == 'berhasil') {
         print('berhasil');
         Navigator.of(context, rootNavigator: true).pop();
@@ -1210,8 +1260,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
       final response = await http.post(url, body: {
         'notelp': barcodes,
       });
-
+      //searchNotelp API Succes
       if (response.statusCode == 200) {
+        //No telphone yang discan tidak terdaftar
         if (response.body == "Tidak" ||
             response.body == 'Admin' ||
             response.body == 'Vendor') {
@@ -1281,7 +1332,10 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                       ])
                                 ]))));
               });
-        } else if (response.body == 'Iya') {
+        }
+        //No telpon yang discan terdaftar
+        else if (response.body == 'Iya') {
+          //Vendor scan Usecase
           if (widget.user_role == 'vendor') {
             var urlCheckPrice = 'https://bill.co.id/getActive';
             final responseCheckPrice =
@@ -1300,11 +1354,13 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   builder: (context) => new Detail(
                       nohpResult: barcodes, user_role: 'vendor', name: name)));
             }
-          } else {
+          }
+          //User scan Usecase
+          else {
             var urlCheckPrice = 'https://bill.co.id/getActive';
             final responseCheckPrice =
                 await http.post(urlCheckPrice, body: {'nohp': barcodes});
-
+            // IF yang di scan qr Angkot(fixed)
             if (jsonDecode(responseCheckPrice.body)[0]['vendor_price_type'] ==
                 'fixed') {
               var price = jsonDecode(responseCheckPrice.body)[0]
@@ -1312,7 +1368,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   .toInt();
               // Navigator.of(context, rootNavigator: true).pop();
               kirim(barcodes, price);
-            } else {
+            }
+            // IF yang di scan qr Warung(flexible) or QR sesama user
+            else {
               Navigator.of(context, rootNavigator: true).pop();
               Navigator.of(context).pushReplacement(
                 new MaterialPageRoute(
@@ -1325,24 +1383,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
               );
             }
           }
-
-          // if (user_role == 'vendor') {
-          //   Navigator.of(context).pushReplacement(
-          //       new MaterialPageRoute(
-          //           builder: (context) => new Detail(
-          //               nohpResult: barcodes.first.displayValue,
-          //               user_role: 'vendor',
-          //               name: name)));
-          // } else {
-          //   Navigator.of(context).pushReplacement(
-          //       new MaterialPageRoute(
-          //           builder: (context) => new Detail(
-          //               nohpResult: barcodes.first.displayValue,
-          //               user_role: 'user',
-          //               name: name)));
-          // }
-
-        } else {
+        }
+        //Suspended User
+        else {
           Navigator.of(context, rootNavigator: true).pop();
           return showDialog(
               barrierDismissible: false,
@@ -1410,7 +1453,9 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 ]))));
               });
         }
-      } else {
+      }
+      //searchNotelp API fail
+      else {
         Navigator.of(context, rootNavigator: true).pop();
         return showDialog(
             barrierDismissible: false,
@@ -1800,53 +1845,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                                 ])
                           ]))));
         });
-    // return showDialog(
-    //   barrierDismissible: false,
-    //   context: context,
-    //   builder: (context) {
-    //     return WillPopScope(
-    //       onWillPop: () {
-
-    //         },
-    //       child: Dialog(
-    //         shape: RoundedRectangleBorder(
-    //             borderRadius: BorderRadius.circular(10.0)),
-    //         child: Container(
-    //             padding: EdgeInsets.symmetric(
-    //                 horizontal: MediaQuery.of(context).size.width * 0.05,
-    //                 vertical: MediaQuery.of(context).size.width * 0.06),
-    //             width: MediaQuery.of(context).size.width * 0.65,
-    //             decoration: BoxDecoration(
-    //                 borderRadius: BorderRadius.circular(10),
-    //                 color: Color(0xFFF4F7F8)),
-    //             height: MediaQuery.of(context).size.height * 0.18,
-    //             child: Column(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                     children: <Widget>[
-    //                       Text('Transaksi Berhasil',
-    //                           style: TextStyle(
-    //                               fontFamily: 'Montserrat',
-    //                               fontWeight: FontWeight.w600,
-    //                               fontSize: 14,
-    //                               color: Color(0xFF999494)),
-    //                           textAlign: TextAlign.center),
-    //                       Row(
-    //                           mainAxisAlignment: MainAxisAlignment.end,
-    //                           children: <Widget>[
-    //                             FlatButton(
-    //                                 child: Text('Oke',
-    //                                     style: TextStyle(
-    //                                         fontFamily: 'Montserrat',
-    //                                         fontSize: 16,
-    //                                         fontWeight: FontWeight.w600,
-    //                                         color: Color(0xFF0B8CAD))),
-    //                                 onPressed: () {
-    //                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(
-    //                                     builder: (context) => new Home()));
-    //                                 })
-    //                           ])
-    //                     ]))));
-    //   });
   }
 
   void resultTransac(result, nm, jml) async {

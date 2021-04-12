@@ -189,15 +189,20 @@ class NoTelpPageState extends State<NoTelpPage> {
                             visible: termVal,
                             child: FlatButton(
                                 child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    // color: Colors.red,
-                                    child: FittedBox(
-                                        child: Text('Lanjut',
-                                            style: TextStyle(
-                                                fontSize: 22.0,
-                                                color: Colors.white,
-                                                fontFamily: 'Montserrat')))),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.2,
+                                  // color: Colors.red,
+                                  child: FittedBox(
+                                    child: Text(
+                                      'Lanjut',
+                                      style: TextStyle(
+                                        fontSize: 22.0,
+                                        color: Colors.white,
+                                        fontFamily: 'Montserrat',
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 onPressed: () {
                                   if (nohpController.text == '') {
                                     setState(() {
@@ -206,6 +211,7 @@ class NoTelpPageState extends State<NoTelpPage> {
                                   } else {
                                     lanjut();
                                     return showDialog(
+                                        barrierDismissible: false,
                                         context: context,
                                         builder: (context) {
                                           return Material(
@@ -264,21 +270,10 @@ class NoTelpPageState extends State<NoTelpPage> {
     if (response.statusCode == 200) {
       Navigator.of(context, rootNavigator: true).pop();
       if (response.body == "Tidak") {
-        var otpCodeGenerator = int.parse(randomNumeric(4));
-        var otpCode = otpCodeGenerator.toString().padRight(4, '0');
-        var noOtp = int.parse(nohp);
-        // var otpCode = 1234;
-        // final otp = await http.post(
-        //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=$noOtp&kode_otp=$otpCode');
-        print("kode otp: ${otpCodeGenerator.toString()}");
-        print("kode otp: ${otpCode.toString()}");
-        final otp = await http.post(
-            'https://alpha.zenziva.net/apps/smsapi.php?userkey=63rtc4&passkey=OdooOdooNg&nohp=$noOtp&pesan=$otpCode&type=otp');
         Navigator.of(context).push(
           new MaterialPageRoute(
             builder: (context) => new GetOtp(
               nohp: nohp,
-              otpCode: otpCode.toString(),
             ),
           ),
         );

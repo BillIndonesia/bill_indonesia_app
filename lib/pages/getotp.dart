@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'dart:async';
@@ -33,6 +35,7 @@ class GetOtpPage extends StatefulWidget {
 
 class GetOtpPageState extends State<GetOtpPage> {
   TextEditingController pinController = TextEditingController();
+  String _code;
   var onTapRecognizer;
   PinCodeTextField pinCodeTextFieldWidget;
   bool hasError = false;
@@ -40,32 +43,128 @@ class GetOtpPageState extends State<GetOtpPage> {
   Timer _timer;
   int _start = 60;
   bool _disabled = true;
+  bool _isLoading = false;
 
   @override
   void initState() {
     startTimer();
-
+    startThePage();
     onTapRecognizer = TapGestureRecognizer()
       ..onTap = () async {
         if (_disabled == true) {
           Toast.show("Tunggu 1 Menit", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         } else {
-          setState(() {
-            kodeOtp = int.parse(randomNumeric(4));
-            _disabled = true;
-            _start = 60;
-            startTimer();
-          });
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                backgroundColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Card(
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  elevation: 8,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.centerLeft,
+                        colors: [Color(0xFF0485AC), Colors.black54],
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'OTP mu akan dikirimkan \n melalui ?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontFamily: 'Montserrat'),
+                        ),
+                        //SMS Card
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            Navigator.of(context, rootNavigator: true).pop();
+                            sendOTPSMS();
+                            setState(() {
+                              _isLoading = false;
+                              _disabled = true;
+                              _start = 60;
+                              startTimer();
+                            });
+                          },
+                          child: Card(
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            elevation: 10,
+                            child: Image.asset(
+                              'images/SMSOtp.png',
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.11,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                            ),
+                          ),
+                        ),
+                        //Whatsapp Card
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            sendOTPWA();
+                            Navigator.of(context, rootNavigator: true).pop();
+                            setState(() {
+                              _isLoading = false;
+                              kodeOtp = int.parse(randomNumeric(4));
+                              _disabled = true;
+                              _start = 60;
+                              startTimer();
+                            });
+                          },
+                          child: Card(
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            elevation: 10,
+                            child: Image.asset(
+                              'images/WhatsappBackground.jpg',
+                              fit: BoxFit.cover,
+                              height: MediaQuery.of(context).size.height * 0.11,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
 
           // final otp = await http.post(
           //     'https://reguler.zenziva.net/apps/smsotp.php?userkey=s72hka&passkey=tymd0qzz8j&nohp=${int.parse(widget.nomer)}&kode_otp=$kodeOtp');
 
-          Toast.show("Kode OTP sudah terkirim", context,
-              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
       };
-
     super.initState();
   }
 
@@ -202,23 +301,31 @@ class GetOtpPageState extends State<GetOtpPage> {
                                                 fontSize: 16))))
                           ]),
                       Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
-                          child: FittedBox(
-                              child: RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(
-                                      text: "Tidak menerima kode? ",
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 15),
-                                      children: [
-                                        TextSpan(
-                                            text: " Kirim Ulang",
-                                            recognizer: onTapRecognizer,
-                                            style: TextStyle(
-                                                color: Color(0xFFF4F7F8),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16))
-                                      ])))),
+                        width: MediaQuery.of(context).size.width * 0.52,
+                        child: FittedBox(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: "Tidak menerima kode? ",
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 15,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: " Kirim Ulang",
+                                  recognizer: onTapRecognizer,
+                                  style: TextStyle(
+                                    color: Color(0xFFF4F7F8),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.07,
                         margin: EdgeInsets.symmetric(
@@ -234,15 +341,18 @@ class GetOtpPageState extends State<GetOtpPage> {
                                 });
                               } else {
                                 if (kodeOtp == 0) {
-                                  if (pinController.text == widget.code) {
+                                  if (pinController.text == _code) {
+                                    print(pinController.text);
+                                    print(_code);
                                     // Navigator.pop(context, true);
                                     if (widget.tp != 'ubah') {
                                       Navigator.of(context).pushReplacement(
-                                          new MaterialPageRoute(
-                                              builder: (context) =>
-                                                  new PinSignup(
-                                                    nohp: widget.nomer,
-                                                  )));
+                                        new MaterialPageRoute(
+                                          builder: (context) => new PinSignup(
+                                            nohp: widget.nomer,
+                                          ),
+                                        ),
+                                      );
                                     } else {
                                       ubahNo();
                                       return showDialog(
@@ -259,8 +369,9 @@ class GetOtpPageState extends State<GetOtpPage> {
                                     });
                                   }
                                 } else {
-                                  if (pinController.text ==
-                                      kodeOtp.toString()) {
+                                  if (pinController.text == _code) {
+                                    print(pinController.text);
+                                    print(_code);
                                     // Navigator.pop(context, true);
                                     if (widget.tp != 'ubah') {
                                       Navigator.of(context).push(
@@ -288,17 +399,27 @@ class GetOtpPageState extends State<GetOtpPage> {
                               }
                             },
                             child: Center(
-                                child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    child: FittedBox(
-                                        child: Text(
-                                      "Verifikasi",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    )))),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                child: FittedBox(
+                                  child: _isLoading == true
+                                      ? Text(
+                                          "Harap Tunggu",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : Text(
+                                          "Verifikasi",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         decoration: BoxDecoration(
@@ -313,13 +434,45 @@ class GetOtpPageState extends State<GetOtpPage> {
     );
   }
 
+  startThePage() async {
+    var otpCodeGenerator = int.parse(randomNumeric(4));
+    var otpCode = otpCodeGenerator.toString().padRight(4, '0');
+    print("kode otp: ${otpCodeGenerator.toString()}");
+    print("kode otp: ${otpCode.toString()}");
+    setState(
+      () {
+        _code = otpCode;
+        print(_code);
+      },
+    );
+    var url = "https://console.zenziva.net/masking/api/sendOTP/";
+    var otp = await http.post(
+      url,
+      body: {
+        'userkey': '63rtc4',
+        'passkey': 'OdooOdooNg',
+        'to': widget.nomer,
+        'message': 'Kode OTP kamu $otpCode'
+      },
+    );
+
+    print(otp.statusCode);
+    print(otp.body);
+    var data = jsonDecode(otp.body);
+    if (data['status'] == '1') {
+      Toast.show("Kode OTP sudah terkirim", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
+  }
+
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
       (Timer timer) => setState(
         () {
-          if (_start < 1) {
+          if (_start < 2) {
+            _start -= 1;
             timer.cancel();
             setState(() {
               _disabled = false;
@@ -350,21 +503,83 @@ class GetOtpPageState extends State<GetOtpPage> {
     } else {
       Navigator.of(context, rootNavigator: true).pop();
       return showDialog(
-          context: context,
-          builder: (context) {
-            return Dialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                child: Container(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: Center(
-                        child: Text('Gagal',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF000000),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16)))));
-          });
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Center(
+                child: Text(
+                  'Gagal',
+                  style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    color: Color(0xFF000000),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+  }
+
+  void sendOTPWA() async {
+    var otpCodeGenerator = int.parse(randomNumeric(4));
+    var otpCode = otpCodeGenerator.toString().padRight(4, '0');
+    var url = "https://console.zenziva.net/wareguler/api/sendWA/";
+    setState(
+      () {
+        _code = otpCode;
+      },
+    );
+    final otp = await http.post(
+      url,
+      body: {
+        'userkey': '63rtc4',
+        'passkey': 'OdooOdooNg',
+        'to': widget.nomer,
+        'message': 'Kode OTP kamu $otpCode'
+      },
+    );
+    print(otp.statusCode);
+    print(otp.body);
+    var data = jsonDecode(otp.body);
+    if (data['status'] == '1') {
+      Toast.show("Kode OTP sudah terkirim", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
+  }
+
+  void sendOTPSMS() async {
+    var otpCodeGenerator = int.parse(randomNumeric(4));
+    var otpCode = otpCodeGenerator.toString().padRight(4, '0');
+    var url = "https://console.zenziva.net/masking/api/sendOTP/";
+    print('$otpCode');
+    setState(
+      () {
+        _code = otpCode;
+      },
+    );
+    final otp = await http.post(
+      url,
+      body: {
+        'userkey': '63rtc4',
+        'passkey': 'OdooOdooNg',
+        'to': widget.nomer,
+        'message': 'Kode OTP kamu $otpCode'
+      },
+    );
+    print(otp.statusCode);
+    print(otp.body);
+    var data = jsonDecode(otp.body);
+    if (data['status'] == '1') {
+      Toast.show("Kode OTP sudah terkirim", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
   }
 }

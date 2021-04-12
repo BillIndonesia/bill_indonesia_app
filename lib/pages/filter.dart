@@ -616,7 +616,7 @@ class FilterPageState extends State<FilterPage> {
                                   aktifkan();
                                 },
                                 color: Color(0xFF0B8CAD),
-                                child: Text('Aktifkan',
+                                child: Text('Proses',
                                     style: TextStyle(
                                         color: Color(0xFFF4F7F8),
                                         fontFamily: 'Montserrat',

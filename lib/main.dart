@@ -1,4 +1,5 @@
 import 'package:bill/models/services.dart';
+import 'package:bill/pages/getotp.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/intro.dart';
@@ -123,9 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
             navigatorKey: navigatorKey,
             home: nohp == null
                 ? Intro(navigatorKey: navigatorKey)
-                // ? SignupProfile(
-                //     nohp: 'testlogin2',
-                //     pin: '111111',
+                // ? GetOtp(
+                //     nohp: '081214004800',
+                //     otpCode: "7879",
                 //   )
                 : active == true
                     ? Home(usr: user_role)

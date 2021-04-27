@@ -1,4 +1,6 @@
+import 'package:bill/models/authentification.dart';
 import 'package:bill/models/services.dart';
+import 'package:bill/pages/Login%20Pages/pin.dart';
 import 'package:bill/pages/getotp.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(
           value: Services(),
+        ),
+        ChangeNotifierProvider.value(
+          value: Authentification(),
         ),
       ],
       child: MaterialApp(
@@ -106,13 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     if (done == false && nohp != null) {
       return MaterialApp(
-          title: 'Bill',
-          theme: ThemeData(
-              primaryColor: Color(0xFFF4F7F8),
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent),
-          navigatorKey: navigatorKey,
-          home: Scaffold(body: Stack(children: <Widget>[])));
+        title: 'Bill',
+        theme: ThemeData(
+            primaryColor: Color(0xFFF4F7F8),
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent),
+        navigatorKey: navigatorKey,
+        home: Scaffold(
+          body: Stack(children: <Widget>[]),
+        ),
+      );
     } else {
       if (connect == true) {
         return MaterialApp(
@@ -123,11 +131,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 highlightColor: Colors.transparent),
             navigatorKey: navigatorKey,
             home: nohp == null
+                // ? Pin(nohp: '05')
                 ? Intro(navigatorKey: navigatorKey)
-                // ? GetOtp(
-                //     nohp: '081214004800',
-                //     otpCode: "7879",
-                //   )
                 : active == true
                     ? Home(usr: user_role)
                     : Suspend());

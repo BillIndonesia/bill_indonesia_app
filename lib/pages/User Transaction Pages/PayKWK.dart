@@ -1,11 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:bill/pages/User%20Transaction%20Pages/resultUser.dart';
+import 'package:bill/widgets/periksa_internet_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PayKwk extends StatelessWidget {
   final String nohpResult;
@@ -15,14 +18,15 @@ class PayKwk extends StatelessWidget {
   final String pinUser;
   final String angkotName;
   final String angkotImage;
-  PayKwk(
-      {this.nohpResult,
-      this.name,
-      this.tipe,
-      this.noHpUser,
-      this.pinUser,
-      this.angkotName,
-      this.angkotImage});
+  PayKwk({
+    this.nohpResult,
+    this.name,
+    this.tipe,
+    this.noHpUser,
+    this.pinUser,
+    this.angkotName,
+    this.angkotImage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -621,10 +625,54 @@ class PayKwkPageState extends State<PayKwkPage> {
                                     return showDialog(
                                       context: context,
                                       useRootNavigator: false,
+                                      barrierDismissible: false,
                                       builder: (context) {
                                         return Material(
-                                          type: MaterialType.transparency,
-                                        );
+                                            type: MaterialType.transparency,
+                                            child: WillPopScope(
+                                              onWillPop: () {},
+                                              child: Dialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    5.0,
+                                                  ),
+                                                ),
+                                                backgroundColor: Colors.white,
+                                                child: Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.005,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                    color: Colors.white10,
+                                                  ),
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.20,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: <Widget>[
+                                                      Text('Harap tunggu'),
+                                                      SizedBox(
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.005,
+                                                      ),
+                                                      CircularProgressIndicator(),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
                                       },
                                     );
                                   },
@@ -663,16 +711,68 @@ class PayKwkPageState extends State<PayKwkPage> {
   }
 
   void kirim() async {
-    var url = 'https://bill.co.id/resultTransac';
-    final responseTransaction = await http.post(url, body: {
-      'username': widget.noHpUser,
-      'password': widget.pinUser,
-      'result': 'Berhasil',
-      'desti': widget.angkotName,
-      'jumlah': jumlahController.text.replaceAll('.', '')
-    });
-    print(jsonDecode(responseTransaction.body));
-    Navigator.of(context, rootNavigator: true).pop();
+    Timer t = Timer(
+      Duration(seconds: 20),
+      () {
+        return showDialog(
+          context: context,
+          useRootNavigator: false,
+          builder: (context) => PeriksaInternetDialog(true),
+        );
+      },
+    );
+    try {
+      print('OEEEE');
+      var url = 'https://bill.co.id/resultTransac';
+      final responseTransaction = await http.post(
+        url,
+        body: {
+          'username': widget.noHpUser,
+          'password': widget.pinUser,
+          'result': 'Berhasil',
+          'desti': widget.angkotName,
+          'jumlah': jumlahController.text.replaceAll('.', '')
+        },
+      ).timeout(
+        Duration(seconds: 20),
+      );
+      print('UYYYYYY');
+      print(responseTransaction.statusCode);
+      print('ulalala ${responseTransaction.body}');
+      var data = responseTransaction.body;
+      t.cancel();
+      if (data == 'berhasil') {
+        print('ualabunga');
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => ResultUser(
+              result: 'Berhasil',
+              jumlah: jumlahController.text.replaceAll('.', ''),
+              name: widget.angkotName,
+            ),
+          ),
+        );
+      } else {
+        print('ulalalalla');
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => ResultUser(
+              result: 'Gagal Saldo',
+              jumlah: jumlahController.text.replaceAll('.', ''),
+              name: widget.angkotName,
+            ),
+          ),
+        );
+      }
+    } on SocketException catch (e) {
+      print(e);
+      t.cancel();
+      showDialog(
+        context: context,
+        useRootNavigator: false,
+        builder: (context) => PeriksaInternetDialog(true),
+      );
+    }
   }
 
   Row nominalButtonTemplate(

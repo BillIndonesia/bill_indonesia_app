@@ -73,15 +73,17 @@ Dalam menggunakan layanan Bill, Pengguna setuju dan mengikatkan diri untuk memat
                 elevation: 0.0),
             backgroundColor: Color(0xFFF4F7F8),
             body: ScrollConfiguration(
-              behavior: MyBehavior(),
-              child: Markdown(data: _markdownData,
-              styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-                p: Theme.of(context).textTheme.body1.copyWith(
-                  fontSize: 16.5, 
-                  color: Color(0xFF5A5B5C),
-                  fontFamily: 'Montserrat',
-                  wordSpacing: 3),
-                blockSpacing: 20)))));
+                behavior: MyBehavior(),
+                child: Markdown(
+                    data: _markdownData,
+                    styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
+                        .copyWith(
+                            p: Theme.of(context).textTheme.bodyText2.copyWith(
+                                fontSize: 16.5,
+                                color: Color(0xFF5A5B5C),
+                                fontFamily: 'Montserrat',
+                                wordSpacing: 3),
+                            blockSpacing: 20)))));
   }
 }
 

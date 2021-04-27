@@ -201,9 +201,9 @@ Oke, tenang. Semua transaksi kamu tersimpan rapi di sistem kami. Jadi, apabila k
 
 Jika setelah melakukan langkah diatas, tetapi saldo Bill mu masih belum masuk, laporkan ke kami dengan menekan tombol email  di bawah ini. Kami akan membalas ke email yang terdaftar pada akun Bill kamu dalam waktu maksimal 2 (dua) hari kerja.
 """;
-     description.add(md7);
+    description.add(md7);
 
-     String md8 = """
+    String md8 = """
 Untuk menikmati fitur transfer, pastikan akun kamu sudah terdaftar di Bill. Jika sudah, maka kamu dapat dengan mudah melakukan transfer saldo Bill ke temanmu tanpa biaya tambahan.
 
 __Langkah-langkah yang bisa kamu lakukan untuk melakukan transfer saldo Bill:__
@@ -309,171 +309,192 @@ Silakan hubungi kami dengan menekan tombol telepon di bawah. Kami akan membantu 
     description.add(md15);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () { 
-        Navigator.of(context).pop();  
+      onWillPop: () {
+        Navigator.of(context).pop();
       },
       child: Scaffold(
           appBar: widget.tp == 'list'
-          ? SearchBar(
-            searchHint: 'Cari bantuan',
-            searchItem: SearchItem.action(
-              builder: (_) => Padding(
-                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.06),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.07,
-                  child: FittedBox(
-                    child: Icon(Icons.search, color: Color(0xFF777E81), size: 30))),
-              ),
-              gravity: SearchItemGravity.end,
-            ),
-            loader: QuerySetLoader<int>(
-              querySetCall: (String query) {
-                List<int> cari = [];
+              ? SearchBar(
+                  searchHint: 'Cari bantuan',
+                  searchItem: SearchItem.action(
+                    builder: (_) => Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.06),
+                      child: Container(
+                          width: MediaQuery.of(context).size.width * 0.07,
+                          child: FittedBox(
+                              child: Icon(Icons.search,
+                                  color: Color(0xFF777E81), size: 30))),
+                    ),
+                    gravity: SearchItemGravity.end,
+                  ),
+                  loader: QuerySetLoader<int>(
+                    querySetCall: (String query) {
+                      List<int> cari = [];
 
-                for(int a = 0; a < question.length; a++) {
-                  if (question[a].toLowerCase().contains(query.toLowerCase())) {
-                    cari.add(a);
-                  }
-                }
-                // print(cari.toString());
-                return cari;
-                },
-              itemBuilder: (int i) {
-                // print('sini ' + o.toString());
-                // return Container(
-                //   width: 100,
-                //   height: 100,
-                //   color: Colors.red);
-                return GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (context) => new Bantuan(
-                              tipe: 'detail', que: question[i], index: i)));
+                      for (int a = 0; a < question.length; a++) {
+                        if (question[a]
+                            .toLowerCase()
+                            .contains(query.toLowerCase())) {
+                          cari.add(a);
+                        }
+                      }
+                      // print(cari.toString());
+                      return cari;
                     },
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF4F7F8),
-                            border: Border(
-                                bottom: BorderSide(color: Colors.black12))),
-                        padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.05,
-                            right:
-                                MediaQuery.of(context).size.width * 0.08),
-                        height: MediaQuery.of(context).size.height * 0.09,
-                        child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Flexible(
-                                child: Text(question[i],
+                    itemBuilder: (int i) {
+                      // print('sini ' + o.toString());
+                      // return Container(
+                      //   width: 100,
+                      //   height: 100,
+                      //   color: Colors.red);
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(new MaterialPageRoute(
+                                builder: (context) => new Bantuan(
+                                    tipe: 'detail',
+                                    que: question[i],
+                                    index: i)));
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Color(0xFFF4F7F8),
+                                  border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.black12))),
+                              padding: EdgeInsets.only(
+                                  left:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                  right:
+                                      MediaQuery.of(context).size.width * 0.08),
+                              height: MediaQuery.of(context).size.height * 0.09,
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Flexible(
+                                        child: Text(question[i],
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                fontSize: 14,
+                                                color: Color(0xFF5A5B5C)))),
+                                    SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.03),
+                                    Icon(Icons.keyboard_arrow_right,
+                                        color: Color(0xFF6C6565), size: 30)
+                                  ])));
+                    },
+                    loadOnEachChange: true,
+                    animateChanges: false,
+                  ),
+                  defaultBar: AppBar(
+                      automaticallyImplyLeading: true,
+                      title: Container(
+                          // color: Colors.red,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text('Bantuan',
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
-                                      fontSize: 14,
-                                      color: Color(0xFF5A5B5C)))),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.03),
-                              Icon(Icons.keyboard_arrow_right,
-                                  color: Color(0xFF6C6565), size: 30)
-                            ])));
-                },
-              loadOnEachChange: true,
-              animateChanges: false,
-            ),
-            defaultBar: AppBar(
-              automaticallyImplyLeading: true,
-              title: Container(
-                // color: Colors.red,
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text('Bantuan',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF423838))))),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back,
-                      color: Color(0xFF777E81), size: 30),
-                  onPressed: () {
-                      Navigator.of(context).pop();
-                  }),
-              backgroundColor: Color(0xFFF4F7F8),
-              elevation: 0.0))
-            : AppBar(
-              automaticallyImplyLeading: true,
-              title: Container(
-                // color: Colors.red,
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text('Bantuan',
-                    style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF423838))))),
-              leading: IconButton(
-                  icon: Icon(Icons.arrow_back,
-                      color: Color(0xFF777E81), size: 30),
-                  onPressed: () {
-                    if (widget.tp == 'list') {
-                      Navigator.of(context).pushReplacement(
-                          new MaterialPageRoute(
-                              builder: (context) => new Saya()));
-                    } else {
-                      Navigator.of(context).pop();
-                    }
-                  }),
-              backgroundColor: Color(0xFFF4F7F8),
-              elevation: 0.0),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xFF423838))))),
+                      leading: IconButton(
+                          icon: Icon(Icons.arrow_back,
+                              color: Color(0xFF777E81), size: 30),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                      backgroundColor: Color(0xFFF4F7F8),
+                      elevation: 0.0))
+              : AppBar(
+                  automaticallyImplyLeading: true,
+                  title: Container(
+                      // color: Colors.red,
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text('Bantuan',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF423838))))),
+                  leading: IconButton(
+                      icon: Icon(Icons.arrow_back,
+                          color: Color(0xFF777E81), size: 30),
+                      onPressed: () {
+                        if (widget.tp == 'list') {
+                          Navigator.of(context).pushReplacement(
+                              new MaterialPageRoute(
+                                  builder: (context) => new Saya()));
+                        } else {
+                          Navigator.of(context).pop();
+                        }
+                      }),
+                  backgroundColor: Color(0xFFF4F7F8),
+                  elevation: 0.0),
           backgroundColor: Color(0xFFF4F7F8),
           body: widget.tp == 'list'
               ? ScrollConfiguration(
-                behavior: MyBehavior(),
-                child: ListView.builder(
-                  itemCount: question.length,
-                  itemBuilder: (BuildContext context, int i) {
-                    return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(new MaterialPageRoute(
-                              builder: (context) => new Bantuan(
-                                  tipe: 'detail', que: question[i], index: i)));
-                        },
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF4F7F8),
-                                border: Border(
-                                    bottom: BorderSide(color: Colors.black12))),
-                            padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.05,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.08),
-                            height: MediaQuery.of(context).size.height * 0.09,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Flexible(
-                                    child: Text(question[i],
-                                      style: TextStyle(
-                                          fontFamily: 'Montserrat',
-                                          fontSize: 14,
-                                          color: Color(0xFF5A5B5C)))),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width * 0.03),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.05,
-                                    child: FittedBox(
-                                      child: Icon(Icons.keyboard_arrow_right,
-                                      color: Color(0xFF6C6565), size: 30)))
-                                ])));
-                  }))
+                  behavior: MyBehavior(),
+                  child: ListView.builder(
+                      itemCount: question.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(new MaterialPageRoute(
+                                  builder: (context) => new Bantuan(
+                                      tipe: 'detail',
+                                      que: question[i],
+                                      index: i)));
+                            },
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFF4F7F8),
+                                    border: Border(
+                                        bottom:
+                                            BorderSide(color: Colors.black12))),
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.05,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.08),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.09,
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Flexible(
+                                          child: Text(question[i],
+                                              style: TextStyle(
+                                                  fontFamily: 'Montserrat',
+                                                  fontSize: 14,
+                                                  color: Color(0xFF5A5B5C)))),
+                                      SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.03),
+                                      Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05,
+                                          child: FittedBox(
+                                              child: Icon(
+                                                  Icons.keyboard_arrow_right,
+                                                  color: Color(0xFF6C6565),
+                                                  size: 30)))
+                                    ])));
+                      }))
               : widget.tp == 'detail'
                   ? Column(children: <Widget>[
                       Container(
@@ -501,47 +522,71 @@ Silakan hubungi kami dengan menekan tombol telepon di bawah. Kami akan membantu 
                                   color: Color(0xFFF4F7F8),
                                   fontWeight: FontWeight.w600))),
                       Expanded(
-                        child: ScrollConfiguration(
-                          behavior: MyBehavior(),
-                          child: Markdown(data: description[widget.i],
-                            styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)).copyWith(
-                              p: Theme.of(context).textTheme.body1.copyWith(
-                                fontSize: 16.5, 
-                                color: Color(0xFF5A5B5C),
-                                fontFamily: 'Montserrat',
-                                wordSpacing: 3),
-                              blockSpacing: 20)))),
-                      (widget.i == 4) || (widget.i == 7) || (widget.i == 10) || (widget.i == 12) || (widget.i == 13) || (widget.i == 14) || (widget.i == 15)
-                      ? GestureDetector(
-                        onTap: () {
-                          launch("mailto:info@bill.co.id?subject=Bantuan");
-                        },
-                        child: Container(
-                        margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.03),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color:Color(0xFF0B8CAD),
-                            width: 1),
-                          borderRadius:BorderRadius.circular(5)),
-                        height: MediaQuery.of(context).size.height * 0.06,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                          Text('Laporkan',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Color(0xFF5A5B5C),
-                              fontSize: 15)),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                          Icon(Icons.email, 
-                            size: MediaQuery.of(context).size.width * 0.06,
-                            color: Color(0xFF8B8B8B))])))
-                      : Container()
+                          child: ScrollConfiguration(
+                              behavior: MyBehavior(),
+                              child: Markdown(
+                                  data: description[widget.i],
+                                  styleSheet: MarkdownStyleSheet.fromTheme(
+                                          Theme.of(context))
+                                      .copyWith(
+                                          p: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2
+                                              .copyWith(
+                                                  fontSize: 16.5,
+                                                  color: Color(0xFF5A5B5C),
+                                                  fontFamily: 'Montserrat',
+                                                  wordSpacing: 3),
+                                          blockSpacing: 20)))),
+                      (widget.i == 4) ||
+                              (widget.i == 7) ||
+                              (widget.i == 10) ||
+                              (widget.i == 12) ||
+                              (widget.i == 13) ||
+                              (widget.i == 14) ||
+                              (widget.i == 15)
+                          ? GestureDetector(
+                              onTap: () {
+                                launch(
+                                    "mailto:info@bill.co.id?subject=Bantuan");
+                              },
+                              child: Container(
+                                  margin: EdgeInsets.all(
+                                      MediaQuery.of(context).size.width * 0.03),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Color(0xFF0B8CAD), width: 1),
+                                      borderRadius: BorderRadius.circular(5)),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.06,
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text('Laporkan',
+                                            style: TextStyle(
+                                                fontFamily: 'Montserrat',
+                                                color: Color(0xFF5A5B5C),
+                                                fontSize: 15)),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02),
+                                        Icon(Icons.email,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.06,
+                                            color: Color(0xFF8B8B8B))
+                                      ])))
+                          : Container()
                     ])
                   : Container()),
     );
   }
 }
+
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(

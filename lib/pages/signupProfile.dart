@@ -1,10 +1,9 @@
 import 'package:bill/main.dart';
-import 'package:bill/pages/notelp.dart';
+import 'package:bill/pages/Login%20Pages/notelp.dart';
 import 'package:flutter/material.dart';
 import 'package:bill/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -426,7 +425,7 @@ class SignupProfilePageState extends State<SignupProfilePage> {
                                   );
                                   Navigator.of(context).pushReplacement(
                                     new MaterialPageRoute(
-                                      builder: (context) => new NoTelp(),
+                                      builder: (context) => new Login(),
                                     ),
                                   );
                                 }

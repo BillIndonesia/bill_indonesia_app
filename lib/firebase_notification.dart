@@ -4,8 +4,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:bill/pages/riwayat.dart';
 import 'package:bill/pages/home.dart';
 import 'package:bill/pages/resultVendor.dart';
-import 'package:bill/pages/resultUser.dart';
-import 'package:bill/pages/resultUserTopup.dart';
+import 'package:bill/pages/User Transaction Pages/resultUser.dart';
+import 'package:bill/pages/User Transaction Pages/resultUserTopup.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_money_formatter/flutter_money_formatter.dart';
@@ -313,24 +313,16 @@ class FirebaseNotifications {
           // DetailPageState().cancel();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           var udah = prefs.getString('udah');
-          if (udah == 'udah') {
-            print('masuk 1');
-            prefs.setString('udah', 'udah');
-            prefs.setString('udah2', 'udah');
-            Future.delayed(const Duration(seconds: 15), () async {
-              prefs.setString('udah2', 'belum');
-            });
-          } else {
-            print('masuk 2');
-            prefs.setString('udah', 'udah');
-          }
           Navigator.push(
-              navKey.currentContext,
-              MaterialPageRoute(
-                  builder: (_) => ResultVendor(
-                      result: message['data']['result'],
-                      jumlah: message['data']['jumlah'],
-                      name: message['data']['name'])));
+            navKey.currentContext,
+            MaterialPageRoute(
+              builder: (_) => ResultVendor(
+                result: message['data']['result'],
+                jumlah: message['data']['jumlah'],
+                name: message['data']['name'],
+              ),
+            ),
+          );
         } else if (message['data']['notif'] == 'topup') {
           Navigator.push(
               navKey.currentContext,

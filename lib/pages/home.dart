@@ -1,4 +1,3 @@
-import 'package:bill/pages/HomePages/Widgets/VendorQRCamera.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dart:async';
@@ -7,7 +6,6 @@ import 'dart:convert';
 import 'package:bill/pages/detail.dart';
 import 'package:bill/pages/saya.dart';
 import 'package:bill/pages/riwayat.dart';
-import 'package:bill/pages/topup.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -17,11 +15,8 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/widgets.dart';
-import 'package:camera/camera.dart';
-// import 'package:loading/loading.dart';
-// import 'package:loading/indicator/ball_spin_fade_loader_indicator.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:bill/pages/resultUserTopup.dart';
+import 'package:bill/pages/User Transaction Pages/resultUserTopup.dart';
 
 import 'User Transaction Pages/PayKWK.dart';
 
@@ -1425,7 +1420,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     noHpUser: nohp,
                     pinUser: pin,
                     angkotName: angkotName,
-                    angkotImage: angkotImage,
+                    angkotImage: angkotImage == false ? '' : angkotImage,
                   ),
                 ),
               );

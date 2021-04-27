@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:shimmer/shimmer.dart';
 import 'package:intl/intl.dart';
-import 'dart:io';
 
 class ResultUser extends StatelessWidget {
   final String name;
@@ -54,8 +53,9 @@ class ResultUserPageState extends State<ResultUserPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05,
-                vertical: MediaQuery.of(context).size.width * 0.06),
+              horizontal: MediaQuery.of(context).size.width * 0.05,
+              vertical: MediaQuery.of(context).size.width * 0.06,
+            ),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Color(0xFFF4F7F8)),
@@ -78,7 +78,9 @@ class ResultUserPageState extends State<ResultUserPage> {
                             fontFamily: 'Montserrat'),
                         children: <TextSpan>[
                           new TextSpan(text: 'sudah menunjukkan\n'),
-                          new TextSpan(text: 'halaman ini kepada supir ?'),
+                          new TextSpan(
+                            text: 'halaman ini kepada supir ?',
+                          ),
                         ],
                       ),
                     ),
@@ -178,24 +180,25 @@ class ResultUserPageState extends State<ResultUserPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-//Image Gagal/Berhasil -->
+                      //Image Gagal/Berhasil -->
                       Container(
-                        // color: Colors.red,
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.35,
                         margin: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.1,
-                            bottom: MediaQuery.of(context).size.height * 0.05),
+                          top: MediaQuery.of(context).size.height * 0.1,
+                          bottom: MediaQuery.of(context).size.height * 0.05,
+                        ),
                         child: Image(
                           image: widget.rs == 'Berhasil'
                               ? AssetImage('images/berhasil.png')
                               : AssetImage('images/gagal.png'),
                         ),
                       ),
-//Text Info Gagal/Berhasil -->
+                      //Text Info Gagal/Berhasil -->
                       widget.rs == 'Berhasil'
+                          //TextSpan Berhasil
                           ? vendorType == 'fixed'
-//TextSpan Angkot
+                              //TextSpan Angkot
                               ? Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
@@ -227,7 +230,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                                     ),
                                   ),
                                 )
-//TextSpan Vendor
+                              //TextSpan Vendor
                               : Container(
                                   width:
                                       MediaQuery.of(context).size.width * 0.8,
@@ -250,8 +253,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                                       ],
                                     ),
                                   )))
-
-//TextSpan Gagal
+                          //TextSpan Gagal
                           : Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               child: FittedBox(
@@ -282,7 +284,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                             ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.03),
-//Gambar Penerima Dan Nama Penerima
+                      //Gambar Penerima Dan Nama Penerima
                       udah == true
                           ? Container(
                               child: Column(
@@ -354,7 +356,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                                 ],
                               ),
                             )
-//shimmer
+                          //shimmer
                           : Container(
                               child: Column(
                                 children: <Widget>[
@@ -397,12 +399,13 @@ class ResultUserPageState extends State<ResultUserPage> {
                               ),
                             ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05)
+                        height: MediaQuery.of(context).size.height * 0.05,
+                      )
                     ],
                   ),
                 ),
               ),
-//Bolean Tampilan notifikasi khusus angkot
+              //Bolean Tampilan notifikasi khusus angkot
               vendorType == 'fixed' && widget.rs == 'Berhasil'
                   ? Container(
                       margin: EdgeInsets.only(
@@ -423,7 +426,7 @@ class ResultUserPageState extends State<ResultUserPage> {
                       ),
                     )
                   : Container(),
-//Tombol Paling Bawah
+              //Tombol Paling Bawah
               Container(
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * 0.01),

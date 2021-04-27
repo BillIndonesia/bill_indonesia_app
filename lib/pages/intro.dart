@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bill/pages/notelp.dart';
+import 'package:bill/pages/Login Pages/notelp.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 
@@ -33,19 +33,25 @@ class IntroPageState extends State<IntroPage> {
     slides.add(
       new Slide(
         marginTitle: EdgeInsets.only(
-            top: MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
+            top:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
         centerWidget: Container(
-            height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
+            height:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image(image: AssetImage('images/billslide1.png')),
                   FadeInImage(
-                    placeholder: AssetImage(''),
-                    image: AssetImage('images/slide1.png')),
+                      placeholder: AssetImage(''),
+                      image: AssetImage('images/slide1.png')),
                   // Image(image: AssetImage('images/slide1.png')),
-                  SizedBox(height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.015)
+                  SizedBox(
+                      height: MediaQuery.of(widget.navkey.currentContext)
+                              .size
+                              .height *
+                          0.015)
                 ])),
         // pathImage: 'images/slide1.png',
         // widthImage: MediaQuery.of(widget.navkey.currentContext).size.width,
@@ -58,16 +64,22 @@ class IntroPageState extends State<IntroPage> {
     slides.add(
       new Slide(
         marginTitle: EdgeInsets.only(
-            top: MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
+            top:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
         centerWidget: Container(
-            height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
+            height:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image(image: AssetImage('images/billslide2.png')),
                   Image(image: AssetImage('images/slide2.png')),
-                  SizedBox( height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.015)
+                  SizedBox(
+                      height: MediaQuery.of(widget.navkey.currentContext)
+                              .size
+                              .height *
+                          0.015)
                 ])),
         // pathImage: 'images/slide2.png',
         // widthImage: MediaQuery.of(widget.navkey.currentContext).size.width,
@@ -80,16 +92,22 @@ class IntroPageState extends State<IntroPage> {
     slides.add(
       new Slide(
         marginTitle: EdgeInsets.only(
-            top: MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
+            top:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.03),
         centerWidget: Container(
-            height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
+            height:
+                MediaQuery.of(widget.navkey.currentContext).size.height * 0.75,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image(image: AssetImage('images/billslide3.png')),
                   Image(image: AssetImage('images/slide3.png')),
-                  SizedBox(height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.015)
+                  SizedBox(
+                      height: MediaQuery.of(widget.navkey.currentContext)
+                              .size
+                              .height *
+                          0.015)
                 ])),
         // pathImage: 'images/slide3.png',
         // widthImage: MediaQuery.of(widget.navkey.currentContext).size.width,
@@ -114,7 +132,10 @@ class IntroPageState extends State<IntroPage> {
                   Image(image: AssetImage('images/billslide4.png')),
                   Image(image: AssetImage('images/slide4.png')),
                   SizedBox(
-                      height: MediaQuery.of(widget.navkey.currentContext).size.height * 0.015)
+                      height: MediaQuery.of(widget.navkey.currentContext)
+                              .size
+                              .height *
+                          0.015)
                 ])),
         // pathImage: 'images/slide4.png',
         // widthImage: MediaQuery.of(widget.navkey.currentContext).size.width,
@@ -129,7 +150,7 @@ class IntroPageState extends State<IntroPage> {
   void onDonePress() async {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => NoTelp()),
+      MaterialPageRoute(builder: (context) => Login()),
     );
   }
 

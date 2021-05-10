@@ -1,107 +1,57 @@
 name: bill
 description: A new Flutter project.
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
-# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
-# Read more about iOS versioning at
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 0.8.6+38
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
-
+  sdk: ">=2.12.0 <3.0.0"
+#Plugin Dependencies
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^7.0.0
+  dio: ^4.0.0
+  provider: ^5.0.0
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  qr_code_scanner: ^0.0.12
-  provider: ^3.2.0
-  flutter_markdown:
-    path: E:\Android Dev\bill\flutter_markdown master
-  intro_slider:
-  shared_preferences:
-  http:
-  qr_flutter:
-  flutter_money_formatter:
-  flutter_camera_ml_vision:
-  firebase_messaging: 
-  random_string:
-  pin_code_text_field: ^1.4.0
-  intl:
-  image_picker:
-  toast:
-  loading:
-  flutter_datetime_picker:
-  url_launcher:
-  loader_search_bar:
-  shimmer:
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  build_runner: ^2.0.0
+  freezed: ^0.14.0
+  json_serializable: ^4.1.0
 
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
-
-# The following section is specific to Flutter.
+#Assets
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
+  # Image Assets
   assets:
     - images/
     - images/bingkai.png
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware.
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+  # Fonts Assets
   fonts:
     - family: Young
       fonts:
-       - asset: fonts/young.ttf
-       - asset: fonts/young italic.ttf
+        - asset: fonts/young.ttf
+        - asset: fonts/young italic.ttf
     - family: Montserrat
       fonts:
-       - asset: fonts/Montserrat-Black.otf
-       - asset: fonts/Montserrat-BlackItalic.otf
-       - asset: fonts/Montserrat-Bold.otf
-       - asset: fonts/Montserrat-BoldItalic.otf
-       - asset: fonts/Montserrat-ExtraBold.otf
-       - asset: fonts/Montserrat-ExtraBoldItalic.otf
-       - asset: fonts/Montserrat-ExtraLight.otf
-       - asset: fonts/Montserrat-ExtraLightItalic.otf
-       - asset: fonts/Montserrat-Italic.otf
-       - asset: fonts/Montserrat-Light.otf
-       - asset: fonts/Montserrat-LightItalic.otf
-       - asset: fonts/Montserrat-Medium.otf
-       - asset: fonts/Montserrat-MediumItalic.otf
-       - asset: fonts/Montserrat-Regular.otf
-       - asset: fonts/Montserrat-SemiBold.otf
-       - asset: fonts/Montserrat-SemiBoldItalic.otf
-       - asset: fonts/Montserrat-Thin.otf
-       - asset: fonts/Montserrat-ThinItalic.otf
-
-  #
+        - asset: fonts/Montserrat-Black.otf
+        - asset: fonts/Montserrat-BlackItalic.otf
+        - asset: fonts/Montserrat-Bold.otf
+        - asset: fonts/Montserrat-BoldItalic.otf
+        - asset: fonts/Montserrat-ExtraBold.otf
+        - asset: fonts/Montserrat-ExtraBoldItalic.otf
+        - asset: fonts/Montserrat-ExtraLight.otf
+        - asset: fonts/Montserrat-ExtraLightItalic.otf
+        - asset: fonts/Montserrat-Italic.otf
+        - asset: fonts/Montserrat-Light.otf
+        - asset: fonts/Montserrat-LightItalic.otf
+        - asset: fonts/Montserrat-Medium.otf
+        - asset: fonts/Montserrat-MediumItalic.otf
+        - asset: fonts/Montserrat-Regular.otf
+        - asset: fonts/Montserrat-SemiBold.otf
+        - asset: fonts/Montserrat-SemiBoldItalic.otf
+        - asset: fonts/Montserrat-Thin.otf
+        - asset: fonts/Montserrat-ThinItalic.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

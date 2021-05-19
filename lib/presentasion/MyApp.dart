@@ -1,26 +1,24 @@
+import 'package:bill/application/auth/bloc/sign_in_bloc.dart';
 import 'package:bill/application/sign_in/auth_repository.dart';
-import 'package:bill/application/sign_in/bloc/bloc_view.dart';
-import 'package:bill/application/sign_in/sign_in_provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:bill/presentasion/routes/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider.value(
-          value: SigninProvider(),
-        ),
+        BlocProvider(
+          create: (context) => SignInBloc(authRepo: AuthRepository()),
+          child: Container(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Bill',
-        home: RepositoryProvider(
-          create: (context) => AuthRepository(),
-          child: LoginView(),
-        ),
+        onGenerateRoute: AppRouter().onGeneratedRoute,
       ),
     );
   }

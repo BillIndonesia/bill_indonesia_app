@@ -1,4 +1,5 @@
-import 'package:bill/presentasion/pages/sign_in/sign_in_page.dart';
+import 'package:bill/presentasion/pages/auth/Screen/sign_in_phone_number/sign_in_phone_number_sreen.dart';
+import 'package:bill/presentasion/pages/auth/Screen/sign_in_pin/sign_in_pin_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -6,11 +7,15 @@ class AppRouter {
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (_) => SigninPage(),
+          builder: (_) => SignInPinScreen(),
+        );
+      case '/SignInPinScreen':
+        return MaterialPageRoute(
+          builder: (_) => SignInPinScreen(),
         );
       default:
         return MaterialPageRoute(
-          builder: (_) => SigninPage(),
+          builder: (_) => SignInPhoneNumberScreen(),
         );
     }
   }

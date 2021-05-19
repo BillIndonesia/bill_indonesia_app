@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SigninFormDecoration {
+class AuthFormDecoration {
   InputDecoration signinPhoneNumberFormDecoration() {
     return InputDecoration(
       enabledBorder: UnderlineInputBorder(

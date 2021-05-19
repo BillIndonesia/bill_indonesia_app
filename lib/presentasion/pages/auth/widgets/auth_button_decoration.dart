@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AuthButtonStyle extends StatelessWidget {
+class AuthButtonDecoration extends StatelessWidget {
   final String title;
-  const AuthButtonStyle({
+  const AuthButtonDecoration({
+    Key? key,
     required this.title,
-  });
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,10 +15,10 @@ class AuthButtonStyle extends StatelessWidget {
         top: MediaQuery.of(context).size.height * 0.03,
       ),
       child: Card(
+        color: Color(0xFF0A9ABC),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(32),
         ),
-        color: Color(0xFF0A9ABC),
         child: Container(
           margin: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.height * 0.01,

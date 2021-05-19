@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'widgets/sign_in_page_form.dart';
 
-class SigninPage extends StatelessWidget {
-  const SigninPage({Key? key}) : super(key: key);
+import 'widgets/Sign_in_Phone_number_term_and_condition_checkbox.dart';
+import 'widgets/sign_in_phone_number_button.dart';
+import 'widgets/sign_in_phone_number_header.dart';
+import 'widgets/sign_in_phone_number_text_form_field.dart';
 
+class SignInPhoneNumberScreen extends StatelessWidget {
+  final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -32,30 +35,18 @@ class SigninPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  SigninPhoneNumberHeader(),
-                  SigninPhoneNumberForm(),
+                  SigninPhoneNumberHeader(
+                    header: 'Nomor Telepon',
+                  ),
+                  //PhoneNumber Form Field
+                  SignInPhoneNumberTextFormField(formKey: _formKey),
+                  //Term & Condition
+                  SignInPhoneNumberTermAndConditionCheckBoxAndText(),
+                  // Submit Button
+                  SignInPhoneNumberButton(formKey: _formKey),
                 ],
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SigninPhoneNumberHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.7,
-      child: FittedBox(
-        child: Text(
-          'Masukan Nomor Telepon anda',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontFamily: 'Montserrat',
-            color: Colors.white,
           ),
         ),
       ),

@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:bill/application/global/form_submission_status.dart';
+import 'package:bill/data/data_providers/auth/auth_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-import 'package:bill/application/sign_in/auth_repository.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final AuthRepository authRepo;
+
   SignInBloc({
     required this.authRepo,
   }) : super(
@@ -20,12 +20,13 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
             phoneNumber: '',
             pinNumber: '',
             formStatus: const InitialFormStatus(),
+            phoneNumberSubmitionStatus: const InitialFormStatus(),
             isInitial: true,
             isTermAndConditionChecked: false,
             phoneNumberSubmittingStatus: '',
             isValidPassword: '',
             failedSubmittingPin: 0,
-            suspendTimer: 60,
+            suspendTimer: 0,
           ),
         );
 
@@ -35,7 +36,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   ) async* {
     //PhoneNUmber Form Field Changed Event
     if (event is SigninPhoneNumberFormChanged) {
-      print('Even Phone Number ${event.phoneNumber}');
       yield state.copyWith(
         phoneNumber: event.phoneNumber,
         phoneNumberSubmittingStatus: '',
@@ -51,42 +51,52 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     else if (event is SignInPhoneNumberSubmitted) {
       if (state.isValidPhoneNumber) {
         yield state.copyWith(
-          formStatus: FormSubmitting(),
+          phoneNumberSubmitionStatus: FormSubmitting(),
           isInitial: false,
         );
         try {
           final response = await authRepo.signinPhoneNumber(state.phoneNumber);
           if (response) {
             yield state.copyWith(
-              formStatus: SubmissionSuccess(),
+              isInitial: true,
+              phoneNumberSubmitionStatus: SubmissionSuccess(),
               phoneNumberSubmittingStatus: 'Phone Number Registered',
             );
           } else {
             yield state.copyWith(
-              formStatus: SubmissionSuccess(),
+              phoneNumberSubmitionStatus: SubmissionSuccess(),
               phoneNumberSubmittingStatus: 'Phone Number Unregistered',
             );
           }
         } catch (e) {
           yield state.copyWith(
-            formStatus: SubmissionFailed(
+            phoneNumberSubmitionStatus: SubmissionFailed(
               Exception(e),
             ),
           );
         }
+      } else {
+        yield state.copyWith(
+          isInitial: false,
+        );
       }
       yield state.copyWith(
-        isInitial: false,
+        isInitial: true,
+        phoneNumberSubmitionStatus: InitialFormStatus(),
       );
     }
+    //CleaniT
+    else if (event is CleanCache) {
+      yield state.copyWith(phoneNumberSubmitionStatus: InitialFormStatus());
+    }
 
-    //------------------------------ignInPin-----------------------------------//
+    //------------------------------SignInPin-----------------------------------//
     if (event is SignInPinFormChanged) {
-      print('Even Phone Number ${event.pin}');
       yield state.copyWith(
         pinNumber: event.pin,
         phoneNumberSubmittingStatus: '',
         isValidPassword: '',
+        formStatus: InitialFormStatus(),
       );
     }
     //pin Submitted
@@ -98,10 +108,10 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         );
         try {
           final response = await authRepo.signinPin(
-            '05',
+            state.phoneNumber,
             state.pinNumber,
           );
-          print(response);
+
           if (response) {
             yield state.copyWith(
               isInitial: false,

@@ -8,16 +8,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.0.0
+  device_info: ^2.0.0
   dio: ^4.0.0
-  provider: ^5.0.0
   equatable: ^2.0.0
+  fancy_on_boarding: ^1.7.0
+  flutter_bloc: ^7.0.0
+  intro_views_flutter: ^3.1.0
+  mobile_number: ^1.0.4
   pin_code_fields: ^7.1.0
-
+  provider: ^5.0.0
+  random_string: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   build_runner: ^2.0.0
   freezed: ^0.14.0
   json_serializable: ^4.1.0

@@ -9,7 +9,7 @@ class SigninPhoneNumberHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.3,
+      width: MediaQuery.of(context).size.width * 0.5,
       child: FittedBox(
         child: Text(
           'Masukan $header anda',

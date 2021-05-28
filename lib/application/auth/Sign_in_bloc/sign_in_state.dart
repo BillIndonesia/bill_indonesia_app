@@ -6,7 +6,6 @@ class SignInState extends Equatable {
   final bool isTermAndConditionChecked;
   final String phoneNumberSubmittingStatus;
   bool get isValidPhoneNumber {
-    print('Validator phone NUmber phoneNumber:  $phoneNumber');
     const String pattern = r'^(?:[0][8])[0-9]{7,11}$';
     RegExp regExp = new RegExp(pattern);
     if (regExp.hasMatch(phoneNumber)) {
@@ -19,9 +18,11 @@ class SignInState extends Equatable {
 
   final String pinNumber;
   final String isValidPassword;
-  bool get pinFormValidator => pinNumber.length >= 6;
+  bool get pinFormValidator => pinNumber.length == 6;
   final int failedSubmittingPin;
+  bool get isSuspended => failedSubmittingPin == 3;
   final FormSubmissionStatus formStatus;
+  final FormSubmissionStatus phoneNumberSubmitionStatus;
   final int suspendTimer;
   SignInState({
     required this.phoneNumber,
@@ -32,6 +33,7 @@ class SignInState extends Equatable {
     required this.isValidPassword,
     required this.failedSubmittingPin,
     required this.formStatus,
+    required this.phoneNumberSubmitionStatus,
     required this.suspendTimer,
   });
 
@@ -39,6 +41,7 @@ class SignInState extends Equatable {
     String? phoneNumber,
     String? pinNumber,
     FormSubmissionStatus? formStatus,
+    FormSubmissionStatus? phoneNumberSubmitionStatus,
     bool? isInitial,
     bool? isTermAndConditionChecked,
     String? phoneNumberSubmittingStatus,
@@ -51,6 +54,8 @@ class SignInState extends Equatable {
       pinNumber: pinNumber ?? this.pinNumber,
       formStatus: formStatus ?? this.formStatus,
       isInitial: isInitial ?? this.isInitial,
+      phoneNumberSubmitionStatus:
+          phoneNumberSubmitionStatus ?? this.phoneNumberSubmitionStatus,
       phoneNumberSubmittingStatus:
           phoneNumberSubmittingStatus ?? this.phoneNumberSubmittingStatus,
       isTermAndConditionChecked:
@@ -68,6 +73,7 @@ class SignInState extends Equatable {
         formStatus,
         isInitial,
         isTermAndConditionChecked,
+        phoneNumberSubmitionStatus,
         phoneNumberSubmittingStatus,
         isValidPassword,
         failedSubmittingPin,

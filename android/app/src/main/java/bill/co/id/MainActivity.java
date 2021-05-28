@@ -16,7 +16,7 @@ public class MainActivity extends FlutterActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     GeneratedPluginRegistrant.registerWith(this);
-
+    // MobileNumberPlugin.registerWith(registrarFor("com.amorenew.mobile_number.MobileNumberPlugin()"));
     AppEventsLogger logger = AppEventsLogger.newLogger(this);
     logger.logEvent(AppEventsConstants.EVENT_NAME_AD_CLICK);
     logger.logEvent(AppEventsConstants.EVENT_NAME_ACTIVATED_APP);

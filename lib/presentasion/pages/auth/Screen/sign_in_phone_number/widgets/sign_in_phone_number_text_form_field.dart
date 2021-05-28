@@ -1,4 +1,4 @@
-import 'package:bill/application/auth/bloc/sign_in_bloc.dart';
+import 'package:bill/application/auth/sign_in_bloc/sign_in_bloc.dart';
 import 'package:bill/presentasion/pages/auth/widgets/auth_form_decoration.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

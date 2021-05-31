@@ -70,9 +70,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           }
         } catch (e) {
           yield state.copyWith(
-            phoneNumberSubmitionStatus: SubmissionFailed(
-              Exception(e),
-            ),
+            phoneNumberSubmitionStatus: SubmissionFailed(),
           );
         }
       } else {
@@ -130,9 +128,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
           }
         } catch (e) {
           yield state.copyWith(
-            formStatus: SubmissionFailed(
-              Exception(e),
-            ),
+            formStatus: SubmissionFailed(),
           );
         }
       }

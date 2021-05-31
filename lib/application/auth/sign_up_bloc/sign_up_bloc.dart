@@ -24,12 +24,25 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         yield state.copyWith(
           otpCode: event.otpCode,
         );
+        if (event.otpCode.length == 4) {
+          if (event.otpCode == state.otpCodeGenerated) {
+            yield state.copyWith(
+              showErrorMessages: false,
+              errorMessages: 'pin benar',
+            );
+          } else {
+            yield state.copyWith(
+              showErrorMessages: true,
+              errorMessages: 'Kode Anda Salah',
+            );
+          }
+        }
       },
       getOtpScreenInit: (event) async* {
         // var otpCodeGenerator = int.parse(randomNumeric(4));
         var otpCodeGenerator = Random().nextInt(1000);
         var otpCode = otpCodeGenerator.toString().padRight(4, '0');
-
+        print(otpCode);
         yield state.copyWith(
           otpCodeGenerated: otpCode,
           phoneNumber: event.phoneNumber,
@@ -39,10 +52,14 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       otpTimer: (event) async* {
         yield state.copyWith(
           waitingTimer: event.otpClock,
+          errorMessages: '',
         );
       },
       resendOtp: (event) async* {
-        print(event);
+        var otpCodeGenerator = Random().nextInt(1000);
+        var otpCode = otpCodeGenerator.toString().padRight(4, '0');
+        print(otpCode);
+        yield state.copyWith(otpCodeGenerated: otpCode);
       },
       cleanCache: cleanCache,
     );

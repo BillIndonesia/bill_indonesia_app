@@ -5,6 +5,7 @@ class SignInState extends Equatable {
   final bool isInitial;
   final bool isTermAndConditionChecked;
   final String phoneNumberSubmittingStatus;
+  final FormSubmissionStatus phoneNumberSubmitionStatus;
   bool get isValidPhoneNumber {
     const String pattern = r'^(?:[0][8])[0-9]{7,11}$';
     RegExp regExp = new RegExp(pattern);
@@ -19,10 +20,9 @@ class SignInState extends Equatable {
   final String pinNumber;
   final String isValidPassword;
   bool get pinFormValidator => pinNumber.length == 6;
-  final int failedSubmittingPin;
   bool get isSuspended => failedSubmittingPin == 3;
   final FormSubmissionStatus formStatus;
-  final FormSubmissionStatus phoneNumberSubmitionStatus;
+  final int failedSubmittingPin;
   final int suspendTimer;
   SignInState({
     required this.phoneNumber,

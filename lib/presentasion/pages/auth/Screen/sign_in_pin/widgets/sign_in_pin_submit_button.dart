@@ -1,4 +1,4 @@
-import 'package:bill/application/auth/sign_in_bloc/sign_in_bloc.dart';
+import 'package:bill/application/auth/sign_in_pin_bloc/sign_in_pin_bloc.dart';
 import 'package:bill/application/global/form_submission_status.dart';
 import 'package:bill/presentasion/pages/auth/widgets/auth_button_decoration.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class SignInPinSubmitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignInBloc, SignInState>(
+    return BlocConsumer<SignInPinBloc, SignInPinState>(
       listener: (context, state) {},
       builder: (context, state) {
         return state.formStatus is FormSubmitting
@@ -29,7 +29,7 @@ class SignInPinSubmitButton extends StatelessWidget {
                 ),
               )
             : Visibility(
-                visible: state.isSuspended,
+                visible: state.isUserSuspended,
                 child: GestureDetector(
                   onTap: () {
                     // _pinformKey.currentState!.validate();
@@ -46,7 +46,7 @@ class SignInPinSubmitButton extends StatelessWidget {
                     // }
                   },
                   child: Visibility(
-                    visible: state.isSuspended,
+                    visible: state.isUserSuspended,
                     child: AuthButtonDecoration(
                       title: 'Lupa Pin',
                     ),

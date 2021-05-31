@@ -7,17 +7,22 @@ class SignUpState with _$SignUpState {
     required String otpCode,
     required String otpCodeGenerated,
     required String errorMessages,
-    required String showErrorMessages,
+    required bool showErrorMessages,
     required int waitingTimer,
     required bool isFormValid,
   }) = _SignUpState;
 
   factory SignUpState.initial() => SignUpState(
-      phoneNumber: '',
-      otpCode: '',
-      otpCodeGenerated: '',
-      showErrorMessages: 'false',
-      isFormValid: true,
-      waitingTimer: 0,
-      errorMessages: '');
+        phoneNumber: '',
+        otpCode: '',
+        otpCodeGenerated: '',
+        showErrorMessages: false,
+        isFormValid: true,
+        waitingTimer: 0,
+        errorMessages: '',
+      );
+  const SignUpState._();
+  bool get isPinFormValid {
+    return otpCode != 'abcd';
+  }
 }

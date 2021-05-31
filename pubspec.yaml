@@ -8,16 +8,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  animate_do: ^2.0.0
   device_info: ^2.0.0
   dio: ^4.0.0
   equatable: ^2.0.0
   fancy_on_boarding: ^1.7.0
   flutter_bloc: ^7.0.0
+  flutter_styled_toast: ^2.0.0
   intro_views_flutter: ^3.1.0
+  lottie: ^1.0.1
   mobile_number: ^1.0.4
   pin_code_fields: ^7.1.0
+  pinput: ^1.2.0
   provider: ^5.0.0
   random_string: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -32,31 +37,32 @@ flutter:
   assets:
     - images/
     - images/bingkai.png
+    - assets/lottie/
   # Fonts Assets
   fonts:
     - family: Young
       fonts:
-        - asset: fonts/young.ttf
-        - asset: fonts/young italic.ttf
+        - asset: assets/fonts/young.ttf
+        - asset: assets/fonts/young italic.ttf
     - family: Montserrat
       fonts:
-        - asset: fonts/Montserrat-Black.otf
-        - asset: fonts/Montserrat-BlackItalic.otf
-        - asset: fonts/Montserrat-Bold.otf
-        - asset: fonts/Montserrat-BoldItalic.otf
-        - asset: fonts/Montserrat-ExtraBold.otf
-        - asset: fonts/Montserrat-ExtraBoldItalic.otf
-        - asset: fonts/Montserrat-ExtraLight.otf
-        - asset: fonts/Montserrat-ExtraLightItalic.otf
-        - asset: fonts/Montserrat-Italic.otf
-        - asset: fonts/Montserrat-Light.otf
-        - asset: fonts/Montserrat-LightItalic.otf
-        - asset: fonts/Montserrat-Medium.otf
-        - asset: fonts/Montserrat-MediumItalic.otf
-        - asset: fonts/Montserrat-Regular.otf
-        - asset: fonts/Montserrat-SemiBold.otf
-        - asset: fonts/Montserrat-SemiBoldItalic.otf
-        - asset: fonts/Montserrat-Thin.otf
-        - asset: fonts/Montserrat-ThinItalic.otf
+        - asset: assets/fonts/Montserrat-Black.otf
+        - asset: assets/fonts/Montserrat-BlackItalic.otf
+        - asset: assets/fonts/Montserrat-Bold.otf
+        - asset: assets/fonts/Montserrat-BoldItalic.otf
+        - asset: assets/fonts/Montserrat-ExtraBold.otf
+        - asset: assets/fonts/Montserrat-ExtraBoldItalic.otf
+        - asset: assets/fonts/Montserrat-ExtraLight.otf
+        - asset: assets/fonts/Montserrat-ExtraLightItalic.otf
+        - asset: assets/fonts/Montserrat-Italic.otf
+        - asset: assets/fonts/Montserrat-Light.otf
+        - asset: assets/fonts/Montserrat-LightItalic.otf
+        - asset: assets/fonts/Montserrat-Medium.otf
+        - asset: assets/fonts/Montserrat-MediumItalic.otf
+        - asset: assets/fonts/Montserrat-Regular.otf
+        - asset: assets/fonts/Montserrat-SemiBold.otf
+        - asset: assets/fonts/Montserrat-SemiBoldItalic.otf
+        - asset: assets/fonts/Montserrat-Thin.otf
+        - asset: assets/fonts/Montserrat-ThinItalic.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

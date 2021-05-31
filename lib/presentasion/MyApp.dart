@@ -1,4 +1,5 @@
 import 'package:bill/application/auth/sign_in_bloc/sign_in_bloc.dart';
+import 'package:bill/application/auth/sign_in_pin_bloc/sign_in_pin_bloc.dart';
 import 'package:bill/application/auth/sign_up_bloc/sign_up_bloc.dart';
 import 'package:bill/application/auth/user_bloc/user_bloc.dart';
 import 'package:bill/data/data_providers/auth/auth_repository.dart';
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
           create: (context) => SignInBloc(authRepo: AuthRepository()),
         ),
         BlocProvider(
-          create: (context) => SignUpBloc(AuthRepository()),
+          create: (context) => SignInPinBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => SignUpBloc(
+            AuthRepository(),
+          ),
         ),
         BlocProvider(
           create: (context) => UserBloc(),

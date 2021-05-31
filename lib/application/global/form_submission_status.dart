@@ -10,8 +10,10 @@ class FormSubmitting extends FormSubmissionStatus {}
 
 class SubmissionSuccess extends FormSubmissionStatus {}
 
-class SubmissionFailed extends FormSubmissionStatus {
+class SubmissionFailed extends FormSubmissionStatus {}
+
+class SubmissionError extends FormSubmissionStatus {
   final Exception exception;
 
-  SubmissionFailed(this.exception);
+  SubmissionError(this.exception);
 }

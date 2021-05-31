@@ -5,12 +5,14 @@ import 'package:bill/application/auth/sign_up_bloc/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class SignUpOTPScreen extends StatelessWidget {
   final GlobalKey<FormState> _otpformKey = GlobalKey();
   final bool init = true;
-  final bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     final b = context.read<SignInBloc>().state.phoneNumber;
@@ -88,7 +90,12 @@ class SignUpOTPScreen extends StatelessWidget {
                       ),
                     ),
                     //Sign-Up Otp
-                    BlocBuilder<SignUpBloc, SignUpState>(
+                    BlocConsumer<SignUpBloc, SignUpState>(
+                      listener: (context, state) {
+                        if (state.errorMessages == 'pin benar') {
+                          Navigator.of(context).pushNamed('/SignUpPinScreen');
+                        }
+                      },
                       builder: (context, state) {
                         return Form(
                           key: _otpformKey,
@@ -102,7 +109,7 @@ class SignUpOTPScreen extends StatelessWidget {
                               appContext: context,
                               length: 4,
                               obscureText: true,
-                              obscuringCharacter: '*',
+                              obscuringCharacter: '●',
                               blinkWhenObscuring: true,
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(6),
@@ -112,35 +119,27 @@ class SignUpOTPScreen extends StatelessWidget {
                               errorTextSpace: 30,
                               pinTheme: PinTheme(
                                 borderRadius: BorderRadius.circular(5),
-                                inactiveColor:
-                                    state.showErrorMessages == 'false'
-                                        ? Colors.black12
-                                        : Colors.red,
-                                activeColor: state.showErrorMessages == 'false'
+                                inactiveColor: state.showErrorMessages == false
+                                    ? Colors.black12
+                                    : Colors.red,
+                                activeColor: state.showErrorMessages == false
                                     ? Colors.white
                                     : Colors.red,
-                                selectedColor:
-                                    state.showErrorMessages == 'false'
-                                        ? Colors.white
-                                        : Colors.red,
+                                selectedColor: state.showErrorMessages == false
+                                    ? Colors.white
+                                    : Colors.red,
                                 fieldHeight: 50,
                                 fieldWidth: 50,
                               ),
                               onChanged: (text) {
-                                _otpformKey.currentState!.validate();
+                                print(text);
                                 context.read<SignUpBloc>().add(
                                       OTPFormChanged(text),
                                     );
                               },
-                              autovalidateMode:
-                                  state.showErrorMessages == 'false'
-                                      ? AutovalidateMode.disabled
-                                      : AutovalidateMode.onUserInteraction,
-                              validator: (value) {
-                                return state.otpCode.length == 3
-                                    ? null
-                                    : 'lengkapi';
-                              },
+                              autovalidateMode: state.showErrorMessages == false
+                                  ? AutovalidateMode.disabled
+                                  : AutovalidateMode.onUserInteraction,
                             ),
                           ),
                         );
@@ -218,6 +217,44 @@ class SignUpOTPScreen extends StatelessWidget {
                                       context.read<SignUpBloc>().add(
                                             ResendOtp(b),
                                           );
+                                    } else {
+                                      showToastWidget(
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 18.0,
+                                          ),
+                                          margin: EdgeInsets.symmetric(
+                                            horizontal: 50.0,
+                                          ),
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            color: Colors.black54,
+                                          ),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.07,
+                                          child: Center(
+                                            child: Text(
+                                              'Tunggu ${state.waitingTimer} detik',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        context: context,
+                                        animation: StyledToastAnimation.fade,
+                                        reverseAnimation:
+                                            StyledToastAnimation.fade,
+                                      );
                                     }
                                   },
                                   child: Text(

@@ -1,6 +1,7 @@
 import 'package:bill/presentasion/pages/auth/Screen/sign_in_phone_number/sign_in_phone_number_sreen.dart';
 import 'package:bill/presentasion/pages/auth/Screen/sign_in_pin/sign_in_pin_screen.dart';
 import 'package:bill/presentasion/pages/auth/Screen/sign_up_otp/sign_up_otp_screen.dart';
+import 'package:bill/presentasion/pages/auth/Screen/sign_up_pin/sign_up_pin_screen.dart';
 import 'package:bill/presentasion/pages/home/screen/home_screen.dart';
 import 'package:bill/presentasion/pages/intro/intro.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,6 +33,10 @@ class AppRouter {
       case '/SignUpGetOTP':
         return MaterialPageRoute(
           builder: (_) => SignUpOTPScreen(),
+        );
+      case '/SignUpPinScreen':
+        return navigatinWithScaleTransition(
+          SignUpPinScreen(),
         );
       case '/Intro':
       default:

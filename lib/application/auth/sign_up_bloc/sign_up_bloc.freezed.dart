@@ -719,7 +719,7 @@ class _$SignUpStateTearOff {
       required String otpCode,
       required String otpCodeGenerated,
       required String errorMessages,
-      required String showErrorMessages,
+      required bool showErrorMessages,
       required int waitingTimer,
       required bool isFormValid}) {
     return _SignUpState(
@@ -743,7 +743,7 @@ mixin _$SignUpState {
   String get otpCode => throw _privateConstructorUsedError;
   String get otpCodeGenerated => throw _privateConstructorUsedError;
   String get errorMessages => throw _privateConstructorUsedError;
-  String get showErrorMessages => throw _privateConstructorUsedError;
+  bool get showErrorMessages => throw _privateConstructorUsedError;
   int get waitingTimer => throw _privateConstructorUsedError;
   bool get isFormValid => throw _privateConstructorUsedError;
 
@@ -762,7 +762,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       String otpCode,
       String otpCodeGenerated,
       String errorMessages,
-      String showErrorMessages,
+      bool showErrorMessages,
       int waitingTimer,
       bool isFormValid});
 }
@@ -805,7 +805,7 @@ class _$SignUpStateCopyWithImpl<$Res> implements $SignUpStateCopyWith<$Res> {
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
-              as String,
+              as bool,
       waitingTimer: waitingTimer == freezed
           ? _value.waitingTimer
           : waitingTimer // ignore: cast_nullable_to_non_nullable
@@ -830,7 +830,7 @@ abstract class _$SignUpStateCopyWith<$Res>
       String otpCode,
       String otpCodeGenerated,
       String errorMessages,
-      String showErrorMessages,
+      bool showErrorMessages,
       int waitingTimer,
       bool isFormValid});
 }
@@ -875,7 +875,7 @@ class __$SignUpStateCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
-              as String,
+              as bool,
       waitingTimer: waitingTimer == freezed
           ? _value.waitingTimer
           : waitingTimer // ignore: cast_nullable_to_non_nullable
@@ -890,7 +890,7 @@ class __$SignUpStateCopyWithImpl<$Res> extends _$SignUpStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignUpState implements _SignUpState {
+class _$_SignUpState extends _SignUpState {
   const _$_SignUpState(
       {required this.phoneNumber,
       required this.otpCode,
@@ -898,7 +898,8 @@ class _$_SignUpState implements _SignUpState {
       required this.errorMessages,
       required this.showErrorMessages,
       required this.waitingTimer,
-      required this.isFormValid});
+      required this.isFormValid})
+      : super._();
 
   @override
   final String phoneNumber;
@@ -909,7 +910,7 @@ class _$_SignUpState implements _SignUpState {
   @override
   final String errorMessages;
   @override
-  final String showErrorMessages;
+  final bool showErrorMessages;
   @override
   final int waitingTimer;
   @override
@@ -964,15 +965,16 @@ class _$_SignUpState implements _SignUpState {
       __$SignUpStateCopyWithImpl<_SignUpState>(this, _$identity);
 }
 
-abstract class _SignUpState implements SignUpState {
+abstract class _SignUpState extends SignUpState {
   const factory _SignUpState(
       {required String phoneNumber,
       required String otpCode,
       required String otpCodeGenerated,
       required String errorMessages,
-      required String showErrorMessages,
+      required bool showErrorMessages,
       required int waitingTimer,
       required bool isFormValid}) = _$_SignUpState;
+  const _SignUpState._() : super._();
 
   @override
   String get phoneNumber => throw _privateConstructorUsedError;
@@ -983,7 +985,7 @@ abstract class _SignUpState implements SignUpState {
   @override
   String get errorMessages => throw _privateConstructorUsedError;
   @override
-  String get showErrorMessages => throw _privateConstructorUsedError;
+  bool get showErrorMessages => throw _privateConstructorUsedError;
   @override
   int get waitingTimer => throw _privateConstructorUsedError;
   @override

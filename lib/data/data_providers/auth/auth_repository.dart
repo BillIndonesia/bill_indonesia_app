@@ -25,7 +25,7 @@ class AuthRepository {
     Dio _dio = Dio();
     _dio.options = (BaseOptions(
       baseUrl: 'https://bill.co.id/',
-      connectTimeout: 2000,
+      connectTimeout: 3000,
     ));
     Response response = await _dio.get(
       'apiflutter?username=$_phoneNumber&password=$_pinNumber',
@@ -34,17 +34,6 @@ class AuthRepository {
     if (response.toString() == 'False') {
       return false;
     } else {
-      try {
-        Response response = await _dio.get(
-          'getProfile?username=0812140048000&password=111111',
-        );
-
-        var data = response.data[0]['name'];
-        print(data);
-        // getDeviceInfo();
-      } catch (e) {
-        print(e);
-      }
       return true;
     }
   }

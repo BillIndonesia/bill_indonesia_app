@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bill/application/auth/sign_in_bloc/sign_in_bloc.dart';
+import 'package:bill/application/auth/sign_in_pin_bloc/sign_in_pin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,10 +11,12 @@ class SignInPinSuspendedTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignInBloc, SignInState>(
+    return BlocListener<SignInPinBloc, SignInPinState>(
       listener: (context, state) {
-        if (state.isSuspended) {
-          int start = state.suspendTimer;
+        if (state.isUserSuspended) {
+          print(
+              'status : ${state.isUserSuspended} cd : ${state.suspendedTimer} failed : ${state.failedSubmittingPin}');
+          int start = state.suspendedTimer;
           const oneSec = const Duration(seconds: 1);
           Timer.periodic(
             oneSec,
@@ -23,10 +25,8 @@ class SignInPinSuspendedTimer extends StatelessWidget {
                 timer.cancel();
               } else {
                 start -= 1;
-                context.read<SignInBloc>().add(
-                      SuspendedTimer(
-                        suspendedTimer: start,
-                      ),
+                context.read<SignInPinBloc>().add(
+                      SuspendedPinTimerClicker(start),
                     );
               }
             },

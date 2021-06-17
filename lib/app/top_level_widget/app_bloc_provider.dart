@@ -1,7 +1,11 @@
+import 'package:bill/help/model/bantuan_model.dart';
+import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:bill/packages/user/repository/auth_repository.dart';
-
-import '../../main_screen/cubit/user_cubit.dart';
+import 'package:bill/sign_up_otp/sign_up_bloc/sign_up_bloc.dart';
+import 'package:bill/sign_up_pin/bloc/sign_up_pin_bloc.dart';
+import 'package:bill/sign_up_profile/bloc/sign_up_profile_bloc.dart';
+import 'package:provider/provider.dart';
 import '../../packages/user/repository/user_repository.dart';
 import '../../sign_in_phone_number/bloc/sign_in_phone_number_bloc.dart';
 import '../../sign_in_pin/bloc/sign_in_pin_bloc.dart';
@@ -22,10 +26,22 @@ class AppBlocProvider extends StatelessWidget {
           create: (context) => UserAuthCubit(),
         ),
         BlocProvider(
+          create: (context) => UserCubit(UserRepository()),
+        ),
+        BlocProvider(
           create: (context) => SignInPhoneNumberBloc(AuthRepository()),
         ),
         BlocProvider(
           create: (context) => SignInPinBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => SignUpBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => SignUpPinBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SignUpProfileBloc(AuthRepository()),
         ),
         BlocProvider(
           create: (context) => UserCubit(UserRepository()),
@@ -34,7 +50,10 @@ class AppBlocProvider extends StatelessWidget {
           create: (context) => QrScannedBloc(),
         ),
       ],
-      child: App(),
+      child: ChangeNotifierProvider.value(
+        value: BantuanModel(),
+        child: App(),
+      ),
     );
   }
 }

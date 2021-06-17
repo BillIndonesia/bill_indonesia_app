@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../cubit/user_cubit.dart';
+
 import 'package:flutter/material.dart';
 
 class UserProfileCard extends StatelessWidget {

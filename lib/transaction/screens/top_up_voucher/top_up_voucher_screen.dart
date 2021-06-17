@@ -1,4 +1,4 @@
-import 'package:bill/main_screen/view/home_screen.dart';
+import 'package:bill/home_page/view/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class TopUpVoucher extends StatelessWidget {
@@ -91,7 +91,7 @@ class TopUpVoucher extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
-                      builder: (context) => new HomeScreen(),
+                      builder: (context) => new HomePage(),
                     ),
                   );
                 },

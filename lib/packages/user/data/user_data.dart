@@ -1,13 +1,13 @@
+import 'package:bill/packages/user/model/image_mock.dart';
+
 class UserData {
-  int id;
   String name;
   String email;
   String phoneNumber;
-  int saldo;
+  double saldo;
   String image;
 
   UserData({
-    required this.id,
     required this.name,
     required this.email,
     required this.phoneNumber,
@@ -16,17 +16,15 @@ class UserData {
   });
 
   factory UserData.fromJson(json) => UserData(
-        id: json['id'],
-        name: json['name'],
-        email: json['email'],
+        name: json['customer_name'],
+        email: json['customer_email'] ?? 'example@bill.co.id',
         phoneNumber: json['phone_number'],
-        saldo: json['saldo'],
-        image: json['image'],
+        saldo: json['customer_balance'],
+        image: ImageMockUp().image,
       );
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
     data['name'] = this.name;
     data['email'] = this.email;
     data['phone_number'] = this.phoneNumber;

@@ -59,6 +59,7 @@ class ExitDialog extends StatelessWidget {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.remove('nohp');
+
                     Navigator.of(context).pushReplacementNamed(
                       '/SignInPhoneNumberScreen',
                     );

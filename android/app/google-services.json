@@ -26,10 +26,134 @@
                             "client_type": 3
                         },
                         {
-                            "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
                             "client_type": 2,
                             "ios_info": {
-                                "bundle_id": "com.bikbuk.bill"
+                                "bundle_id": "bill.co.id"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:153423192550:android:8de79d1ed95ffdb3bff627",
+                "android_client_info": {
+                    "package_name": "bill.co.id.dev"
+                }
+            },
+            "oauth_client": [{
+                "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                "client_type": 3
+            }],
+            "api_key": [{
+                "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+            }],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [{
+                            "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "bill.co.id"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:153423192550:android:6f1b45051ddbd5c7bff627",
+                "android_client_info": {
+                    "package_name": "bill.co.id.stg"
+                }
+            },
+            "oauth_client": [{
+                "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                "client_type": 3
+            }],
+            "api_key": [{
+                "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+            }],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [{
+                            "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "bill.co.id"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:153423192550:android:248a0fdb388a32debff627",
+                "android_client_info": {
+                    "package_name": "bill.user.id"
+                }
+            },
+            "oauth_client": [{
+                "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                "client_type": 3
+            }],
+            "api_key": [{
+                "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+            }],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [{
+                            "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "bill.co.id"
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:153423192550:android:019c3ddb0737281abff627",
+                "android_client_info": {
+                    "package_name": "bill.vendor.id"
+                }
+            },
+            "oauth_client": [{
+                "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                "client_type": 3
+            }],
+            "api_key": [{
+                "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
+            }],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [{
+                            "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
+                            "client_type": 3
+                        },
+                        {
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
+                            "client_type": 2,
+                            "ios_info": {
+                                "bundle_id": "bill.co.id"
                             }
                         }
                     ]
@@ -57,41 +181,10 @@
                             "client_type": 3
                         },
                         {
-                            "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
+                            "client_id": "153423192550-0207j83htt9b4klosjek93inj339m8ou.apps.googleusercontent.com",
                             "client_type": 2,
                             "ios_info": {
-                                "bundle_id": "com.bikbuk.bill"
-                            }
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "client_info": {
-                "mobilesdk_app_id": "1:153423192550:android:c5ae5e5a0b7d8cf2",
-                "android_client_info": {
-                    "package_name": "com.example.bill"
-                }
-            },
-            "oauth_client": [{
-                "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
-                "client_type": 3
-            }],
-            "api_key": [{
-                "current_key": "AIzaSyA73wnr5Y8lvFaTAphljZ126BaSCWm1yRs"
-            }],
-            "services": {
-                "appinvite_service": {
-                    "other_platform_oauth_client": [{
-                            "client_id": "153423192550-l6fpkkv5gtjo23sfn6gujtrf69l6d0dp.apps.googleusercontent.com",
-                            "client_type": 3
-                        },
-                        {
-                            "client_id": "153423192550-nrf5p2k6brfqgnlaprvt5se7vt2m734n.apps.googleusercontent.com",
-                            "client_type": 2,
-                            "ios_info": {
-                                "bundle_id": "com.bikbuk.bill"
+                                "bundle_id": "bill.co.id"
                             }
                         }
                     ]

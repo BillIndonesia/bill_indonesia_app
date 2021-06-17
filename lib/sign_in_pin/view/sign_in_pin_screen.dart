@@ -48,31 +48,24 @@ class SignInPinScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(
-                  FocusNode(),
-                );
-              },
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.12,
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        //Header
-                        SigninPhoneNumberHeader(
-                          header: 'PIN',
-                        ),
-                        //PINumber Form Field
-                        SignInPinFormField(pinformKey: _pinformKey),
-                        SignInPinSuspendedTimer(),
-                      ],
-                    ),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.12,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //Header
+                      SigninPhoneNumberHeader(
+                        header: 'PIN',
+                      ),
+                      //PINumber Form Field
+                      SignInPinFormField(pinformKey: _pinformKey),
+                      SignInPinSuspendedTimer(),
+                    ],
                   ),
                 ),
               ),

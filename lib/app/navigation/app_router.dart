@@ -1,7 +1,15 @@
-import 'package:bill/sign_up_otp/view/sign_up_otp_screen.dart';
+import 'package:bill/Edit_profile/view/edit_profile_screen.dart';
+import 'package:bill/about/about_screen.dart';
+import 'package:bill/help/view/help_screen.dart';
+import 'package:bill/history/view/posts_screen.dart';
+import 'package:bill/sign_up_otp/sign_up_otp_screen.dart';
+import 'package:bill/sign_up_pin/bloc/sign_up_confirmation_pin_screen.dart';
+import 'package:bill/sign_up_pin/bloc/sign_up_pin_screen.dart';
+import 'package:bill/sign_up_profile/view/sign_up_profile_screen.dart';
+import 'package:bill/term_and_condition/term_and_condition.dart';
 import 'package:bill/transaction/screens/top_up_voucher/top_up_voucher_screen.dart';
 
-import '../../main_screen/view/home_screen.dart';
+import '../../home_page/view/home_screen.dart';
 import '../../sign_in_phone_number/view/sign_in_phone_number_sreen.dart';
 import '../../sign_in_pin/view/sign_in_pin_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,11 +34,43 @@ class AppRouter {
         );
       case '/SignUpOtpScreen':
         return CupertinoPageRoute(
-          builder: (_) => SignUpOtpScreen(),
+          builder: (_) => OtpScreen(),
+        );
+      case '/SignUpPinScreen':
+        return CupertinoPageRoute(
+          builder: (_) => SignUpPinScreen(),
+        );
+      case '/SignUpConfirmationPinScreen':
+        return CupertinoPageRoute(
+          builder: (_) => SignUpConfimationPin(),
+        );
+      case '/SignUpProfileScreen':
+        return CupertinoPageRoute(
+          builder: (_) => SignUpProfileScreen(),
         );
       case '/HomeScreen':
         return CupertinoPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => HomePage(),
+        );
+      case '/HistoryScreen':
+        return CupertinoPageRoute(
+          builder: (_) => HistoryScreen(),
+        );
+      case '/TermConditionScreen':
+        return CupertinoPageRoute(
+          builder: (_) => TermCondition(),
+        );
+      case '/AboutScreen':
+        return CupertinoPageRoute(
+          builder: (_) => AboutScreen(),
+        );
+      case '/EditProfileScreen':
+        return CupertinoPageRoute(
+          builder: (_) => EditProfileScreen(),
+        );
+      case '/HelpScreen':
+        return CupertinoPageRoute(
+          builder: (_) => HelpScreen(),
         );
       //transaction
       case '/TopUpVoucherScreen':

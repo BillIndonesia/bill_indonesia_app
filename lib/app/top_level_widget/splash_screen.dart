@@ -1,6 +1,6 @@
 import '../app.dart';
 import '../../intro/intro.dart';
-import '../../main_screen/view/home_screen.dart';
+import '../../home_page/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,9 +26,9 @@ class SplashScreen extends StatelessWidget {
           ),
         );
       case AuthStatus.success:
-        return const Intro();
+        return Intro();
       case AuthStatus.failure:
-        return HomeScreen();
+        return HomePage();
     }
   }
 }

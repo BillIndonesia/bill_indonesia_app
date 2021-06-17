@@ -1,4 +1,4 @@
-import 'package:bill/main_screen/cubit/user_cubit.dart';
+import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

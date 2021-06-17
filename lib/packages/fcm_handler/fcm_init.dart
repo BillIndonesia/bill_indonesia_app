@@ -24,8 +24,7 @@ class FCMInit {
     String? token = await messaging.getToken();
     debugPrint('testing $token: $token');
     var url = Uri.parse('https://bill.co.id/saveToken');
-
-    final response = await http.post(
+    await http.post(
       url,
       body: {
         'username': '05',

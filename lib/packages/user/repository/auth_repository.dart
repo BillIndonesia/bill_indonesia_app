@@ -1,6 +1,6 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepository {
@@ -22,9 +22,7 @@ class AuthRepository {
       baseUrl: 'https://dev.bill-indonesia.com/',
       connectTimeout: 3000,
     ));
-    Map<String, dynamic> data = {
-      "phone_number": _phoneNUmber,
-    };
+
     var formData = FormData.fromMap(
       {
         "phone_number": _phoneNUmber,
@@ -84,25 +82,60 @@ class AuthRepository {
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('nohp', _phoneNumber);
+      prefs.setString('pin', _pinNumber);
       return true;
     }
   }
 
-  Future<bool> signUpProfile() async {
-    final _firebaseMessaging = FirebaseMessaging.instance;
-    await _firebaseMessaging.getToken().then(
-      (value) async {
-        var url = Uri.parse('https://bill.co.id/saveToken');
-        await http.post(
-          url,
-          body: {
-            'username': '05',
-            'password': '111111',
-            'token': value,
-          },
-        );
-      },
+  Future<bool> signUpProfile({
+    required String customerName,
+    required String phoneNumber,
+    required String password,
+    required String bornPlace,
+    required String bornDate,
+  }) async {
+    var _dio = Dio();
+    // ignore: cascade_invocations
+    _dio.options = (BaseOptions(
+      baseUrl: 'https://dev.bill-indonesia.com/',
+      connectTimeout: 5000,
+    ));
+    Map<String, dynamic> mapData = {
+      "customer_name": customerName,
+      "customer_borndate": bornDate,
+      "customer_password": password,
+      "phone_number": phoneNumber,
+      "customer_bornplace": bornPlace,
+    };
+    String data = jsonEncode(mapData);
+    var response = await _dio.post(
+      '/customer/register/',
+      data: data,
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status! <= 500;
+        },
+      ),
     );
+    print(response.data);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('nohp', phoneNumber);
+    prefs.setString('pin', password);
+    // final _firebaseMessaging = FirebaseMessaging.instance;
+    // await _firebaseMessaging.getToken().then(
+    //   (value) async {
+    //     var url = Uri.parse('https://bill.co.id/saveToken');
+    //     await http.post(
+    //       url,
+    //       body: {
+    //         'username': '05',
+    //         'password': '111111',
+    //         'token': value,
+    //       },
+    //     );
+    //   },
+    // );
 
     return true;
   }

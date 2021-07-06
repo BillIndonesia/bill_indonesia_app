@@ -1,7 +1,7 @@
 part of 'edit_profile_bloc.dart';
 
 @freezed
-class EditProfileState with _$SignUpProfileState {
+class EditProfileState with _$EditProfileState {
   const factory EditProfileState({
     required String name,
     required String bornPlace,
@@ -10,7 +10,7 @@ class EditProfileState with _$SignUpProfileState {
     required bool showErrorMessages,
     File? imagePath,
     required FormSubmissionStatus formStatus,
-  }) = _SignUpProfileState;
+  }) = _EditProfileState;
 
   factory EditProfileState.initial() => EditProfileState(
         name: '',

@@ -26,7 +26,7 @@ class UserCubit extends Cubit<UserState> {
       var _dio = Dio();
       // ignore: cascade_invocations
       _dio.options = (BaseOptions(
-        baseUrl: 'https://dev.bill-indonesia.com/',
+        baseUrl: 'https://dev.bill-indonesia.com/api/',
         connectTimeout: 3000,
       ));
       var formData = FormData.fromMap(

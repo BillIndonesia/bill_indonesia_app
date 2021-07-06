@@ -1,6 +1,7 @@
 import 'package:bill/help/model/bantuan_model.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
+import 'package:bill/packages/camera/data/camera_repository.dart';
 import 'package:bill/packages/user/repository/auth_repository.dart';
 import 'package:bill/sign_up_otp/sign_up_bloc/sign_up_bloc.dart';
 import 'package:bill/sign_up_pin/bloc/sign_up_pin_bloc.dart';
@@ -47,7 +48,9 @@ class AppBlocProvider extends StatelessWidget {
           create: (context) => UserCubit(UserRepository()),
         ),
         BlocProvider(
-          create: (context) => QrScannedBloc(),
+          create: (context) => QrScannedBloc(
+            cameraRepo: CameraRepository(),
+          ),
         ),
       ],
       child: ChangeNotifierProvider.value(

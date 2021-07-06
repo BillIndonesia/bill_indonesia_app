@@ -1,11 +1,17 @@
 import 'package:bill/home_page/view/home_screen.dart';
+import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class TopUpVoucher extends StatelessWidget {
   const TopUpVoucher({Key? key}) : super(key: key);
-  final bool isSucces = true;
+
   @override
   Widget build(BuildContext context) {
+    final status = context.select(
+      (QrScannedBloc bloc) => bloc.state.transactionStatus,
+    );
+    final bool isSucces = status == TransactionStatus.success;
     return Scaffold(
       backgroundColor: Color(0xFFF4F7F8),
       body: Container(

@@ -1,3 +1,4 @@
+import 'package:bill/Edit_profile/view/widgets/edit_profile_widgets.dart';
 import 'package:bill/global/widgets/slow_connection_dialog.dart';
 
 import 'package:bill/home_page/cubit/user_cubit.dart';
@@ -16,7 +17,15 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => UserCubit(UserRepository())..fetchInitialData(),
-      child: EditProfileScreenStatus(),
+      child: Scaffold(
+        body: Scaffold(
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: EditProfileScreenStatus(),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -32,7 +41,7 @@ class EditProfileScreenStatus extends StatelessWidget {
       case UserLoadingStatus.initial:
         return MainScreenLoading();
       case UserLoadingStatus.loading:
-        return MainScreenLoading();
+        return EditProfileLoading();
       case UserLoadingStatus.success:
         return EditProfileScreenContent();
       case UserLoadingStatus.failure:

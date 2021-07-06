@@ -208,9 +208,14 @@ abstract class QrCodeScanned implements QrScannedEvent {
 class _$QrScannedStateTearOff {
   const _$QrScannedStateTearOff();
 
-  _QrScannedState call({required FormSubmissionStatus formStatus}) {
+  _QrScannedState call(
+      {required FormSubmissionStatus formStatus,
+      required ScannedType type,
+      required TransactionStatus transactionStatus}) {
     return _QrScannedState(
       formStatus: formStatus,
+      type: type,
+      transactionStatus: transactionStatus,
     );
   }
 }
@@ -221,6 +226,8 @@ const $QrScannedState = _$QrScannedStateTearOff();
 /// @nodoc
 mixin _$QrScannedState {
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
+  ScannedType get type => throw _privateConstructorUsedError;
+  TransactionStatus get transactionStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QrScannedStateCopyWith<QrScannedState> get copyWith =>
@@ -232,7 +239,10 @@ abstract class $QrScannedStateCopyWith<$Res> {
   factory $QrScannedStateCopyWith(
           QrScannedState value, $Res Function(QrScannedState) then) =
       _$QrScannedStateCopyWithImpl<$Res>;
-  $Res call({FormSubmissionStatus formStatus});
+  $Res call(
+      {FormSubmissionStatus formStatus,
+      ScannedType type,
+      TransactionStatus transactionStatus});
 }
 
 /// @nodoc
@@ -247,12 +257,22 @@ class _$QrScannedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? formStatus = freezed,
+    Object? type = freezed,
+    Object? transactionStatus = freezed,
   }) {
     return _then(_value.copyWith(
       formStatus: formStatus == freezed
           ? _value.formStatus
           : formStatus // ignore: cast_nullable_to_non_nullable
               as FormSubmissionStatus,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ScannedType,
+      transactionStatus: transactionStatus == freezed
+          ? _value.transactionStatus
+          : transactionStatus // ignore: cast_nullable_to_non_nullable
+              as TransactionStatus,
     ));
   }
 }
@@ -264,7 +284,10 @@ abstract class _$QrScannedStateCopyWith<$Res>
           _QrScannedState value, $Res Function(_QrScannedState) then) =
       __$QrScannedStateCopyWithImpl<$Res>;
   @override
-  $Res call({FormSubmissionStatus formStatus});
+  $Res call(
+      {FormSubmissionStatus formStatus,
+      ScannedType type,
+      TransactionStatus transactionStatus});
 }
 
 /// @nodoc
@@ -281,12 +304,22 @@ class __$QrScannedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? formStatus = freezed,
+    Object? type = freezed,
+    Object? transactionStatus = freezed,
   }) {
     return _then(_QrScannedState(
       formStatus: formStatus == freezed
           ? _value.formStatus
           : formStatus // ignore: cast_nullable_to_non_nullable
               as FormSubmissionStatus,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as ScannedType,
+      transactionStatus: transactionStatus == freezed
+          ? _value.transactionStatus
+          : transactionStatus // ignore: cast_nullable_to_non_nullable
+              as TransactionStatus,
     ));
   }
 }
@@ -294,14 +327,21 @@ class __$QrScannedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_QrScannedState implements _QrScannedState {
-  const _$_QrScannedState({required this.formStatus});
+  const _$_QrScannedState(
+      {required this.formStatus,
+      required this.type,
+      required this.transactionStatus});
 
   @override
   final FormSubmissionStatus formStatus;
+  @override
+  final ScannedType type;
+  @override
+  final TransactionStatus transactionStatus;
 
   @override
   String toString() {
-    return 'QrScannedState(formStatus: $formStatus)';
+    return 'QrScannedState(formStatus: $formStatus, type: $type, transactionStatus: $transactionStatus)';
   }
 
   @override
@@ -310,12 +350,20 @@ class _$_QrScannedState implements _QrScannedState {
         (other is _QrScannedState &&
             (identical(other.formStatus, formStatus) ||
                 const DeepCollectionEquality()
-                    .equals(other.formStatus, formStatus)));
+                    .equals(other.formStatus, formStatus)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.transactionStatus, transactionStatus) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactionStatus, transactionStatus)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(formStatus);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(formStatus) ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(transactionStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -324,11 +372,17 @@ class _$_QrScannedState implements _QrScannedState {
 }
 
 abstract class _QrScannedState implements QrScannedState {
-  const factory _QrScannedState({required FormSubmissionStatus formStatus}) =
-      _$_QrScannedState;
+  const factory _QrScannedState(
+      {required FormSubmissionStatus formStatus,
+      required ScannedType type,
+      required TransactionStatus transactionStatus}) = _$_QrScannedState;
 
   @override
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
+  @override
+  ScannedType get type => throw _privateConstructorUsedError;
+  @override
+  TransactionStatus get transactionStatus => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$QrScannedStateCopyWith<_QrScannedState> get copyWith =>

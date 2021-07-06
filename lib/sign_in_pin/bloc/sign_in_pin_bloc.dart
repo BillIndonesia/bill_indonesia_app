@@ -59,6 +59,7 @@ class SignInPinBloc extends Bloc<SignInPinEvent, SignInPinState> {
               formStatus: SubmissionSuccess(),
               failedSubmittingPin: 0,
             );
+            yield SignInPinState.initial();
           }
         } catch (e) {
           yield state.copyWith(

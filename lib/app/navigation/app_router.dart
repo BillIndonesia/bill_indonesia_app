@@ -7,6 +7,7 @@ import 'package:bill/sign_up_pin/bloc/sign_up_confirmation_pin_screen.dart';
 import 'package:bill/sign_up_pin/bloc/sign_up_pin_screen.dart';
 import 'package:bill/sign_up_profile/view/sign_up_profile_screen.dart';
 import 'package:bill/term_and_condition/term_and_condition.dart';
+import 'package:bill/transaction/screens/payment_result/payment_result_screen.dart';
 import 'package:bill/transaction/screens/top_up_voucher/top_up_voucher_screen.dart';
 
 import '../../home_page/view/home_screen.dart';
@@ -76,6 +77,10 @@ class AppRouter {
       case '/TopUpVoucherScreen':
         return CupertinoPageRoute(
           builder: (_) => TopUpVoucher(),
+        );
+      case '/PaymentResultScreen':
+        return CupertinoPageRoute(
+          builder: (_) => PaymentResultScreen(),
         );
       default:
         return MaterialPageRoute(

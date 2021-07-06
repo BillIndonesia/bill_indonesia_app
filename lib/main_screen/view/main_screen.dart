@@ -1,5 +1,6 @@
 import 'package:bill/global/widgets/slow_connection_dialog.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
+
 import 'package:bill/main_screen/view/widgets/main_screen_widgets.dart';
 import 'package:bill/packages/camera/view/home_camera.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,32 @@ class MainScreenStatus extends StatelessWidget {
       case UserLoadingStatus.failure:
         return Container(
           height: MediaQuery.of(context).size.height * 0.8,
-          child: SlowConnectionDialog(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SlowConnectionDialog(),
+              MaterialButton(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: FittedBox(
+                    child: Text(
+                      'Coba Lagi',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF0B8CAD),
+                      ),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  context.read<UserCubit>().fetchInitialData();
+                },
+              ),
+            ],
+          ),
         );
     }
   }
@@ -79,12 +105,7 @@ class MainScreenContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               UserProfileCard(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/HistoryScreen');
-                },
-                child: UserBalanceCard(),
-              ),
+              UserBalanceCard(),
             ],
           ),
           UserQRCode(),

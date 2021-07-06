@@ -51,7 +51,7 @@ class SignInPhoneNumberTextFormField extends StatelessWidget {
                   AuthFormDecoration().signinPhoneNumberFormDecoration(),
               textAlign: TextAlign.center,
               showCursor: false,
-              autofocus: false,
+              autofocus: true,
             ),
           ),
         );

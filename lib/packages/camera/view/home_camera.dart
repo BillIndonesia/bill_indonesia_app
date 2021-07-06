@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:bill/packages/core_handler/form_submission_status.dart';
+import 'package:bill/packages/user/model/image_mock.dart';
+import 'package:bill/transaction/screens/input_payment/PayKWK.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -53,7 +55,23 @@ class _HomeCameraState extends State<HomeCamera> {
           );
         }
         if (state.formStatus is SubmissionSuccess) {
-          Navigator.of(context).pushNamed('/TopUpVoucherScreen');
+          if (state.type == ScannedType.voucher) {
+            Navigator.of(context).pushNamed('/TopUpVoucherScreen');
+          } else if (state.type == ScannedType.angkot) {
+            Navigator.of(context).pushReplacement(
+              new MaterialPageRoute(
+                builder: (context) => new PayKwk(
+                  nohpResult: '05',
+                  name: 'Muhammad Vikral',
+                  noHpUser: '08121400480000',
+                  pinUser: '111111',
+                  angkotName: 'TestAngkot',
+                  angkotImage: ImageMockUp().image,
+                  tipe: '',
+                ),
+              ),
+            );
+          }
         }
         if (state.formStatus is SubmissionFailed) {}
       },
@@ -80,13 +98,6 @@ class _HomeCameraState extends State<HomeCamera> {
           },
         );
       },
-      // overlay: QrScannerOverlayShape(
-      //   borderColor: Colors.red,
-      //   borderRadius: 10,
-      //   borderLength: 30,
-      //   borderWidth: 10,
-      //   cutOutSize: 300,
-      // ),
     );
   }
 

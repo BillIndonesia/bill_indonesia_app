@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ExitDialog extends StatelessWidget {
-  const ExitDialog({Key? key}) : super(key: key);
+  final Function onTapYes;
+  const ExitDialog({
+    Key? key,
+    required this.onTapYes,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,11 @@ class ExitDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: new TextSpan(
                     style: TextStyle(
-                        fontSize: 14.0,
-                        color: Color(0xFF999494),
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'Montserrat'),
+                      fontSize: 14.0,
+                      color: Color(0xFF999494),
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Montserrat',
+                    ),
                     children: <TextSpan>[
                       new TextSpan(text: 'Anda yakin akan keluar\n'),
                       new TextSpan(text: 'dari aplikasi ?'),
@@ -56,13 +60,7 @@ class ExitDialog extends StatelessWidget {
                     ),
                   ),
                   onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.remove('nohp');
-
-                    Navigator.of(context).pushReplacementNamed(
-                      '/SignInPhoneNumberScreen',
-                    );
+                    onTapYes();
                   },
                 ),
                 MaterialButton(

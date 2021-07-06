@@ -28,6 +28,9 @@ void main() async {
   runZonedGuarded(
     () {
       WidgetsFlutterBinding.ensureInitialized();
+      SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top],
+      );
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,

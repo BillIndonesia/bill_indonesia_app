@@ -1,7 +1,7 @@
 part of 'edit_profile_bloc.dart';
 
 @freezed
-class EditProfileEvent with _$SignUpProfileEvent {
+class EditProfileEvent with _$EditProfileEvent {
   const factory EditProfileEvent.nameFormChanged(String name) = NameFormChanged;
   const factory EditProfileEvent.bornPlaceFormChanged(String bornPlace) =
       BornPlaceFormChanged;

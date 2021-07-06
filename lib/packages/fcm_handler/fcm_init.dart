@@ -22,7 +22,7 @@ class FCMInit {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     // ignore: omit_local_variable_types
     String? token = await messaging.getToken();
-    debugPrint('testing $token: $token');
+    debugPrint('testing token: $token');
     var url = Uri.parse('https://bill.co.id/saveToken');
     await http.post(
       url,
@@ -40,7 +40,7 @@ class FCMInit {
     FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
     FirebaseMessaging.onMessage.listen(
       (RemoteMessage message) {
-        debugPrint('got a message listen : ${message.notification.hashCode}');
+        debugPrint('got a message listen : ${message.notification!.title}');
         Get.to(
           () => const TopUpVoucher(
             key: Key('test page'),

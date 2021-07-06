@@ -1,6 +1,9 @@
+import 'package:bill/filter/filter_page.dart';
+import 'package:bill/intro/intro.dart';
+
 import '../app.dart';
-import '../../intro/intro.dart';
-import '../../home_page/view/home_screen.dart';
+// import '../../intro/intro.dart';
+// import '../../home_page/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,8 +30,9 @@ class SplashScreen extends StatelessWidget {
         );
       case AuthStatus.success:
         return Intro();
+      //TODO make error auth
       case AuthStatus.failure:
-        return HomePage();
+        return FilterPage();
     }
   }
 }

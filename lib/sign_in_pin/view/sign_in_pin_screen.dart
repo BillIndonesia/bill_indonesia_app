@@ -23,7 +23,10 @@ class SignInPinScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.formStatus is SubmissionFailed) {}
           if (state.formStatus is SubmissionSuccess) {
-            Navigator.of(context).pushNamed('/HomeScreen');
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              '/HomeScreen',
+              (Route<dynamic> route) => false,
+            );
           }
           if (state.formStatus is SubmissionError) {
             showDialog(

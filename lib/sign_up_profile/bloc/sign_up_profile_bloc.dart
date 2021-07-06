@@ -69,6 +69,7 @@ class SignUpProfileBloc extends Bloc<SignUpProfileEvent, SignUpProfileState> {
             formStatus: SubmissionSuccess(),
           );
         } catch (e) {
+          print(e);
           yield state.copyWith(
             showErrorMessages: true,
             formStatus: SubmissionError(

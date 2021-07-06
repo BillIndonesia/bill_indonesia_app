@@ -9,7 +9,6 @@ class HistoryAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      automaticallyImplyLeading: true,
       title: Container(
         width: MediaQuery.of(context).size.width * 0.4,
         child: FittedBox(
@@ -22,21 +21,6 @@ class HistoryAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontWeight: FontWeight.w600,
               color: Color(0xFF423838),
             ),
-          ),
-        ),
-      ),
-      leading: Container(
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Color(0xFF777E81),
-              size: 30,
-            ),
-            onPressed: () => {
-              Navigator.of(context).pushNamed('/SignInPinScreen'),
-            },
           ),
         ),
       ),

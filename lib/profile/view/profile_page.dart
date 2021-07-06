@@ -4,6 +4,7 @@ import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bill/main_screen/view/widgets/main_screen_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -40,10 +41,8 @@ class ProfileScreen extends StatelessWidget {
                   top: MediaQuery.of(context).padding.top,
                 ),
                 height: MediaQuery.of(context).size.height * 0.3,
-                color: Colors.white12,
                 child: Column(
                   children: [
-                    ProfilePageAppbar(),
                     //User Info
                     Expanded(
                       child: Column(
@@ -162,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(
                         child: _cardItem(
                           context: context,
-                          title: 'Ketentuan layanan',
+                          title: 'Ketentuan Layanan',
                           assetsPath: 'assets/images/ketentuan.png',
                           navigatorPath: '/TermConditionScreen',
                         ),
@@ -205,7 +204,7 @@ class ProfileScreen extends StatelessWidget {
                         Expanded(
                           child: _cardItem(
                             context: context,
-                            title: 'Edit profile',
+                            title: 'Edit Profile',
                             assetsPath: 'assets/images/profil.png',
                             navigatorPath: '/EditProfileScreen',
                           ),
@@ -213,7 +212,7 @@ class ProfileScreen extends StatelessWidget {
                         Expanded(
                           child: _cardItem(
                             context: context,
-                            title: 'about',
+                            title: 'About',
                             assetsPath: 'assets/images/about.png',
                             navigatorPath: '/AboutScreen',
                           ),
@@ -221,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                         Expanded(
                           child: _cardItem(
                             context: context,
-                            title: 'Ganti akun',
+                            title: 'Keluar',
                             assetsPath: 'assets/images/keluar.png',
                             navigatorPath: '/TermConditionScreen',
                           ),
@@ -250,7 +249,17 @@ class ProfileScreen extends StatelessWidget {
             : showDialog(
                 context: context,
                 builder: (_) {
-                  return ExitDialog();
+                  return ExitDialog(
+                    onTapYes: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.remove('nohp');
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/SignInPhoneNumberScreen',
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                  );
                 },
               );
       },
@@ -312,19 +321,6 @@ class ProfilePageAppbar extends StatelessWidget {
     return Row(
       children: [
         SizedBox(width: MediaQuery.of(context).size.width * 0.01),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.1,
-          child: FittedBox(
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Color(0xFFF4F7F8),
-                size: 30,
-              ),
-              onPressed: () {},
-            ),
-          ),
-        ),
         SizedBox(width: MediaQuery.of(context).size.width * 0.03),
         Container(
           width: MediaQuery.of(context).size.width * 0.23,

@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$SignUpProfileEventTearOff {
-  const _$SignUpProfileEventTearOff();
+class _$EditProfileEventTearOff {
+  const _$EditProfileEventTearOff();
 
   NameFormChanged nameFormChanged(String name) {
     return NameFormChanged(
@@ -56,10 +56,10 @@ class _$SignUpProfileEventTearOff {
 }
 
 /// @nodoc
-const $SignUpProfileEvent = _$SignUpProfileEventTearOff();
+const $EditProfileEvent = _$EditProfileEventTearOff();
 
 /// @nodoc
-mixin _$SignUpProfileEvent {
+mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String name) nameFormChanged,
@@ -106,16 +106,16 @@ mixin _$SignUpProfileEvent {
 }
 
 /// @nodoc
-abstract class $SignUpProfileEventCopyWith<$Res> {
-  factory $SignUpProfileEventCopyWith(
+abstract class $EditProfileEventCopyWith<$Res> {
+  factory $EditProfileEventCopyWith(
           EditProfileEvent value, $Res Function(EditProfileEvent) then) =
-      _$SignUpProfileEventCopyWithImpl<$Res>;
+      _$EditProfileEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SignUpProfileEventCopyWithImpl<$Res>
-    implements $SignUpProfileEventCopyWith<$Res> {
-  _$SignUpProfileEventCopyWithImpl(this._value, this._then);
+class _$EditProfileEventCopyWithImpl<$Res>
+    implements $EditProfileEventCopyWith<$Res> {
+  _$EditProfileEventCopyWithImpl(this._value, this._then);
 
   final EditProfileEvent _value;
   // ignore: unused_field
@@ -132,7 +132,7 @@ abstract class $NameFormChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$NameFormChangedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $NameFormChangedCopyWith<$Res> {
   _$NameFormChangedCopyWithImpl(
       NameFormChanged _value, $Res Function(NameFormChanged) _then)
@@ -164,7 +164,7 @@ class _$NameFormChanged implements NameFormChanged {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.nameFormChanged(name: $name)';
+    return 'EditProfileEvent.nameFormChanged(name: $name)';
   }
 
   @override
@@ -265,7 +265,7 @@ abstract class $BornPlaceFormChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$BornPlaceFormChangedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $BornPlaceFormChangedCopyWith<$Res> {
   _$BornPlaceFormChangedCopyWithImpl(
       BornPlaceFormChanged _value, $Res Function(BornPlaceFormChanged) _then)
@@ -297,7 +297,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.bornPlaceFormChanged(bornPlace: $bornPlace)';
+    return 'EditProfileEvent.bornPlaceFormChanged(bornPlace: $bornPlace)';
   }
 
   @override
@@ -400,7 +400,7 @@ abstract class $KnowUsFromChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$KnowUsFromChangedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $KnowUsFromChangedCopyWith<$Res> {
   _$KnowUsFromChangedCopyWithImpl(
       KnowUsFromChanged _value, $Res Function(KnowUsFromChanged) _then)
@@ -432,7 +432,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.knowUsFromChanged(knowUsFrom: $knowUsFrom)';
+    return 'EditProfileEvent.knowUsFromChanged(knowUsFrom: $knowUsFrom)';
   }
 
   @override
@@ -534,7 +534,7 @@ abstract class $BornDateFormChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$BornDateFormChangedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $BornDateFormChangedCopyWith<$Res> {
   _$BornDateFormChangedCopyWithImpl(
       BornDateFormChanged _value, $Res Function(BornDateFormChanged) _then)
@@ -566,7 +566,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.bornDateFormChanged(bornDate: $bornDate)';
+    return 'EditProfileEvent.bornDateFormChanged(bornDate: $bornDate)';
   }
 
   @override
@@ -668,7 +668,7 @@ abstract class $ImageChangedCopyWith<$Res> {
 
 /// @nodoc
 class _$ImageChangedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $ImageChangedCopyWith<$Res> {
   _$ImageChangedCopyWithImpl(
       ImageChanged _value, $Res Function(ImageChanged) _then)
@@ -700,7 +700,7 @@ class _$ImageChanged implements ImageChanged {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.imageChanged(imagePath: $imagePath)';
+    return 'EditProfileEvent.imageChanged(imagePath: $imagePath)';
   }
 
   @override
@@ -802,7 +802,7 @@ abstract class $FromSubmittedCopyWith<$Res> {
 
 /// @nodoc
 class _$FromSubmittedCopyWithImpl<$Res>
-    extends _$SignUpProfileEventCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
     implements $FromSubmittedCopyWith<$Res> {
   _$FromSubmittedCopyWithImpl(
       FromSubmitted _value, $Res Function(FromSubmitted) _then)
@@ -841,7 +841,7 @@ class _$FromSubmitted implements FromSubmitted {
 
   @override
   String toString() {
-    return 'SignUpProfileEvent.formSubmitted(phoneNumber: $phoneNumber, password: $password)';
+    return 'EditProfileEvent.formSubmitted(phoneNumber: $phoneNumber, password: $password)';
   }
 
   @override
@@ -942,10 +942,10 @@ abstract class FromSubmitted implements EditProfileEvent {
 }
 
 /// @nodoc
-class _$SignUpProfileStateTearOff {
-  const _$SignUpProfileStateTearOff();
+class _$EditProfileStateTearOff {
+  const _$EditProfileStateTearOff();
 
-  _SignUpProfileState call(
+  _EditProfileState call(
       {required String name,
       required String bornPlace,
       required DateTime bornDate,
@@ -953,7 +953,7 @@ class _$SignUpProfileStateTearOff {
       required bool showErrorMessages,
       File? imagePath,
       required FormSubmissionStatus formStatus}) {
-    return _SignUpProfileState(
+    return _EditProfileState(
       name: name,
       bornPlace: bornPlace,
       bornDate: bornDate,
@@ -966,10 +966,10 @@ class _$SignUpProfileStateTearOff {
 }
 
 /// @nodoc
-const $SignUpProfileState = _$SignUpProfileStateTearOff();
+const $EditProfileState = _$EditProfileStateTearOff();
 
 /// @nodoc
-mixin _$SignUpProfileState {
+mixin _$EditProfileState {
   String get name => throw _privateConstructorUsedError;
   String get bornPlace => throw _privateConstructorUsedError;
   DateTime get bornDate => throw _privateConstructorUsedError;
@@ -979,15 +979,15 @@ mixin _$SignUpProfileState {
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignUpProfileStateCopyWith<EditProfileState> get copyWith =>
+  $EditProfileStateCopyWith<EditProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignUpProfileStateCopyWith<$Res> {
-  factory $SignUpProfileStateCopyWith(
+abstract class $EditProfileStateCopyWith<$Res> {
+  factory $EditProfileStateCopyWith(
           EditProfileState value, $Res Function(EditProfileState) then) =
-      _$SignUpProfileStateCopyWithImpl<$Res>;
+      _$EditProfileStateCopyWithImpl<$Res>;
   $Res call(
       {String name,
       String bornPlace,
@@ -999,9 +999,9 @@ abstract class $SignUpProfileStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SignUpProfileStateCopyWithImpl<$Res>
-    implements $SignUpProfileStateCopyWith<$Res> {
-  _$SignUpProfileStateCopyWithImpl(this._value, this._then);
+class _$EditProfileStateCopyWithImpl<$Res>
+    implements $EditProfileStateCopyWith<$Res> {
+  _$EditProfileStateCopyWithImpl(this._value, this._then);
 
   final EditProfileState _value;
   // ignore: unused_field
@@ -1051,11 +1051,11 @@ class _$SignUpProfileStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SignUpProfileStateCopyWith<$Res>
-    implements $SignUpProfileStateCopyWith<$Res> {
-  factory _$SignUpProfileStateCopyWith(
-          _SignUpProfileState value, $Res Function(_SignUpProfileState) then) =
-      __$SignUpProfileStateCopyWithImpl<$Res>;
+abstract class _$EditProfileStateCopyWith<$Res>
+    implements $EditProfileStateCopyWith<$Res> {
+  factory _$EditProfileStateCopyWith(
+          _EditProfileState value, $Res Function(_EditProfileState) then) =
+      __$EditProfileStateCopyWithImpl<$Res>;
   @override
   $Res call(
       {String name,
@@ -1068,15 +1068,15 @@ abstract class _$SignUpProfileStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$SignUpProfileStateCopyWithImpl<$Res>
-    extends _$SignUpProfileStateCopyWithImpl<$Res>
-    implements _$SignUpProfileStateCopyWith<$Res> {
-  __$SignUpProfileStateCopyWithImpl(
-      _SignUpProfileState _value, $Res Function(_SignUpProfileState) _then)
-      : super(_value, (v) => _then(v as _SignUpProfileState));
+class __$EditProfileStateCopyWithImpl<$Res>
+    extends _$EditProfileStateCopyWithImpl<$Res>
+    implements _$EditProfileStateCopyWith<$Res> {
+  __$EditProfileStateCopyWithImpl(
+      _EditProfileState _value, $Res Function(_EditProfileState) _then)
+      : super(_value, (v) => _then(v as _EditProfileState));
 
   @override
-  _SignUpProfileState get _value => super._value as _SignUpProfileState;
+  _EditProfileState get _value => super._value as _EditProfileState;
 
   @override
   $Res call({
@@ -1088,7 +1088,7 @@ class __$SignUpProfileStateCopyWithImpl<$Res>
     Object? imagePath = freezed,
     Object? formStatus = freezed,
   }) {
-    return _then(_SignUpProfileState(
+    return _then(_EditProfileState(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1123,8 +1123,8 @@ class __$SignUpProfileStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SignUpProfileState extends _SignUpProfileState {
-  const _$_SignUpProfileState(
+class _$_EditProfileState extends _EditProfileState {
+  const _$_EditProfileState(
       {required this.name,
       required this.bornPlace,
       required this.bornDate,
@@ -1151,13 +1151,13 @@ class _$_SignUpProfileState extends _SignUpProfileState {
 
   @override
   String toString() {
-    return 'SignUpProfileState(name: $name, bornPlace: $bornPlace, bornDate: $bornDate, knowUsFrom: $knowUsFrom, showErrorMessages: $showErrorMessages, imagePath: $imagePath, formStatus: $formStatus)';
+    return 'EditProfileState(name: $name, bornPlace: $bornPlace, bornDate: $bornDate, knowUsFrom: $knowUsFrom, showErrorMessages: $showErrorMessages, imagePath: $imagePath, formStatus: $formStatus)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SignUpProfileState &&
+        (other is _EditProfileState &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.bornPlace, bornPlace) ||
@@ -1193,20 +1193,20 @@ class _$_SignUpProfileState extends _SignUpProfileState {
 
   @JsonKey(ignore: true)
   @override
-  _$SignUpProfileStateCopyWith<_SignUpProfileState> get copyWith =>
-      __$SignUpProfileStateCopyWithImpl<_SignUpProfileState>(this, _$identity);
+  _$EditProfileStateCopyWith<_EditProfileState> get copyWith =>
+      __$EditProfileStateCopyWithImpl<_EditProfileState>(this, _$identity);
 }
 
-abstract class _SignUpProfileState extends EditProfileState {
-  const factory _SignUpProfileState(
+abstract class _EditProfileState extends EditProfileState {
+  const factory _EditProfileState(
       {required String name,
       required String bornPlace,
       required DateTime bornDate,
       required String knowUsFrom,
       required bool showErrorMessages,
       File? imagePath,
-      required FormSubmissionStatus formStatus}) = _$_SignUpProfileState;
-  const _SignUpProfileState._() : super._();
+      required FormSubmissionStatus formStatus}) = _$_EditProfileState;
+  const _EditProfileState._() : super._();
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -1224,6 +1224,6 @@ abstract class _SignUpProfileState extends EditProfileState {
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SignUpProfileStateCopyWith<_SignUpProfileState> get copyWith =>
+  _$EditProfileStateCopyWith<_EditProfileState> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bill/history/view/posts_screen.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/main_screen/view/main_screen.dart';
@@ -25,74 +27,84 @@ class _HomePageState extends State<HomePage> {
     SystemChrome.setEnabledSystemUIOverlays(
       [SystemUiOverlay.top, SystemUiOverlay.bottom],
     );
-
-    return WillPopScope(
-      onWillPop: () async {
-        showDialog(
-          context: context,
-          builder: (_) {
-            return ExitDialog();
-          },
-        );
-        return false;
-      },
-      child: Scaffold(
-        body: BlocProvider(
-          create: (context) => UserCubit(UserRepository())..fetchInitialData(),
-          child: _homeChild,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) {
-            if (index == 0) {
-              setState(
-                () {
-                  _pageIndex = 0;
-                  _homeChild = HistoryScreen();
-                },
+    return BlocProvider(
+      create: (context) => UserCubit(UserRepository())..fetchInitialData(),
+      child: WillPopScope(
+        onWillPop: () async {
+          showDialog(
+            context: context,
+            builder: (_) {
+              return ExitDialog(
+                onTapYes: () => exit(0),
               );
-            }
-            if (index == 1) {
-              setState(
-                () {
-                  _pageIndex = 1;
-                  _homeChild = MainScreen();
+            },
+          );
+          return false;
+        },
+        child: Scaffold(
+          body: _homeChild,
+          bottomNavigationBar: BlocBuilder<UserCubit, UserState>(
+            builder: (_, state) {
+              return BottomNavigationBar(
+                onTap: (index) {
+                  print(state.loadingStatus);
+                  if (state.loadingStatus == UserLoadingStatus.success) {
+                    if (index == 0) {
+                      setState(
+                        () {
+                          _pageIndex = 0;
+                          _homeChild = HistoryScreen();
+                        },
+                      );
+                    }
+                    if (index == 1) {
+                      setState(
+                        () {
+                          _pageIndex = 1;
+                          _homeChild = MainScreen();
+                        },
+                      );
+                    }
+                    if (index == 2) {
+                      setState(
+                        () {
+                          _pageIndex = 2;
+                          _homeChild = ProfileScreen();
+                        },
+                      );
+                    }
+                  }
                 },
+                // unselectedLabelStyle: TextStyle(color: Colors.black),
+                // selectedLabelStyle: TextStyle(color: Colors.blue.shade400),
+                currentIndex: _pageIndex,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: new Icon(
+                      Icons.history,
+                      color:
+                          _pageIndex == 0 ? Colors.blue.shade400 : Colors.black,
+                    ),
+                    label: 'Riwayat',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: new Icon(
+                      Icons.home,
+                      color:
+                          _pageIndex == 1 ? Colors.blue.shade400 : Colors.black,
+                    ),
+                    label: 'Home',
+                    backgroundColor:
+                        _pageIndex == 1 ? Colors.blue.shade400 : Colors.black,
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                ],
               );
-            }
-            if (index == 2) {
-              setState(
-                () {
-                  _pageIndex = 2;
-                  _homeChild = ProfileScreen();
-                },
-              );
-            }
-          },
-          // unselectedLabelStyle: TextStyle(color: Colors.black),
-          // selectedLabelStyle: TextStyle(color: Colors.blue.shade400),
-          currentIndex: _pageIndex,
-          items: [
-            BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.history,
-                color: _pageIndex == 0 ? Colors.blue.shade400 : Colors.black,
-              ),
-              label: 'Riwayat',
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(
-                Icons.home,
-                color: _pageIndex == 1 ? Colors.blue.shade400 : Colors.black,
-              ),
-              label: 'Home',
-              backgroundColor:
-                  _pageIndex == 1 ? Colors.blue.shade400 : Colors.black,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
+            },
+          ),
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:bill/global/widgets/slow_connection_dialog.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:bill/packages/core_handler/form_submission_status.dart';
-import 'package:bill/packages/user/model/image_mock.dart';
-import 'package:bill/transaction/screens/input_payment/PayKWK.dart';
+import 'package:bill/transaction/screens/input_payment/input_payment_sreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -55,25 +55,60 @@ class _HomeCameraState extends State<HomeCamera> {
           );
         }
         if (state.formStatus is SubmissionSuccess) {
+          Navigator.of(context).pop();
+
           if (state.type == ScannedType.voucher) {
             Navigator.of(context).pushNamed('/TopUpVoucherScreen');
           } else if (state.type == ScannedType.angkot) {
             Navigator.of(context).pushReplacement(
               new MaterialPageRoute(
-                builder: (context) => new PayKwk(
-                  nohpResult: '05',
-                  name: 'Muhammad Vikral',
-                  noHpUser: '08121400480000',
-                  pinUser: '111111',
-                  angkotName: 'TestAngkot',
-                  angkotImage: ImageMockUp().image,
-                  tipe: '',
-                ),
+                builder: (context) => new InputPaymentScreen(),
               ),
             );
+          } else if (state.type == ScannedType.notFound) {
+            userNotFoundDialog(context);
           }
         }
-        if (state.formStatus is SubmissionFailed) {}
+        if (state.formStatus is SubmissionError) {
+          Navigator.of(context).pop();
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SlowConnectionDialog(),
+                      MaterialButton(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: FittedBox(
+                            child: Text(
+                              'Coba Lagi',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF0B8CAD),
+                              ),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          // context.read<UserCubit>().fetchInitialData();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -83,10 +118,77 @@ class _HomeCameraState extends State<HomeCamera> {
     );
   }
 
+  Future<dynamic> userNotFoundDialog(BuildContext context) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: MediaQuery.of(context).size.width * 0.06),
+            width: MediaQuery.of(context).size.width * 0.65,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xFFF4F7F8)),
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: FittedBox(
+                    child: Text(
+                      'User tidak ditemukan',
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Color(0xFF999494),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    MaterialButton(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.08,
+                        child: FittedBox(
+                          child: Text(
+                            'Oke',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF0B8CAD),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildQrView(BuildContext context) {
     return QRView(
       key: qrKey,
-      onQRViewCreated: (controller) {
+      onQRViewCreated: (controller) async {
         controller.scannedDataStream.listen(
           (value) {
             controller.pauseCamera();
@@ -95,6 +197,9 @@ class _HomeCameraState extends State<HomeCamera> {
                     value.code,
                   ),
                 );
+            Future.delayed(Duration(seconds: 3), () {
+              controller.resumeCamera();
+            });
           },
         );
       },

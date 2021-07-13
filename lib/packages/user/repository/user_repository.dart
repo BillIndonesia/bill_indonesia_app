@@ -6,6 +6,7 @@ class UserRepository {
 
   Future<UserData> fetchUserInfo(data) async {
     try {
+      print(data);
       UserData userData = UserData.fromJson(data);
       return userData;
     } catch (e) {

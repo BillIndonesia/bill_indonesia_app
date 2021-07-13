@@ -30,6 +30,7 @@ class HistoryContent extends StatelessWidget {
     BlocProvider.of<PostsCubit>(context).loadPosts();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: HistoryAppBar(),
       body: HistoryList(
         scrollController: scrollController,

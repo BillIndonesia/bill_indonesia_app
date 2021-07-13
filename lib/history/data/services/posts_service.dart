@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PostsService {
   static const FETCH_LIMIT = 15;
@@ -17,15 +18,13 @@ class PostsService {
   }
 
   Future<List<dynamic>> fetchHistory(int page) async {
-    var url = Uri.parse('https://bill.co.id/riwayatBeta');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var nohp = prefs.getString('nohp');
+    var url = Uri.parse(
+        'https://dev.bill-indonesia.com/api/transaction/transaction-history/?customer__phone_number=$nohp&page=$page');
     try {
-      final response = await post(
+      final response = await get(
         url,
-        body: {
-          'username': '0812140048000',
-          'password': '111111',
-          'page': page.toString(),
-        },
       );
 
       return jsonDecode(response.body) as List<dynamic>;

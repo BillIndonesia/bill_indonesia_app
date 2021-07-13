@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
+import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class PaymentResultDestinationProfile extends StatelessWidget {
   const PaymentResultDestinationProfile({
     Key? key,
-    required this.image,
   }) : super(key: key);
-
-  final String image;
 
   @override
   Widget build(BuildContext context) {
-    Uint8List bytes = base64.decode(image);
+    var data = context.read<QrScannedBloc>().state.transactionData;
+    Uint8List bytes = base64.decode(data['merchant_image']);
     return Container(
       child: Column(
         children: <Widget>[
@@ -21,7 +20,7 @@ class PaymentResultDestinationProfile extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.2,
             height: MediaQuery.of(context).size.width * 0.2,
             //Decorasi Image
-            decoration: image != ''
+            decoration: data['merchant_image'] != ''
                 ? BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
@@ -31,14 +30,14 @@ class PaymentResultDestinationProfile extends StatelessWidget {
                   )
                 : BoxDecoration(shape: BoxShape.circle),
             //Bolean Image
-            child: image == ''
+            child: data['merchant_image'] == ''
                 ? CircleAvatar(
                     backgroundColor: Color(0xFF0485AC),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.08,
                       child: FittedBox(
                         child: Text(
-                          'B 1234 VW'[0],
+                          data['merchant_name'].toString().toUpperCase()[0],
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Color(0xFFF4F7F8),
@@ -58,7 +57,7 @@ class PaymentResultDestinationProfile extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fitHeight,
               child: Text(
-                'B 1234 VW',
+                data['merchant_name'],
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 1,

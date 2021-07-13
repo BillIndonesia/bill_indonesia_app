@@ -13,7 +13,6 @@ class EditProfileHeader extends StatelessWidget {
     final String _name = context.watch<UserCubit>().state.data.name;
     final String _phoneNumber =
         context.watch<UserCubit>().state.data.phoneNumber;
-
     return Container(
       height: MediaQuery.of(context).size.height * 0.4,
       width: MediaQuery.of(context).size.width,
@@ -42,7 +41,10 @@ class EditProfileHeader extends StatelessWidget {
                       size: 30,
                     ),
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/HomeScreen',
+                        (Route<dynamic> route) => false,
+                      );
                     },
                   ),
                 ),

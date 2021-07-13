@@ -4,7 +4,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class FCMInit {
   void initializeFCM() async {
@@ -23,15 +22,6 @@ class FCMInit {
     // ignore: omit_local_variable_types
     String? token = await messaging.getToken();
     debugPrint('testing token: $token');
-    var url = Uri.parse('https://bill.co.id/saveToken');
-    await http.post(
-      url,
-      body: {
-        'username': '05',
-        'password': '111111',
-        'token': token,
-      },
-    );
   }
 
   //Initialize onMessage

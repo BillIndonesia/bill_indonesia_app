@@ -244,7 +244,7 @@ class ProfileScreen extends StatelessWidget {
       required String navigatorPath}) {
     return GestureDetector(
       onTap: () {
-        title != 'Ganti akun'
+        title != 'Keluar'
             ? Navigator.of(context).pushNamed(navigatorPath)
             : showDialog(
                 context: context,

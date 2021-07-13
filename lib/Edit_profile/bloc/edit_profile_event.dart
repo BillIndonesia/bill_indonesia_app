@@ -2,6 +2,8 @@ part of 'edit_profile_bloc.dart';
 
 @freezed
 class EditProfileEvent with _$EditProfileEvent {
+  const factory EditProfileEvent.initial(Map<dynamic, String> data) =
+      EditProfileInitialData;
   const factory EditProfileEvent.nameFormChanged(String name) = NameFormChanged;
   const factory EditProfileEvent.bornPlaceFormChanged(String bornPlace) =
       BornPlaceFormChanged;

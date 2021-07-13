@@ -124,6 +124,7 @@ class SignUpOTPScreen extends StatelessWidget {
                         }
                       },
                       builder: (context, state) {
+                        print("otp code :${state.otpCodeGenerated}");
                         return Form(
                           key: _otpformKey,
                           child: Padding(
@@ -281,7 +282,7 @@ class _SignUpOtpTimerState extends State<SignUpOtpTimer> {
                               height: MediaQuery.of(context).size.height * 0.07,
                               child: Center(
                                 child: Text(
-                                  'Tunggu ${state.waitingTimer} detik',
+                                  'Tunggu 60 detik',
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
@@ -293,14 +294,143 @@ class _SignUpOtpTimerState extends State<SignUpOtpTimer> {
                             reverseAnimation: StyledToastAnimation.fade,
                           );
                         } else {
-                          context.read<SignUpBloc>().add(
-                                ResendOtp('05'),
-                              );
-                          setState(
-                            () {
-                              controller = CountdownTimerController(
-                                endTime: DateTime.now().millisecondsSinceEpoch +
-                                    1000 * 60,
+                          showDialog(
+                            context: context,
+                            builder: (_) {
+                              return Dialog(
+                                backgroundColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                child: Card(
+                                  semanticContainer: true,
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  elevation: 8,
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.centerLeft,
+                                        colors: [
+                                          Color(0xFF0485AC),
+                                          Colors.black54
+                                        ],
+                                      ),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          'OTP mu akan dikirimkan \n melalui ?',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.white,
+                                              fontFamily: 'Montserrat'),
+                                        ),
+                                        //SMS Card
+                                        GestureDetector(
+                                          onTap: () async {
+                                            Navigator.of(context).pop();
+                                            String _phoneNumber = context
+                                                .read<SignInPhoneNumberBloc>()
+                                                .state
+                                                .phoneNumber;
+                                            context.read<SignUpBloc>().add(
+                                                  ResendOtp(
+                                                      _phoneNumber, 'sms'),
+                                                );
+                                            setState(
+                                              () {
+                                                controller =
+                                                    CountdownTimerController(
+                                                  endTime: DateTime.now()
+                                                          .millisecondsSinceEpoch +
+                                                      1000 * 60,
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Card(
+                                            semanticContainer: true,
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            elevation: 10,
+                                            child: Image.asset(
+                                              'assets/images/SMSOtp.png',
+                                              fit: BoxFit.cover,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.11,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6,
+                                            ),
+                                          ),
+                                        ),
+                                        //Whatsapp Card
+                                        GestureDetector(
+                                          onTap: () async {
+                                            Navigator.of(context).pop();
+                                            String _phoneNumber = context
+                                                .read<SignInPhoneNumberBloc>()
+                                                .state
+                                                .phoneNumber;
+                                            context.read<SignUpBloc>().add(
+                                                  ResendOtp(
+                                                      _phoneNumber, 'whatsapp'),
+                                                );
+                                            setState(
+                                              () {
+                                                controller =
+                                                    CountdownTimerController(
+                                                  endTime: DateTime.now()
+                                                          .millisecondsSinceEpoch +
+                                                      1000 * 60,
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Card(
+                                            semanticContainer: true,
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            elevation: 10,
+                                            child: Image.asset(
+                                              'assets/images/WhatsappBackground.jpg',
+                                              fit: BoxFit.cover,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.11,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               );
                             },
                           );

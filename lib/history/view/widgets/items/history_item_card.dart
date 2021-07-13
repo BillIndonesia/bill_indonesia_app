@@ -16,8 +16,8 @@ class HistoryItemCard extends StatelessWidget {
     final String _image = post.image;
     final String _name = post.name;
     final String type = post.type;
-    final String _date =
-        DateFormat('d MMMM y', 'en_US').format(DateTime.parse(post.date));
+    final String _date = DateFormat('d MMMM y HH:mm')
+        .format(DateTime.parse(post.date).toLocal());
     final double _amount = post.amount;
 
     return Container(
@@ -51,7 +51,7 @@ class HistoryItemCard extends StatelessWidget {
 
   Image _icon(String type, BuildContext context) {
     return Image(
-      image: type == 'in'
+      image: type != "payment"
           ? AssetImage('assets/images/plus.png')
           : AssetImage('assets/images/min.png'),
       width: MediaQuery.of(context).size.width * 0.08,

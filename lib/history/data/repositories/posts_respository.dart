@@ -13,7 +13,7 @@ class PostsRepository {
 
   Future<List<Post>> fetchHistory(int page) async {
     final posts = await service.fetchHistory(page);
-    print(posts[1]['name']);
+    print(posts);
     return posts.map((e) => Post.fromJson(e)).toList();
   }
 }

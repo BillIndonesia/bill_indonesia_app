@@ -30,30 +30,37 @@ class HistoryList extends StatelessWidget {
           posts = state.posts;
         }
 
-        return ListView.separated(
-          controller: scrollController,
-          itemBuilder: (context, index) {
-            if (index < posts.length)
-              return HistoryItemCard(post: posts[index]);
-            else {
-              Timer(
-                Duration(milliseconds: 30),
-                () {
-                  scrollController
-                      .jumpTo(scrollController.position.maxScrollExtent);
-                },
-              );
+        return posts.isEmpty
+            ? Center(
+                child: Lottie.asset(
+                  'assets/lottie/empty.json',
+                  fit: BoxFit.cover,
+                ),
+              )
+            : ListView.separated(
+                controller: scrollController,
+                itemBuilder: (context, index) {
+                  if (index < posts.length)
+                    return HistoryItemCard(post: posts[index]);
+                  else {
+                    Timer(
+                      Duration(milliseconds: 30),
+                      () {
+                        scrollController
+                            .jumpTo(scrollController.position.maxScrollExtent);
+                      },
+                    );
 
-              return _loadingIndicator(context);
-            }
-          },
-          separatorBuilder: (context, index) {
-            return Divider(
-              color: Colors.grey[400],
-            );
-          },
-          itemCount: posts.length + (isLoading ? 1 : 0),
-        );
+                    return _loadingIndicator(context);
+                  }
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.grey[400],
+                  );
+                },
+                itemCount: posts.length + (isLoading ? 1 : 0),
+              );
       },
     );
   }

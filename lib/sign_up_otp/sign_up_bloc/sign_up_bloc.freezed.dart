@@ -34,9 +34,10 @@ class _$SignUpEventTearOff {
     );
   }
 
-  ResendOtp resendOtp(String phoneNumber) {
+  ResendOtp resendOtp(String phoneNumber, String type) {
     return ResendOtp(
       phoneNumber,
+      type,
     );
   }
 
@@ -55,7 +56,7 @@ mixin _$SignUpEvent {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +65,7 @@ mixin _$SignUpEvent {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) =>
@@ -175,7 +176,7 @@ class _$GetOtpScreenInit implements GetOtpScreenInit {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) {
     return getOtpScreenInit(phoneNumber);
@@ -187,7 +188,7 @@ class _$GetOtpScreenInit implements GetOtpScreenInit {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) {
@@ -302,7 +303,7 @@ class _$OTPFormChanged implements OTPFormChanged {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) {
     return otpFormChanged(otpCode);
@@ -314,7 +315,7 @@ class _$OTPFormChanged implements OTPFormChanged {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) {
@@ -428,7 +429,7 @@ class _$OTPTimer implements OTPTimer {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) {
     return otpTimer(otpClock);
@@ -440,7 +441,7 @@ class _$OTPTimer implements OTPTimer {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) {
@@ -492,7 +493,7 @@ abstract class OTPTimer implements SignUpEvent {
 abstract class $ResendOtpCopyWith<$Res> {
   factory $ResendOtpCopyWith(ResendOtp value, $Res Function(ResendOtp) then) =
       _$ResendOtpCopyWithImpl<$Res>;
-  $Res call({String phoneNumber});
+  $Res call({String phoneNumber, String type});
 }
 
 /// @nodoc
@@ -507,11 +508,16 @@ class _$ResendOtpCopyWithImpl<$Res> extends _$SignUpEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phoneNumber = freezed,
+    Object? type = freezed,
   }) {
     return _then(ResendOtp(
       phoneNumber == freezed
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -520,14 +526,16 @@ class _$ResendOtpCopyWithImpl<$Res> extends _$SignUpEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ResendOtp implements ResendOtp {
-  const _$ResendOtp(this.phoneNumber);
+  const _$ResendOtp(this.phoneNumber, this.type);
 
   @override
   final String phoneNumber;
+  @override
+  final String type;
 
   @override
   String toString() {
-    return 'SignUpEvent.resendOtp(phoneNumber: $phoneNumber)';
+    return 'SignUpEvent.resendOtp(phoneNumber: $phoneNumber, type: $type)';
   }
 
   @override
@@ -536,12 +544,16 @@ class _$ResendOtp implements ResendOtp {
         (other is ResendOtp &&
             (identical(other.phoneNumber, phoneNumber) ||
                 const DeepCollectionEquality()
-                    .equals(other.phoneNumber, phoneNumber)));
+                    .equals(other.phoneNumber, phoneNumber)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(phoneNumber);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(phoneNumber) ^
+      const DeepCollectionEquality().hash(type);
 
   @JsonKey(ignore: true)
   @override
@@ -554,10 +566,10 @@ class _$ResendOtp implements ResendOtp {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) {
-    return resendOtp(phoneNumber);
+    return resendOtp(phoneNumber, type);
   }
 
   @override
@@ -566,12 +578,12 @@ class _$ResendOtp implements ResendOtp {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) {
     if (resendOtp != null) {
-      return resendOtp(phoneNumber);
+      return resendOtp(phoneNumber, type);
     }
     return orElse();
   }
@@ -606,9 +618,10 @@ class _$ResendOtp implements ResendOtp {
 }
 
 abstract class ResendOtp implements SignUpEvent {
-  const factory ResendOtp(String phoneNumber) = _$ResendOtp;
+  const factory ResendOtp(String phoneNumber, String type) = _$ResendOtp;
 
   String get phoneNumber => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ResendOtpCopyWith<ResendOtp> get copyWith =>
       throw _privateConstructorUsedError;
@@ -655,7 +668,7 @@ class _$CleanChace implements CleanChace {
     required TResult Function(String phoneNumber) getOtpScreenInit,
     required TResult Function(String otpCode) otpFormChanged,
     required TResult Function(int otpClock) otpTimer,
-    required TResult Function(String phoneNumber) resendOtp,
+    required TResult Function(String phoneNumber, String type) resendOtp,
     required TResult Function() cleanCache,
   }) {
     return cleanCache();
@@ -667,7 +680,7 @@ class _$CleanChace implements CleanChace {
     TResult Function(String phoneNumber)? getOtpScreenInit,
     TResult Function(String otpCode)? otpFormChanged,
     TResult Function(int otpClock)? otpTimer,
-    TResult Function(String phoneNumber)? resendOtp,
+    TResult Function(String phoneNumber, String type)? resendOtp,
     TResult Function()? cleanCache,
     required TResult orElse(),
   }) {

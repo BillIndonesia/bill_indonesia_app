@@ -27,7 +27,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         );
         if (event.otpCode.length == 4) {
           var otpIsMatch = event.otpCode == state.otpCodeGenerated;
-          if (otpIsMatch || event.otpCode == '1234') {
+
+          if (otpIsMatch) {
             yield state.copyWith(
               showErrorMessages: false,
               errorMessages: 'pin benar',
@@ -41,10 +42,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         }
       },
       getOtpScreenInit: (event) async* {
-        print('here');
         var otpCodeGenerator = Random().nextInt(1000);
         var otpCode = otpCodeGenerator.toString().padRight(4, '0');
-        print(otpCode);
+        try {
+          var otpRequest = await authRepository.signUpOTP(
+            event.phoneNumber,
+            otpCode,
+            'sms',
+          );
+        } catch (e) {}
         yield state.copyWith(
           otpCodeGenerated: otpCode,
           phoneNumber: event.phoneNumber,
@@ -54,8 +60,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       resendOtp: (event) async* {
         var otpCodeGenerator = Random().nextInt(1000);
         var otpCode = otpCodeGenerator.toString().padRight(4, '0');
+
+        try {
+          var otpRequest = await authRepository.signUpOTP(
+            event.phoneNumber,
+            otpCode,
+            event.type,
+          );
+          yield state.copyWith(
+            otpCodeGenerated: otpCode,
+          );
+        } catch (e) {
+          yield state.copyWith(
+            otpCodeGenerated: otpCode,
+            otpCode: otpCode,
+          );
+        }
         print(otpCode);
-        yield state.copyWith(otpCodeGenerated: otpCode);
       },
       cleanCache: cleanCache,
     );

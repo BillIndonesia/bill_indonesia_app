@@ -1,3 +1,4 @@
+import 'package:bill/Edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:bill/help/model/bantuan_model.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
@@ -37,6 +38,9 @@ class AppBlocProvider extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SignUpBloc(AuthRepository()),
+        ),
+        BlocProvider(
+          create: (context) => EditProfileBloc(AuthRepository()),
         ),
         BlocProvider(
           create: (context) => SignUpPinBloc(),

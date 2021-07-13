@@ -95,7 +95,7 @@ class AboutScreen extends StatelessWidget {
                         fontWeight: FontWeight.normal,
                         fontFamily: 'Montserrat'),
                     children: <TextSpan>[
-                      TextSpan(text: 'Bill V.0.8.6\n'),
+                      TextSpan(text: 'Bill V.1.0.1\n'),
                       TextSpan(text: '© 2019 Copyright Bill'),
                     ],
                   ),

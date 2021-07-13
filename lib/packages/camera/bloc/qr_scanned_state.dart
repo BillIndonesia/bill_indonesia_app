@@ -9,11 +9,13 @@ class QrScannedState with _$QrScannedState {
     required FormSubmissionStatus formStatus,
     required ScannedType type,
     required TransactionStatus transactionStatus,
+    required Map<String, dynamic> transactionData,
   }) = _QrScannedState;
 
   factory QrScannedState.initial() => QrScannedState(
         formStatus: InitialFormStatus(),
         type: ScannedType.empty,
         transactionStatus: TransactionStatus.none,
+        transactionData: {},
       );
 }

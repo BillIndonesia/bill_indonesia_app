@@ -24,7 +24,6 @@ class SignInPhoneNumberButton extends StatelessWidget {
           Navigator.of(context).pushNamed('/SignInPinScreen');
         } else if (state.formStatus is SubmissionFailed) {
           Navigator.of(context).pushNamed('/SignUpOtpScreen');
-          // context.read<SignUpBloc>().add(GetOtpScreenInit(state.phoneNumber));
         }
         if (state.formStatus is SubmissionError) {
           showDialog(

@@ -1,6 +1,7 @@
 import 'package:bill/packages/user/data/user_data.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,24 +23,22 @@ class UserCubit extends Cubit<UserState> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? _phoneNumber = prefs.getString('nohp');
-      String? _pinNumber = prefs.getString('pin');
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      String? token = await messaging.getToken();
       var _dio = Dio();
       // ignore: cascade_invocations
       _dio.options = (BaseOptions(
         baseUrl: 'https://dev.bill-indonesia.com/api/',
-        connectTimeout: 3000,
+        connectTimeout: 5000,
       ));
-      var formData = FormData.fromMap(
-        {
-          "phone_number": _phoneNumber,
-          "customer_password": _pinNumber,
-        },
-      );
+      var formData = {
+        "phone_number": _phoneNumber,
+        "customer_firebase_token": token
+      };
       var response = await _dio.post(
-        '/customer/login/',
+        '/customer/profile/',
         data: formData,
       );
-      print(response);
       var userData = await authRepo.fetchUserInfo(response.data);
       emit(
         state.copyWith(

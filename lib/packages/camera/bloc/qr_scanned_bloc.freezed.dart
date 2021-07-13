@@ -21,6 +21,12 @@ class _$QrScannedEventTearOff {
       qrCode,
     );
   }
+
+  Transaction transaction(Map<String, dynamic> data) {
+    return Transaction(
+      data,
+    );
+  }
 }
 
 /// @nodoc
@@ -28,33 +34,31 @@ const $QrScannedEvent = _$QrScannedEventTearOff();
 
 /// @nodoc
 mixin _$QrScannedEvent {
-  String get qrCode => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String qrCode) qrCodeScanned,
+    required TResult Function(Map<String, dynamic> data) transaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String qrCode)? qrCodeScanned,
+    TResult Function(Map<String, dynamic> data)? transaction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(QrCodeScanned value) qrCodeScanned,
+    required TResult Function(Transaction value) transaction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QrCodeScanned value)? qrCodeScanned,
+    TResult Function(Transaction value)? transaction,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $QrScannedEventCopyWith<QrScannedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -63,7 +67,6 @@ abstract class $QrScannedEventCopyWith<$Res> {
   factory $QrScannedEventCopyWith(
           QrScannedEvent value, $Res Function(QrScannedEvent) then) =
       _$QrScannedEventCopyWithImpl<$Res>;
-  $Res call({String qrCode});
 }
 
 /// @nodoc
@@ -74,27 +77,13 @@ class _$QrScannedEventCopyWithImpl<$Res>
   final QrScannedEvent _value;
   // ignore: unused_field
   final $Res Function(QrScannedEvent) _then;
-
-  @override
-  $Res call({
-    Object? qrCode = freezed,
-  }) {
-    return _then(_value.copyWith(
-      qrCode: qrCode == freezed
-          ? _value.qrCode
-          : qrCode // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class $QrCodeScannedCopyWith<$Res>
-    implements $QrScannedEventCopyWith<$Res> {
+abstract class $QrCodeScannedCopyWith<$Res> {
   factory $QrCodeScannedCopyWith(
           QrCodeScanned value, $Res Function(QrCodeScanned) then) =
       _$QrCodeScannedCopyWithImpl<$Res>;
-  @override
   $Res call({String qrCode});
 }
 
@@ -156,6 +145,7 @@ class _$QrCodeScanned implements QrCodeScanned {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String qrCode) qrCodeScanned,
+    required TResult Function(Map<String, dynamic> data) transaction,
   }) {
     return qrCodeScanned(qrCode);
   }
@@ -164,6 +154,7 @@ class _$QrCodeScanned implements QrCodeScanned {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String qrCode)? qrCodeScanned,
+    TResult Function(Map<String, dynamic> data)? transaction,
     required TResult orElse(),
   }) {
     if (qrCodeScanned != null) {
@@ -176,6 +167,7 @@ class _$QrCodeScanned implements QrCodeScanned {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(QrCodeScanned value) qrCodeScanned,
+    required TResult Function(Transaction value) transaction,
   }) {
     return qrCodeScanned(this);
   }
@@ -184,6 +176,7 @@ class _$QrCodeScanned implements QrCodeScanned {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(QrCodeScanned value)? qrCodeScanned,
+    TResult Function(Transaction value)? transaction,
     required TResult orElse(),
   }) {
     if (qrCodeScanned != null) {
@@ -196,11 +189,124 @@ class _$QrCodeScanned implements QrCodeScanned {
 abstract class QrCodeScanned implements QrScannedEvent {
   const factory QrCodeScanned(String qrCode) = _$QrCodeScanned;
 
-  @override
   String get qrCode => throw _privateConstructorUsedError;
-  @override
   @JsonKey(ignore: true)
   $QrCodeScannedCopyWith<QrCodeScanned> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TransactionCopyWith<$Res> {
+  factory $TransactionCopyWith(
+          Transaction value, $Res Function(Transaction) then) =
+      _$TransactionCopyWithImpl<$Res>;
+  $Res call({Map<String, dynamic> data});
+}
+
+/// @nodoc
+class _$TransactionCopyWithImpl<$Res> extends _$QrScannedEventCopyWithImpl<$Res>
+    implements $TransactionCopyWith<$Res> {
+  _$TransactionCopyWithImpl(
+      Transaction _value, $Res Function(Transaction) _then)
+      : super(_value, (v) => _then(v as Transaction));
+
+  @override
+  Transaction get _value => super._value as Transaction;
+
+  @override
+  $Res call({
+    Object? data = freezed,
+  }) {
+    return _then(Transaction(
+      data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Transaction implements Transaction {
+  const _$Transaction(this.data);
+
+  @override
+  final Map<String, dynamic> data;
+
+  @override
+  String toString() {
+    return 'QrScannedEvent.transaction(data: $data)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is Transaction &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
+
+  @JsonKey(ignore: true)
+  @override
+  $TransactionCopyWith<Transaction> get copyWith =>
+      _$TransactionCopyWithImpl<Transaction>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String qrCode) qrCodeScanned,
+    required TResult Function(Map<String, dynamic> data) transaction,
+  }) {
+    return transaction(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String qrCode)? qrCodeScanned,
+    TResult Function(Map<String, dynamic> data)? transaction,
+    required TResult orElse(),
+  }) {
+    if (transaction != null) {
+      return transaction(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(QrCodeScanned value) qrCodeScanned,
+    required TResult Function(Transaction value) transaction,
+  }) {
+    return transaction(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(QrCodeScanned value)? qrCodeScanned,
+    TResult Function(Transaction value)? transaction,
+    required TResult orElse(),
+  }) {
+    if (transaction != null) {
+      return transaction(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Transaction implements QrScannedEvent {
+  const factory Transaction(Map<String, dynamic> data) = _$Transaction;
+
+  Map<String, dynamic> get data => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TransactionCopyWith<Transaction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -211,11 +317,13 @@ class _$QrScannedStateTearOff {
   _QrScannedState call(
       {required FormSubmissionStatus formStatus,
       required ScannedType type,
-      required TransactionStatus transactionStatus}) {
+      required TransactionStatus transactionStatus,
+      required Map<String, dynamic> transactionData}) {
     return _QrScannedState(
       formStatus: formStatus,
       type: type,
       transactionStatus: transactionStatus,
+      transactionData: transactionData,
     );
   }
 }
@@ -228,6 +336,8 @@ mixin _$QrScannedState {
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
   ScannedType get type => throw _privateConstructorUsedError;
   TransactionStatus get transactionStatus => throw _privateConstructorUsedError;
+  Map<String, dynamic> get transactionData =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QrScannedStateCopyWith<QrScannedState> get copyWith =>
@@ -242,7 +352,8 @@ abstract class $QrScannedStateCopyWith<$Res> {
   $Res call(
       {FormSubmissionStatus formStatus,
       ScannedType type,
-      TransactionStatus transactionStatus});
+      TransactionStatus transactionStatus,
+      Map<String, dynamic> transactionData});
 }
 
 /// @nodoc
@@ -259,6 +370,7 @@ class _$QrScannedStateCopyWithImpl<$Res>
     Object? formStatus = freezed,
     Object? type = freezed,
     Object? transactionStatus = freezed,
+    Object? transactionData = freezed,
   }) {
     return _then(_value.copyWith(
       formStatus: formStatus == freezed
@@ -273,6 +385,10 @@ class _$QrScannedStateCopyWithImpl<$Res>
           ? _value.transactionStatus
           : transactionStatus // ignore: cast_nullable_to_non_nullable
               as TransactionStatus,
+      transactionData: transactionData == freezed
+          ? _value.transactionData
+          : transactionData // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -287,7 +403,8 @@ abstract class _$QrScannedStateCopyWith<$Res>
   $Res call(
       {FormSubmissionStatus formStatus,
       ScannedType type,
-      TransactionStatus transactionStatus});
+      TransactionStatus transactionStatus,
+      Map<String, dynamic> transactionData});
 }
 
 /// @nodoc
@@ -306,6 +423,7 @@ class __$QrScannedStateCopyWithImpl<$Res>
     Object? formStatus = freezed,
     Object? type = freezed,
     Object? transactionStatus = freezed,
+    Object? transactionData = freezed,
   }) {
     return _then(_QrScannedState(
       formStatus: formStatus == freezed
@@ -320,6 +438,10 @@ class __$QrScannedStateCopyWithImpl<$Res>
           ? _value.transactionStatus
           : transactionStatus // ignore: cast_nullable_to_non_nullable
               as TransactionStatus,
+      transactionData: transactionData == freezed
+          ? _value.transactionData
+          : transactionData // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
     ));
   }
 }
@@ -330,7 +452,8 @@ class _$_QrScannedState implements _QrScannedState {
   const _$_QrScannedState(
       {required this.formStatus,
       required this.type,
-      required this.transactionStatus});
+      required this.transactionStatus,
+      required this.transactionData});
 
   @override
   final FormSubmissionStatus formStatus;
@@ -338,10 +461,12 @@ class _$_QrScannedState implements _QrScannedState {
   final ScannedType type;
   @override
   final TransactionStatus transactionStatus;
+  @override
+  final Map<String, dynamic> transactionData;
 
   @override
   String toString() {
-    return 'QrScannedState(formStatus: $formStatus, type: $type, transactionStatus: $transactionStatus)';
+    return 'QrScannedState(formStatus: $formStatus, type: $type, transactionStatus: $transactionStatus, transactionData: $transactionData)';
   }
 
   @override
@@ -355,7 +480,10 @@ class _$_QrScannedState implements _QrScannedState {
                 const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.transactionStatus, transactionStatus) ||
                 const DeepCollectionEquality()
-                    .equals(other.transactionStatus, transactionStatus)));
+                    .equals(other.transactionStatus, transactionStatus)) &&
+            (identical(other.transactionData, transactionData) ||
+                const DeepCollectionEquality()
+                    .equals(other.transactionData, transactionData)));
   }
 
   @override
@@ -363,7 +491,8 @@ class _$_QrScannedState implements _QrScannedState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(formStatus) ^
       const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(transactionStatus);
+      const DeepCollectionEquality().hash(transactionStatus) ^
+      const DeepCollectionEquality().hash(transactionData);
 
   @JsonKey(ignore: true)
   @override
@@ -375,7 +504,8 @@ abstract class _QrScannedState implements QrScannedState {
   const factory _QrScannedState(
       {required FormSubmissionStatus formStatus,
       required ScannedType type,
-      required TransactionStatus transactionStatus}) = _$_QrScannedState;
+      required TransactionStatus transactionStatus,
+      required Map<String, dynamic> transactionData}) = _$_QrScannedState;
 
   @override
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
@@ -383,6 +513,9 @@ abstract class _QrScannedState implements QrScannedState {
   ScannedType get type => throw _privateConstructorUsedError;
   @override
   TransactionStatus get transactionStatus => throw _privateConstructorUsedError;
+  @override
+  Map<String, dynamic> get transactionData =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$QrScannedStateCopyWith<_QrScannedState> get copyWith =>

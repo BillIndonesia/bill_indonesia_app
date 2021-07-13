@@ -13,11 +13,14 @@ class UserState with _$UserState {
   factory UserState.initial() => UserState(
         name: '',
         data: UserData(
+          id: 0,
           name: '',
           email: '',
           image: '',
           phoneNumber: '',
           saldo: 0,
+          bornplace: '',
+          bornDate: '',
         ),
         loadingStatus: UserLoadingStatus.initial,
       );

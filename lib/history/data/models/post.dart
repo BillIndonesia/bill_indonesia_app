@@ -6,9 +6,12 @@ class Post {
   final String date;
 
   Post.fromJson(Map json)
-      : name = json['name'],
-        amount = json['amount'],
-        type = json['transfer_type'],
-        image = json['image'],
-        date = json['payment_date'];
+      : name = json['merchant'] != null
+            ? json['merchant']['merchant_name']
+            : "Voucher",
+        image =
+            json['merchant'] != null ? json['merchant']['merchant_image'] : "",
+        type = json['transaction']['transaction_type'],
+        amount = json['transaction']['amount'],
+        date = json['transaction']['create_date'];
 }

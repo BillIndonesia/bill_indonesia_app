@@ -1,4 +1,4 @@
-import 'package:bill/sign_up_profile/bloc/sign_up_profile_bloc.dart';
+import 'package:bill/Edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -11,6 +11,20 @@ class EditProfileBornDate extends StatefulWidget {
 
 class _EditProfileBornDateState extends State<EditProfileBornDate> {
   final tanggalController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didChangeDependencies() {
+    Future.delayed(Duration(milliseconds: 100), () {
+      var date = context.read<EditProfileBloc>().state.bornDate;
+      tanggalController.text = DateFormat('dd/MM/yyyy').format(date);
+      super.didChangeDependencies();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,19 +62,20 @@ class _EditProfileBornDateState extends State<EditProfileBornDate> {
               DatePicker.showDatePicker(
                 context,
                 showTitleActions: true,
+                currentTime: context.read<EditProfileBloc>().state.bornDate,
                 minTime: DateTime(1900),
                 maxTime: DateTime(2100),
                 onConfirm: (date) {
                   var picked = DateFormat('dd / MMMM / yyyy').format(date);
                   tanggalController.text = picked;
-                  context.read<SignUpProfileBloc>().add(
+                  context.read<EditProfileBloc>().add(
                         BornDateFormChanged(date),
                       );
                 },
               );
             },
             child: AbsorbPointer(
-              child: BlocBuilder<SignUpProfileBloc, SignUpProfileState>(
+              child: BlocBuilder<EditProfileBloc, EditProfileState>(
                 builder: (context, state) {
                   return TextFormField(
                     autovalidateMode: state.showErrorMessages

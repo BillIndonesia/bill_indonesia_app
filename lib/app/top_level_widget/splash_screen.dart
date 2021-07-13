@@ -1,4 +1,4 @@
-import 'package:bill/filter/filter_page.dart';
+import 'package:bill/home_page/view/home_screen.dart';
 import 'package:bill/intro/intro.dart';
 
 import '../app.dart';
@@ -32,7 +32,7 @@ class SplashScreen extends StatelessWidget {
         return Intro();
       //TODO make error auth
       case AuthStatus.failure:
-        return FilterPage();
+        return HomePage();
     }
   }
 }

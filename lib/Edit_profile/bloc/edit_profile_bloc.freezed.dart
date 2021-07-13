@@ -16,6 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$EditProfileEventTearOff {
   const _$EditProfileEventTearOff();
 
+  EditProfileInitialData initial(Map<dynamic, String> data) {
+    return EditProfileInitialData(
+      data,
+    );
+  }
+
   NameFormChanged nameFormChanged(String name) {
     return NameFormChanged(
       name,
@@ -62,6 +68,7 @@ const $EditProfileEvent = _$EditProfileEventTearOff();
 mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -73,6 +80,7 @@ mixin _$EditProfileEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -84,6 +92,7 @@ mixin _$EditProfileEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -94,6 +103,7 @@ mixin _$EditProfileEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -120,6 +130,145 @@ class _$EditProfileEventCopyWithImpl<$Res>
   final EditProfileEvent _value;
   // ignore: unused_field
   final $Res Function(EditProfileEvent) _then;
+}
+
+/// @nodoc
+abstract class $EditProfileInitialDataCopyWith<$Res> {
+  factory $EditProfileInitialDataCopyWith(EditProfileInitialData value,
+          $Res Function(EditProfileInitialData) then) =
+      _$EditProfileInitialDataCopyWithImpl<$Res>;
+  $Res call({Map<dynamic, String> data});
+}
+
+/// @nodoc
+class _$EditProfileInitialDataCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res>
+    implements $EditProfileInitialDataCopyWith<$Res> {
+  _$EditProfileInitialDataCopyWithImpl(EditProfileInitialData _value,
+      $Res Function(EditProfileInitialData) _then)
+      : super(_value, (v) => _then(v as EditProfileInitialData));
+
+  @override
+  EditProfileInitialData get _value => super._value as EditProfileInitialData;
+
+  @override
+  $Res call({
+    Object? data = freezed,
+  }) {
+    return _then(EditProfileInitialData(
+      data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EditProfileInitialData implements EditProfileInitialData {
+  const _$EditProfileInitialData(this.data);
+
+  @override
+  final Map<dynamic, String> data;
+
+  @override
+  String toString() {
+    return 'EditProfileEvent.initial(data: $data)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is EditProfileInitialData &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
+
+  @JsonKey(ignore: true)
+  @override
+  $EditProfileInitialDataCopyWith<EditProfileInitialData> get copyWith =>
+      _$EditProfileInitialDataCopyWithImpl<EditProfileInitialData>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
+    required TResult Function(String name) nameFormChanged,
+    required TResult Function(String bornPlace) bornPlaceFormChanged,
+    required TResult Function(String knowUsFrom) knowUsFromChanged,
+    required TResult Function(DateTime bornDate) bornDateFormChanged,
+    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String phoneNumber, String password)
+        formSubmitted,
+  }) {
+    return initial(data);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
+    TResult Function(String name)? nameFormChanged,
+    TResult Function(String bornPlace)? bornPlaceFormChanged,
+    TResult Function(String knowUsFrom)? knowUsFromChanged,
+    TResult Function(DateTime bornDate)? bornDateFormChanged,
+    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String phoneNumber, String password)? formSubmitted,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(data);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
+    required TResult Function(NameFormChanged value) nameFormChanged,
+    required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
+    required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
+    required TResult Function(BornDateFormChanged value) bornDateFormChanged,
+    required TResult Function(ImageChanged value) imageChanged,
+    required TResult Function(FromSubmitted value) formSubmitted,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
+    TResult Function(NameFormChanged value)? nameFormChanged,
+    TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
+    TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
+    TResult Function(BornDateFormChanged value)? bornDateFormChanged,
+    TResult Function(ImageChanged value)? imageChanged,
+    TResult Function(FromSubmitted value)? formSubmitted,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditProfileInitialData implements EditProfileEvent {
+  const factory EditProfileInitialData(Map<dynamic, String> data) =
+      _$EditProfileInitialData;
+
+  Map<dynamic, String> get data => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $EditProfileInitialDataCopyWith<EditProfileInitialData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -187,6 +336,7 @@ class _$NameFormChanged implements NameFormChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -201,6 +351,7 @@ class _$NameFormChanged implements NameFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -218,6 +369,7 @@ class _$NameFormChanged implements NameFormChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -231,6 +383,7 @@ class _$NameFormChanged implements NameFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -322,6 +475,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -336,6 +490,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -353,6 +508,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -366,6 +522,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -456,6 +613,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -470,6 +628,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -487,6 +646,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -500,6 +660,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -590,6 +751,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -604,6 +766,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -621,6 +784,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -634,6 +798,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -724,6 +889,7 @@ class _$ImageChanged implements ImageChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -738,6 +904,7 @@ class _$ImageChanged implements ImageChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -755,6 +922,7 @@ class _$ImageChanged implements ImageChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -768,6 +936,7 @@ class _$ImageChanged implements ImageChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,
@@ -870,6 +1039,7 @@ class _$FromSubmitted implements FromSubmitted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(Map<dynamic, String> data) initial,
     required TResult Function(String name) nameFormChanged,
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
@@ -884,6 +1054,7 @@ class _$FromSubmitted implements FromSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Map<dynamic, String> data)? initial,
     TResult Function(String name)? nameFormChanged,
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
@@ -901,6 +1072,7 @@ class _$FromSubmitted implements FromSubmitted {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(EditProfileInitialData value) initial,
     required TResult Function(NameFormChanged value) nameFormChanged,
     required TResult Function(BornPlaceFormChanged value) bornPlaceFormChanged,
     required TResult Function(KnowUsFromChanged value) knowUsFromChanged,
@@ -914,6 +1086,7 @@ class _$FromSubmitted implements FromSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(EditProfileInitialData value)? initial,
     TResult Function(NameFormChanged value)? nameFormChanged,
     TResult Function(BornPlaceFormChanged value)? bornPlaceFormChanged,
     TResult Function(KnowUsFromChanged value)? knowUsFromChanged,

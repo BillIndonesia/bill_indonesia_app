@@ -52,6 +52,7 @@ class SignInPhoneNumberBloc
               );
             }
           } catch (e) {
+            print(e);
             yield state.copyWith(
               formStatus: SubmissionError(Exception(e)),
             );

@@ -6,6 +6,7 @@ class SignUpEvent with _$SignUpEvent {
       GetOtpScreenInit;
   const factory SignUpEvent.otpFormChanged(String otpCode) = OTPFormChanged;
   const factory SignUpEvent.otpTimer(int otpClock) = OTPTimer;
-  const factory SignUpEvent.resendOtp(String phoneNumber) = ResendOtp;
+  const factory SignUpEvent.resendOtp(String phoneNumber, String type) =
+      ResendOtp;
   const factory SignUpEvent.cleanCache() = CleanChace;
 }

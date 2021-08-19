@@ -1,8 +1,11 @@
+import 'package:bill/filter/cubit/filter_cubit.dart';
 import 'package:bill/filter/widgets/filter_widgets.dart';
+import 'package:bill/history/cubit/posts_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
-class FilterPage extends StatelessWidget {
-  FilterPage({Key? key}) : super(key: key);
+class FilterScreen extends StatelessWidget {
+  FilterScreen({Key? key}) : super(key: key);
 
   final bool topup = false;
   final bool pembayaran = false;
@@ -26,8 +29,8 @@ class FilterPage extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             SaldoButton(),
-            TransaksiButton(),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            // TransaksiButton(),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             FilterButton(),
           ],
         ),
@@ -88,7 +91,26 @@ class FilterButton extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              onPressed: () {
+              onPressed: () async {
+                var data = context.read<FilterCubit>().state;
+                print('b4 fetch : ${data.startDate} , ${data.endDate}');
+                BlocProvider.of<PostsCubit>(context).clearPosts();
+                await BlocProvider.of<PostsCubit>(context).loadFilteredPosts(
+                  startDate: data.startDate,
+                  endDate: data.endDate,
+                  topup: data.topup,
+                  payment: data.payment,
+                );
+                BlocProvider.of<FilterCubit>(context).changeIsFiltered(
+                  changeTo: true,
+                );
+                // Future.delayed(
+                //   Duration(seconds: 1),
+                //   () {
+
+                //   },
+                // );
+                Navigator.of(context).pop();
                 // aktifkan();
               },
               color: Color(0xFF0B8CAD),
@@ -127,16 +149,7 @@ class FilterButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               onPressed: () {
-                // setState(() {
-                //   topup = false;
-                //   pembayaran = false;
-                //   debit = false;
-                //   kredit = false;
-                //   awalController.text = '';
-                //   akhirController.text = '';
-                //   dateAwal = first;
-                //   dateAkhir = DateTime.now();
-                // });
+                BlocProvider.of<FilterCubit>(context).reset();
               },
               color: Color(0xFFF4F7F8),
               child: Text(

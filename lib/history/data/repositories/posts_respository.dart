@@ -11,9 +11,25 @@ class PostsRepository {
     return posts.map((e) => Post.fromJson(e)).toList();
   }
 
-  Future<List<Post>> fetchHistory(int page) async {
-    final posts = await service.fetchHistory(page);
-    print(posts);
+  Future<List<Post>> fetchHistory({required int page}) async {
+    final posts = await service.fetchHistory(page: page);
+    return posts.map((e) => Post.fromJson(e)).toList();
+  }
+
+  Future<List<Post>> fetchFilteredHistory({
+    required int page,
+    required String startDate,
+    required String endDate,
+    required bool topup,
+    required bool payment,
+  }) async {
+    final posts = await service.fetchFilteredHistory(
+      page: page,
+      startDate: startDate,
+      endDate: endDate,
+      topup: topup,
+      payment: payment,
+    );
     return posts.map((e) => Post.fromJson(e)).toList();
   }
 }

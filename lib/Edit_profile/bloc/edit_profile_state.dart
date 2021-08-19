@@ -8,13 +8,16 @@ class EditProfileState with _$EditProfileState {
     required DateTime bornDate,
     required String knowUsFrom,
     required bool showErrorMessages,
-    File? imagePath,
+    required String image,
+    required Uint8List? imageBytes,
     required FormSubmissionStatus formStatus,
   }) = _EditProfileState;
 
   factory EditProfileState.initial() => EditProfileState(
         name: '',
         bornPlace: '',
+        image: '',
+        imageBytes: null,
         knowUsFrom: 'Dari mana anda tau Bill ?',
         bornDate: DateTime.now(),
         showErrorMessages: false,

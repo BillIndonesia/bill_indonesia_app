@@ -51,18 +51,19 @@ class QrScannedBloc extends Bloc<QrScannedEvent, QrScannedState> {
                 "customer": _phoneNumber.toString(),
                 "voucher": event.qrCode.toString(),
               };
-              var transactionStatus = await cameraRepo.topupVoucher(data);
-              if (transactionStatus == false) {
+              var topUp = await cameraRepo.topupVoucher(data);
+              if (topUp['message'] == 'inactive Voucher') {
                 yield state.copyWith(
-                  formStatus: SubmissionSuccess(),
-                  type: ScannedType.voucher,
-                  transactionStatus: TransactionStatus.failed,
-                );
+                    formStatus: SubmissionSuccess(),
+                    type: ScannedType.voucher,
+                    transactionStatus: TransactionStatus.failed,
+                    transactionData: topUp);
               } else {
                 yield state.copyWith(
                   formStatus: SubmissionSuccess(),
                   type: ScannedType.voucher,
                   transactionStatus: TransactionStatus.success,
+                  transactionData: topUp,
                 );
               }
             } catch (e) {

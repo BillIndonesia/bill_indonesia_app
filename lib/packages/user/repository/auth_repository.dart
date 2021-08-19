@@ -19,7 +19,7 @@ class AuthRepository {
   Future<bool> signinPhoneNumber(String _phoneNUmber) async {
     var _dio = Dio();
     _dio.options = (BaseOptions(
-      baseUrl: 'https://dev.bill-indonesia.com/api/',
+      baseUrl: 'https://bill-indonesia.com/api/',
       connectTimeout: 3000,
     ));
     var formData = FormData.fromMap(
@@ -55,7 +55,7 @@ class AuthRepository {
     var _dio = Dio();
     // ignore: cascade_invocations
     _dio.options = (BaseOptions(
-      baseUrl: 'https://dev.bill-indonesia.com/api/',
+      baseUrl: 'https://bill-indonesia.com/api/',
       connectTimeout: 3000,
     ));
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -93,7 +93,7 @@ class AuthRepository {
       String phoneNumber, String otpCode, String type) async {
     var _dio = Dio();
     _dio.options = (BaseOptions(
-      baseUrl: 'https://dev.bill-indonesia.com/api/',
+      baseUrl: 'https://bill-indonesia.com/api/',
       connectTimeout: 3000,
     ));
     var formData = FormData.fromMap(
@@ -131,7 +131,7 @@ class AuthRepository {
     var _dio = Dio();
     // ignore: cascade_invocations
     _dio.options = (BaseOptions(
-      baseUrl: 'https://dev.bill-indonesia.com/api/',
+      baseUrl: 'https://bill-indonesia.com/api/',
       connectTimeout: 5000,
     ));
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -167,11 +167,12 @@ class AuthRepository {
     required String customerName,
     required String bornPlace,
     required String bornDate,
+    required String image,
   }) async {
     var _dio = Dio();
     // ignore: cascade_invocations
     _dio.options = (BaseOptions(
-      baseUrl: 'https://dev.bill-indonesia.com/api/',
+      baseUrl: 'https://bill-indonesia.com/api/',
       connectTimeout: 5000,
     ));
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -180,7 +181,7 @@ class AuthRepository {
       "customer_name": customerName,
       "customer_borndate": bornDate,
       "customer_bornplace": bornPlace,
-      "customer_image": "",
+      "customer_image": image,
       "firebase_token": token
     };
     String data = jsonEncode(mapData);

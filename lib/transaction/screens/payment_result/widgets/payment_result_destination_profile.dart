@@ -12,7 +12,7 @@ class PaymentResultDestinationProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = context.read<QrScannedBloc>().state.transactionData;
-    Uint8List bytes = base64.decode(data['merchant_image']);
+
     return Container(
       child: Column(
         children: <Widget>[
@@ -20,17 +20,21 @@ class PaymentResultDestinationProfile extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.2,
             height: MediaQuery.of(context).size.width * 0.2,
             //Decorasi Image
-            decoration: data['merchant_image'] != ''
+            decoration: data['merchant_image'] != null
                 ? BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: MemoryImage(bytes),
+                      image: MemoryImage(
+                        base64.decode(
+                          data['merchant_image'],
+                        ),
+                      ),
                     ),
                   )
                 : BoxDecoration(shape: BoxShape.circle),
             //Bolean Image
-            child: data['merchant_image'] == ''
+            child: data['merchant_image'] == null
                 ? CircleAvatar(
                     backgroundColor: Color(0xFF0485AC),
                     child: Container(

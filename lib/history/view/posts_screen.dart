@@ -1,7 +1,6 @@
+import 'package:bill/filter/cubit/filter_cubit.dart';
 import 'package:bill/history/cubit/posts_cubit.dart';
 
-import 'package:bill/history/data/repositories/posts_respository.dart';
-import 'package:bill/history/data/services/posts_service.dart';
 import 'package:bill/history/view/widgets/history_appbar.dart';
 import 'package:bill/history/view/widgets/history_list.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,7 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PostsCubit(
-        PostsRepository(PostsService()),
-      ),
-      child: HistoryContent(),
-    );
+    return HistoryContent();
   }
 }
 
@@ -26,24 +20,33 @@ class HistoryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setupScrollController(context);
-    BlocProvider.of<PostsCubit>(context).loadPosts();
-
+    bool isFiltered = context.watch<FilterCubit>().state.isFiltered;
+    var data = context.read<FilterCubit>().state;
+    print('state now :$isFiltered');
+    // if (isFiltered == false) {
+    //   BlocProvider.of<PostsCubit>(context).loadPosts();
+    // }
+    setupScrollController(context, isFiltered, data);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: HistoryAppBar(),
-      body: HistoryList(
-        scrollController: scrollController,
-      ),
+      body: HistoryList(),
     );
   }
 
-  void setupScrollController(context) {
+  void setupScrollController(context, isFiltered, data) {
     scrollController.addListener(
       () {
         if (scrollController.position.atEdge) {
           if (scrollController.position.pixels != 0) {
-            BlocProvider.of<PostsCubit>(context).loadPosts();
+            isFiltered
+                ? BlocProvider.of<PostsCubit>(context).loadFilteredPosts(
+                    startDate: data.startDate,
+                    endDate: data.endDate,
+                    topup: data.topup,
+                    payment: data.payment,
+                  )
+                : BlocProvider.of<PostsCubit>(context).loadPosts();
           }
         }
       },

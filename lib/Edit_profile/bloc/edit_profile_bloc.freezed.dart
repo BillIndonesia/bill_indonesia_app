@@ -46,9 +46,9 @@ class _$EditProfileEventTearOff {
     );
   }
 
-  ImageChanged imageChanged(File imagePath) {
+  ImageChanged imageChanged(String image) {
     return ImageChanged(
-      imagePath,
+      image,
     );
   }
 
@@ -73,7 +73,7 @@ mixin _$EditProfileEvent {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) =>
@@ -85,7 +85,7 @@ mixin _$EditProfileEvent {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) =>
@@ -203,7 +203,7 @@ class _$EditProfileInitialData implements EditProfileInitialData {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -218,7 +218,7 @@ class _$EditProfileInitialData implements EditProfileInitialData {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -341,7 +341,7 @@ class _$NameFormChanged implements NameFormChanged {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -356,7 +356,7 @@ class _$NameFormChanged implements NameFormChanged {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -480,7 +480,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -495,7 +495,7 @@ class _$BornPlaceFormChanged implements BornPlaceFormChanged {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -618,7 +618,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -633,7 +633,7 @@ class _$KnowUsFromChanged implements KnowUsFromChanged {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -756,7 +756,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -771,7 +771,7 @@ class _$BornDateFormChanged implements BornDateFormChanged {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -828,7 +828,7 @@ abstract class $ImageChangedCopyWith<$Res> {
   factory $ImageChangedCopyWith(
           ImageChanged value, $Res Function(ImageChanged) then) =
       _$ImageChangedCopyWithImpl<$Res>;
-  $Res call({File imagePath});
+  $Res call({String image});
 }
 
 /// @nodoc
@@ -844,13 +844,13 @@ class _$ImageChangedCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? imagePath = freezed,
+    Object? image = freezed,
   }) {
     return _then(ImageChanged(
-      imagePath == freezed
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as File,
+      image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -858,28 +858,27 @@ class _$ImageChangedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ImageChanged implements ImageChanged {
-  const _$ImageChanged(this.imagePath);
+  const _$ImageChanged(this.image);
 
   @override
-  final File imagePath;
+  final String image;
 
   @override
   String toString() {
-    return 'EditProfileEvent.imageChanged(imagePath: $imagePath)';
+    return 'EditProfileEvent.imageChanged(image: $image)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ImageChanged &&
-            (identical(other.imagePath, imagePath) ||
-                const DeepCollectionEquality()
-                    .equals(other.imagePath, imagePath)));
+            (identical(other.image, image) ||
+                const DeepCollectionEquality().equals(other.image, image)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(imagePath);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(image);
 
   @JsonKey(ignore: true)
   @override
@@ -894,11 +893,11 @@ class _$ImageChanged implements ImageChanged {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
-    return imageChanged(imagePath);
+    return imageChanged(image);
   }
 
   @override
@@ -909,12 +908,12 @@ class _$ImageChanged implements ImageChanged {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
     if (imageChanged != null) {
-      return imageChanged(imagePath);
+      return imageChanged(image);
     }
     return orElse();
   }
@@ -953,9 +952,9 @@ class _$ImageChanged implements ImageChanged {
 }
 
 abstract class ImageChanged implements EditProfileEvent {
-  const factory ImageChanged(File imagePath) = _$ImageChanged;
+  const factory ImageChanged(String image) = _$ImageChanged;
 
-  File get imagePath => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ImageChangedCopyWith<ImageChanged> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1044,7 +1043,7 @@ class _$FromSubmitted implements FromSubmitted {
     required TResult Function(String bornPlace) bornPlaceFormChanged,
     required TResult Function(String knowUsFrom) knowUsFromChanged,
     required TResult Function(DateTime bornDate) bornDateFormChanged,
-    required TResult Function(File imagePath) imageChanged,
+    required TResult Function(String image) imageChanged,
     required TResult Function(String phoneNumber, String password)
         formSubmitted,
   }) {
@@ -1059,7 +1058,7 @@ class _$FromSubmitted implements FromSubmitted {
     TResult Function(String bornPlace)? bornPlaceFormChanged,
     TResult Function(String knowUsFrom)? knowUsFromChanged,
     TResult Function(DateTime bornDate)? bornDateFormChanged,
-    TResult Function(File imagePath)? imageChanged,
+    TResult Function(String image)? imageChanged,
     TResult Function(String phoneNumber, String password)? formSubmitted,
     required TResult orElse(),
   }) {
@@ -1124,7 +1123,8 @@ class _$EditProfileStateTearOff {
       required DateTime bornDate,
       required String knowUsFrom,
       required bool showErrorMessages,
-      File? imagePath,
+      required String image,
+      required Uint8List? imageBytes,
       required FormSubmissionStatus formStatus}) {
     return _EditProfileState(
       name: name,
@@ -1132,7 +1132,8 @@ class _$EditProfileStateTearOff {
       bornDate: bornDate,
       knowUsFrom: knowUsFrom,
       showErrorMessages: showErrorMessages,
-      imagePath: imagePath,
+      image: image,
+      imageBytes: imageBytes,
       formStatus: formStatus,
     );
   }
@@ -1148,7 +1149,8 @@ mixin _$EditProfileState {
   DateTime get bornDate => throw _privateConstructorUsedError;
   String get knowUsFrom => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  File? get imagePath => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
+  Uint8List? get imageBytes => throw _privateConstructorUsedError;
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1167,7 +1169,8 @@ abstract class $EditProfileStateCopyWith<$Res> {
       DateTime bornDate,
       String knowUsFrom,
       bool showErrorMessages,
-      File? imagePath,
+      String image,
+      Uint8List? imageBytes,
       FormSubmissionStatus formStatus});
 }
 
@@ -1187,7 +1190,8 @@ class _$EditProfileStateCopyWithImpl<$Res>
     Object? bornDate = freezed,
     Object? knowUsFrom = freezed,
     Object? showErrorMessages = freezed,
-    Object? imagePath = freezed,
+    Object? image = freezed,
+    Object? imageBytes = freezed,
     Object? formStatus = freezed,
   }) {
     return _then(_value.copyWith(
@@ -1211,10 +1215,14 @@ class _$EditProfileStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      imagePath: imagePath == freezed
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as File?,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageBytes: imageBytes == freezed
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       formStatus: formStatus == freezed
           ? _value.formStatus
           : formStatus // ignore: cast_nullable_to_non_nullable
@@ -1236,7 +1244,8 @@ abstract class _$EditProfileStateCopyWith<$Res>
       DateTime bornDate,
       String knowUsFrom,
       bool showErrorMessages,
-      File? imagePath,
+      String image,
+      Uint8List? imageBytes,
       FormSubmissionStatus formStatus});
 }
 
@@ -1258,7 +1267,8 @@ class __$EditProfileStateCopyWithImpl<$Res>
     Object? bornDate = freezed,
     Object? knowUsFrom = freezed,
     Object? showErrorMessages = freezed,
-    Object? imagePath = freezed,
+    Object? image = freezed,
+    Object? imageBytes = freezed,
     Object? formStatus = freezed,
   }) {
     return _then(_EditProfileState(
@@ -1282,10 +1292,14 @@ class __$EditProfileStateCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
-      imagePath: imagePath == freezed
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as File?,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageBytes: imageBytes == freezed
+          ? _value.imageBytes
+          : imageBytes // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
       formStatus: formStatus == freezed
           ? _value.formStatus
           : formStatus // ignore: cast_nullable_to_non_nullable
@@ -1303,7 +1317,8 @@ class _$_EditProfileState extends _EditProfileState {
       required this.bornDate,
       required this.knowUsFrom,
       required this.showErrorMessages,
-      this.imagePath,
+      required this.image,
+      required this.imageBytes,
       required this.formStatus})
       : super._();
 
@@ -1318,13 +1333,15 @@ class _$_EditProfileState extends _EditProfileState {
   @override
   final bool showErrorMessages;
   @override
-  final File? imagePath;
+  final String image;
+  @override
+  final Uint8List? imageBytes;
   @override
   final FormSubmissionStatus formStatus;
 
   @override
   String toString() {
-    return 'EditProfileState(name: $name, bornPlace: $bornPlace, bornDate: $bornDate, knowUsFrom: $knowUsFrom, showErrorMessages: $showErrorMessages, imagePath: $imagePath, formStatus: $formStatus)';
+    return 'EditProfileState(name: $name, bornPlace: $bornPlace, bornDate: $bornDate, knowUsFrom: $knowUsFrom, showErrorMessages: $showErrorMessages, image: $image, imageBytes: $imageBytes, formStatus: $formStatus)';
   }
 
   @override
@@ -1345,9 +1362,11 @@ class _$_EditProfileState extends _EditProfileState {
             (identical(other.showErrorMessages, showErrorMessages) ||
                 const DeepCollectionEquality()
                     .equals(other.showErrorMessages, showErrorMessages)) &&
-            (identical(other.imagePath, imagePath) ||
+            (identical(other.image, image) ||
+                const DeepCollectionEquality().equals(other.image, image)) &&
+            (identical(other.imageBytes, imageBytes) ||
                 const DeepCollectionEquality()
-                    .equals(other.imagePath, imagePath)) &&
+                    .equals(other.imageBytes, imageBytes)) &&
             (identical(other.formStatus, formStatus) ||
                 const DeepCollectionEquality()
                     .equals(other.formStatus, formStatus)));
@@ -1361,7 +1380,8 @@ class _$_EditProfileState extends _EditProfileState {
       const DeepCollectionEquality().hash(bornDate) ^
       const DeepCollectionEquality().hash(knowUsFrom) ^
       const DeepCollectionEquality().hash(showErrorMessages) ^
-      const DeepCollectionEquality().hash(imagePath) ^
+      const DeepCollectionEquality().hash(image) ^
+      const DeepCollectionEquality().hash(imageBytes) ^
       const DeepCollectionEquality().hash(formStatus);
 
   @JsonKey(ignore: true)
@@ -1377,7 +1397,8 @@ abstract class _EditProfileState extends EditProfileState {
       required DateTime bornDate,
       required String knowUsFrom,
       required bool showErrorMessages,
-      File? imagePath,
+      required String image,
+      required Uint8List? imageBytes,
       required FormSubmissionStatus formStatus}) = _$_EditProfileState;
   const _EditProfileState._() : super._();
 
@@ -1392,7 +1413,9 @@ abstract class _EditProfileState extends EditProfileState {
   @override
   bool get showErrorMessages => throw _privateConstructorUsedError;
   @override
-  File? get imagePath => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
+  @override
+  Uint8List? get imageBytes => throw _privateConstructorUsedError;
   @override
   FormSubmissionStatus get formStatus => throw _privateConstructorUsedError;
   @override

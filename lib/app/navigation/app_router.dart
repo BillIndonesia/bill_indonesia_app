@@ -1,5 +1,6 @@
 import 'package:bill/Edit_profile/view/edit_profile_screen.dart';
 import 'package:bill/about/about_screen.dart';
+import 'package:bill/filter/filter_screen.dart';
 import 'package:bill/help/view/help_screen.dart';
 import 'package:bill/history/view/posts_screen.dart';
 import 'package:bill/sign_up_otp/sign_up_otp_screen.dart';
@@ -57,6 +58,10 @@ class AppRouter {
         return CupertinoPageRoute(
           builder: (_) => HistoryScreen(),
         );
+      case '/FilterScreen':
+        return CupertinoPageRoute(
+          builder: (_) => FilterScreen(),
+        );
       case '/TermConditionScreen':
         return CupertinoPageRoute(
           builder: (_) => TermCondition(),
@@ -82,6 +87,7 @@ class AppRouter {
         return CupertinoPageRoute(
           builder: (_) => PaymentResultScreen(),
         );
+
       default:
         return MaterialPageRoute(
           builder: (_) => const SplashScreen(),

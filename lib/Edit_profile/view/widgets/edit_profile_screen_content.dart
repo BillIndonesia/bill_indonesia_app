@@ -3,6 +3,7 @@ import 'package:bill/Edit_profile/view/widgets/edit_profile_widgets.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/packages/core_handler/form_submission_status.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfileScreenContent extends StatefulWidget {
@@ -32,6 +33,7 @@ class _EditProfileScreenContentState extends State<EditProfileScreenContent> {
       'customer_name': userData.name,
       'born_place': userData.bornplace,
       'born_date': userData.bornDate,
+      'merchant_image': userData.image,
     };
     context.read<EditProfileBloc>().add(EditProfileInitialData(intialData));
     Future.delayed(Duration(milliseconds: 100), () {
@@ -293,6 +295,9 @@ class _EditProfileScreenContentState extends State<EditProfileScreenContent> {
                                 MediaQuery.of(context).size.width * 0.00,
                               ),
                               child: TextFormField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(13),
+                                ],
                                 controller: bornPlaceController,
                                 autovalidateMode: state.showErrorMessages
                                     ? AutovalidateMode.onUserInteraction

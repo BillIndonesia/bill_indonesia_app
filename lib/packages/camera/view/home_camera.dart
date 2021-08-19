@@ -112,7 +112,7 @@ class _HomeCameraState extends State<HomeCamera> {
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.43,
+        height: MediaQuery.of(context).size.height * 0.37,
         child: _buildQrView(context),
       ),
     );
@@ -191,10 +191,11 @@ class _HomeCameraState extends State<HomeCamera> {
       onQRViewCreated: (controller) async {
         controller.scannedDataStream.listen(
           (value) {
+            print(value.code.replaceAll('#', ''));
             controller.pauseCamera();
             context.read<QrScannedBloc>().add(
                   QrCodeScanned(
-                    value.code,
+                    value.code.replaceAll('#', ''),
                   ),
                 );
             Future.delayed(Duration(seconds: 3), () {

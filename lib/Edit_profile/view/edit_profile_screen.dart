@@ -1,4 +1,3 @@
-import 'package:bill/Edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:bill/Edit_profile/view/widgets/edit_profile_widgets.dart';
 import 'package:bill/global/widgets/slow_connection_dialog.dart';
 

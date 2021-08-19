@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:bill/filter/cubit/filter_cubit.dart';
+import 'package:bill/history/cubit/posts_cubit.dart';
 import 'package:bill/history/view/posts_screen.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/main_screen/view/main_screen.dart';
@@ -50,6 +52,12 @@ class _HomePageState extends State<HomePage> {
                   print(state.loadingStatus);
                   if (state.loadingStatus == UserLoadingStatus.success) {
                     if (index == 0) {
+                      BlocProvider.of<FilterCubit>(context).reset();
+                      BlocProvider.of<FilterCubit>(context).changeIsFiltered(
+                        changeTo: false,
+                      );
+                      BlocProvider.of<PostsCubit>(context).clearPosts();
+                      BlocProvider.of<PostsCubit>(context).loadPosts();
                       setState(
                         () {
                           _pageIndex = 0;

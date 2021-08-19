@@ -1,5 +1,9 @@
 import 'package:bill/Edit_profile/bloc/edit_profile_bloc.dart';
+import 'package:bill/filter/cubit/filter_cubit.dart';
 import 'package:bill/help/model/bantuan_model.dart';
+import 'package:bill/history/cubit/posts_cubit.dart';
+import 'package:bill/history/data/repositories/posts_respository.dart';
+import 'package:bill/history/data/services/posts_service.dart';
 import 'package:bill/home_page/cubit/user_cubit.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:bill/packages/camera/data/camera_repository.dart';
@@ -55,6 +59,14 @@ class AppBlocProvider extends StatelessWidget {
           create: (context) => QrScannedBloc(
             cameraRepo: CameraRepository(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => PostsCubit(
+            PostsRepository(PostsService()),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => FilterCubit(),
         ),
       ],
       child: ChangeNotifierProvider.value(

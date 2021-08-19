@@ -11,7 +11,7 @@ class EditProfileEvent with _$EditProfileEvent {
       KnowUsFromChanged;
   const factory EditProfileEvent.bornDateFormChanged(DateTime bornDate) =
       BornDateFormChanged;
-  const factory EditProfileEvent.imageChanged(File imagePath) = ImageChanged;
+  const factory EditProfileEvent.imageChanged(String image) = ImageChanged;
   const factory EditProfileEvent.formSubmitted({
     required String phoneNumber,
     required String password,

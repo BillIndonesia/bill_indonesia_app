@@ -18,7 +18,7 @@ class HistoryItemPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Uint8List bytes = base64.decode(ImageMockUp().image);
+    final Uint8List bytes = base64.decode(_image);
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: MediaQuery.of(context).size.height * 0.0095,

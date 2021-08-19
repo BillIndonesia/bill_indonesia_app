@@ -1,3 +1,4 @@
+import 'package:bill/home_page/view/home_screen.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,15 +11,22 @@ class PaymentResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = context.read<QrScannedBloc>().state;
+    var merchantData = context.read<QrScannedBloc>().state.transactionData;
+    String merchantType = merchantData['merchant_type']['merchant_type_name'];
     var status = data.transactionStatus;
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return PaymentResultBackDialog();
-          },
-        );
+        status == TransactionStatus.success && merchantType != 'warung'
+            ? showDialog(
+                context: context,
+                builder: (context) {
+                  return PaymentResultBackDialog();
+                })
+            : Navigator.of(context).pushReplacement(
+                new MaterialPageRoute(
+                  builder: (context) => new HomePage(),
+                ),
+              );
         return false;
       },
       child: Scaffold(
@@ -32,7 +40,7 @@ class PaymentResultScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     _statusImage(context, status),
-                    _statusText(context, status),
+                    _statusText(context, status, merchantType),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.07,
                     ),
@@ -49,19 +57,24 @@ class PaymentResultScreen extends StatelessWidget {
                 ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.018,
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                  child: Text(
-                    '*Tunjukan halaman ini kepada supir sebagai bukti pembayaran',
-                    style: TextStyle(
-                      fontFamily: 'monsetrat',
-                      fontSize: 16,
-                      color: Color(0xFF5A5B5C),
+                child: Visibility(
+                  visible: status == TransactionStatus.success,
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Text(
+                      merchantType == 'warung'
+                          ? ''
+                          : '*Tunjukan halaman ini kepada supir sebagai bukti pembayaran',
+                      style: TextStyle(
+                        fontFamily: 'monsetrat',
+                        fontSize: 16,
+                        color: Color(0xFF5A5B5C),
+                      ),
                     ),
                   ),
                 ),
               ),
-              _button(context),
+              _button(context, status, merchantType),
             ],
           ),
         ),
@@ -69,7 +82,7 @@ class PaymentResultScreen extends StatelessWidget {
     );
   }
 
-  Container _button(BuildContext context) {
+  Container _button(BuildContext context, status, merchantType) {
     return Container(
       margin:
           EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.05),
@@ -96,17 +109,23 @@ class PaymentResultScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return PaymentResultBackDialog();
-              });
+          status == TransactionStatus.success && merchantType != 'warung'
+              ? showDialog(
+                  context: context,
+                  builder: (context) {
+                    return PaymentResultBackDialog();
+                  })
+              : Navigator.of(context).pushReplacement(
+                  new MaterialPageRoute(
+                    builder: (context) => new HomePage(),
+                  ),
+                );
         },
       ),
     );
   }
 
-  Container _statusText(BuildContext context, status) {
+  Container _statusText(BuildContext context, status, merchantType) {
     return status == TransactionStatus.success
         ? Container(
             width: MediaQuery.of(context).size.width * 0.8,
@@ -120,7 +139,8 @@ class PaymentResultScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontFamily: 'Montserrat'),
                   children: <TextSpan>[
-                    new TextSpan(text: 'Anda Berhasil membayar angkot jam\n'),
+                    new TextSpan(
+                        text: 'Anda Berhasil membayar $merchantType jam\n'),
                     new TextSpan(
                       text: '${DateFormat('HH.mm').format(DateTime.now())}',
                       style: TextStyle(color: Colors.blueAccent),

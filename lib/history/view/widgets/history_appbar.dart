@@ -33,7 +33,9 @@ class HistoryAppBar extends StatelessWidget implements PreferredSizeWidget {
             width: MediaQuery.of(context).size.width * 0.06,
             height: MediaQuery.of(context).size.width * 0.06,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/FilterScreen');
+          },
         ),
       ],
     );

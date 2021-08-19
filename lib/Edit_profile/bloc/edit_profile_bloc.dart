@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:bill/packages/core_handler/form_submission_status.dart';
-import 'package:bill/packages/user/data/user_data.dart';
 import 'package:bill/packages/user/repository/auth_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -25,12 +25,22 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       initial: (event) async* {
         var data = event.data;
         try {
-          yield state.copyWith(
-            name: data['customer_name'] ?? '',
-            bornPlace: data['born_place'] ?? '',
-            bornDate: new DateFormat('yyyy-MM-dd')
-                .parse(data['born_date'] ?? '2020/04/03'),
-          );
+          if (data['merchant_image'] != null) {
+            yield state.copyWith(
+              name: data['customer_name'] ?? '',
+              bornPlace: data['born_place'] ?? '',
+              bornDate: new DateFormat('yyyy-MM-dd')
+                  .parse(data['born_date'] ?? '2020/04/03'),
+              imageBytes: base64Decode(data['merchant_image']!),
+            );
+          } else {
+            yield state.copyWith(
+              name: data['customer_name'] ?? '',
+              bornPlace: data['born_place'] ?? '',
+              bornDate: new DateFormat('yyyy-MM-dd')
+                  .parse(data['born_date'] ?? '2020/04/03'),
+            );
+          }
         } catch (e) {
           print(e);
         }
@@ -56,8 +66,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         );
       },
       imageChanged: (event) async* {
+        var img64 = base64Decode(event.image);
         yield state.copyWith(
-          imagePath: event.imagePath,
+          image: event.image,
+          imageBytes: img64,
         );
       },
       formSubmitted: (event) async* {
@@ -71,6 +83,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             customerName: state.name,
             bornPlace: state.bornPlace,
             bornDate: _bornDate,
+            image: state.image,
           );
           yield state.copyWith(
             showErrorMessages: true,

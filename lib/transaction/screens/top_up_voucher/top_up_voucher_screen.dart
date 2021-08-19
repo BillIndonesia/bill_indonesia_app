@@ -2,6 +2,7 @@ import 'package:bill/home_page/view/home_screen.dart';
 import 'package:bill/packages/camera/bloc/qr_scanned_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:money_formatter/money_formatter.dart';
 
 class TopUpVoucher extends StatelessWidget {
   const TopUpVoucher({Key? key}) : super(key: key);
@@ -11,6 +12,15 @@ class TopUpVoucher extends StatelessWidget {
     final status = context.select(
       (QrScannedBloc bloc) => bloc.state.transactionStatus,
     );
+    var TopupData = context.read<QrScannedBloc>().state.transactionData;
+    MoneyFormatterOutput fo = MoneyFormatter(
+      amount: double.parse(TopupData['Voucher Nominal'].toString()),
+      settings: MoneyFormatterSettings(
+        thousandSeparator: '.',
+        decimalSeparator: ',',
+      ),
+    ).output;
+    String topUpAmount = fo.withoutFractionDigits;
     final bool isSucces = status == TransactionStatus.success;
     return WillPopScope(
       onWillPop: () async {
@@ -63,7 +73,7 @@ class TopUpVoucher extends StatelessWidget {
                                 text: 'Anda Berhasil menerima Top Up\n',
                               ),
                               new TextSpan(
-                                text: 'Sebesar Rp 10.000',
+                                text: 'Sebesar Rp $topUpAmount',
                               ),
                             ],
                           ),

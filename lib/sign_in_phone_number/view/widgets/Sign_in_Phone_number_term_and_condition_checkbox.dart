@@ -43,7 +43,11 @@ class SignInPhoneNumberTermAndConditionCheckBoxAndText extends StatelessWidget {
                       style: new TextStyle(
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer: new TapGestureRecognizer()..onTap = () {},
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context)
+                              .pushNamed('/TermConditionScreen');
+                        },
                     ),
                     new TextSpan(text: 'dan '),
                     new TextSpan(
@@ -51,7 +55,11 @@ class SignInPhoneNumberTermAndConditionCheckBoxAndText extends StatelessWidget {
                       style: new TextStyle(
                         decoration: TextDecoration.underline,
                       ),
-                      recognizer: new TapGestureRecognizer()..onTap = () {},
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.of(context)
+                              .pushNamed('/TermConditionScreen');
+                        },
                     ),
                   ],
                 ),

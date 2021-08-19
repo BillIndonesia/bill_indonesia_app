@@ -1,10 +1,12 @@
 import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:io';
 
+import 'package:bill/Edit_profile/bloc/edit_profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bill/home_page/cubit/user_cubit.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfileHeader extends StatelessWidget {
   @override
@@ -140,40 +142,65 @@ class EditProfileHeader extends StatelessWidget {
   }
 
   Widget _userPhoto(BuildContext context, String image, String _name) {
-    Uint8List bytes = base64.decode(image);
-    return Container(
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.2,
-        height: MediaQuery.of(context).size.width * 0.2,
-        decoration: image != ''
-            ? BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: MemoryImage(bytes),
-                ),
-              )
-            : BoxDecoration(shape: BoxShape.circle),
-        child: image == ''
-            ? CircleAvatar(
-                backgroundColor: Color(0xFF0485AC),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.06,
-                  // color: Colors.red,
-                  child: FittedBox(
-                    child: Text(
-                      _name[0],
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Color(0xFFF4F7F8),
-                        fontSize: 40,
-                      ),
-                    ),
+    return BlocConsumer<EditProfileBloc, EditProfileState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        print(state.image);
+        return GestureDetector(
+          onTap: () async {
+            final ImagePicker _picker = ImagePicker();
+            final pickedFile = await _picker.getImage(
+              source: ImageSource.gallery,
+              imageQuality: 75,
+              maxWidth: 1024,
+              maxHeight: 1024,
+            );
+            final bytes = File(pickedFile!.path).readAsBytesSync();
+            String img64 = base64Encode(bytes);
+            context.read<EditProfileBloc>().add(
+                  ImageChanged(
+                    img64,
                   ),
-                ),
-              )
-            : Container(),
-      ),
+                );
+          },
+          child: Container(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.width * 0.2,
+              decoration: state.image != ''
+                  ? BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: MemoryImage(state.imageBytes!),
+                      ),
+                    )
+                  : BoxDecoration(shape: BoxShape.circle),
+              child: state.image == ''
+                  ? CircleAvatar(
+                      backgroundColor: Color(0xFF0485AC),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.06,
+                        // color: Colors.red,
+                        child: FittedBox(
+                          child: Text(
+                            _name[0],
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFFF4F7F8),
+                              fontSize: 40,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container(),
+            ),
+          ),
+        );
+      },
     );
   }
 }

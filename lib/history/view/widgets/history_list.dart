@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bill/filter/cubit/filter_cubit.dart';
 import 'package:bill/history/cubit/posts_cubit.dart';
 import 'package:bill/history/data/models/post.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,15 @@ import 'package:lottie/lottie.dart';
 import 'items/history_item.dart';
 
 class HistoryList extends StatelessWidget {
-  final scrollController;
-  const HistoryList({Key? key, this.scrollController}) : super(key: key);
+  HistoryList({Key? key}) : super(key: key);
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    bool isFiltered = context.watch<FilterCubit>().state.isFiltered;
+    var data = context.read<FilterCubit>().state;
+
+    setupScrollController(context, isFiltered, data);
     return BlocBuilder<PostsCubit, PostsState>(
       builder: (context, state) {
         if (state is PostsLoading && state.isFirstFetch) {
@@ -40,6 +45,7 @@ class HistoryList extends StatelessWidget {
             : ListView.separated(
                 controller: scrollController,
                 itemBuilder: (context, index) {
+                  print(posts.length);
                   if (index < posts.length)
                     return HistoryItemCard(post: posts[index]);
                   else {
@@ -61,6 +67,25 @@ class HistoryList extends StatelessWidget {
                 },
                 itemCount: posts.length + (isLoading ? 1 : 0),
               );
+      },
+    );
+  }
+
+  void setupScrollController(context, isFiltered, data) {
+    scrollController.addListener(
+      () {
+        if (scrollController.position.atEdge) {
+          if (scrollController.position.pixels != 0) {
+            isFiltered
+                ? BlocProvider.of<PostsCubit>(context).loadFilteredPosts(
+                    startDate: data.startDate,
+                    endDate: data.endDate,
+                    topup: data.topup,
+                    payment: data.payment,
+                  )
+                : BlocProvider.of<PostsCubit>(context).loadPosts();
+          }
+        }
       },
     );
   }

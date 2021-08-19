@@ -5,6 +5,7 @@ import 'package:bill/sign_in_phone_number/bloc/sign_in_phone_number_bloc.dart';
 import 'package:bill/sign_up_pin/bloc/sign_up_pin_bloc.dart';
 import 'package:bill/sign_up_profile/bloc/sign_up_profile_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
@@ -147,6 +148,9 @@ class SignUpProfileScreen extends StatelessWidget {
                                 MediaQuery.of(context).size.width * 0.00,
                               ),
                               child: TextFormField(
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(13),
+                                ],
                                 autovalidateMode: state.showErrorMessages
                                     ? AutovalidateMode.onUserInteraction
                                     : AutovalidateMode.disabled,
@@ -447,66 +451,6 @@ class SignUpProfileHeader extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          Expanded(
-            child: GestureDetector(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //photo
-                  BlocBuilder<SignUpProfileBloc, SignUpProfileState>(
-                    builder: (context, state) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.width * 0.035),
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        height: MediaQuery.of(context).size.width * 0.2,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: state.imagePath == null
-                                ? AssetImage('assets/images/unggah.png')
-                                : FileImage(state.imagePath!) as ImageProvider,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  //Teks Ungah Photo Anda
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.32,
-                    child: FittedBox(
-                      child: Text(
-                        'Unggah foto anda',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFFF4F7F8),
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              onTap: () async {
-                final ImagePicker _picker = ImagePicker();
-                final pickedFile = await _picker.getImage(
-                  source: ImageSource.gallery,
-                  imageQuality: 75,
-                  maxWidth: 1024,
-                  maxHeight: 1024,
-                );
-                print(pickedFile!.path);
-                final File file = File(pickedFile.path);
-                context.read<SignUpProfileBloc>().add(
-                      ImageChanged(
-                        file,
-                      ),
-                    );
-              },
-            ),
           ),
         ],
       ),
